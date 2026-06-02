@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .recipe-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Recipes Based on Your Ingredients</h2>
+    <div class="recipe-container" id="recipeResults">
+        <p>Loading recipes...</p>
+    </div>
+
+    <script>
+        function getRecipes() {
+            // Extract ingredients from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const ingredients = urlParams.get("ingredients");
+
+            if (ingredients) {
+                document.getElementById("recipeResults").innerHTML = `<p>Searching recipes with: <strong>${ingredients}</strong></p>`;
+
+                // Simulate AI-generated response
+                setTimeout(() => {
+                    document.getElementById("recipeResults").innerHTML = `
+                        <h3>Dish: Vegetable Stir-Fry</h3>
+                        <p><strong>Ingredients:</strong> ${ingredients}, Soy Sauce, Garlic, Onion</p>
+                        <p><strong>Procedure:</strong> Stir-fry the ingredients in a pan with oil for 10 minutes.</p>
+                        <p><strong>Benefits:</strong> Rich in vitamins and antioxidants.</p>
+                    `;
+                }, 2000);
+            } else {
+                document.getElementById("recipeResults").innerHTML = `<p>No ingredients provided.</p>`;
+            }
+        }
+
+        window.onload = getRecipes;
+    </script>
+
+</body>
+</html>

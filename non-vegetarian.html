@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegetarian Recipes</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #ffffff, #b9e7ca);
+            color: #fff;
+            text-align: center;
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(170, 115, 33, 0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .top-nav a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        /* Header */
+        header {
+            font-size: 32px;
+            padding: 20px;
+            font-weight: bold;
+            background: rgba(112, 80, 14, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Recipe Container */
+        .recipe-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Recipe Card */
+        .recipe-card {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+}
+
+.recipe-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.recipe-card:hover .recipe-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front Side */
+.recipe-card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    backface-visibility: hidden;
+}
+
+/* Back Side */
+.recipe-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #ffffff, #f8f8f8);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+/* Title Styling */
+.recipe-card-back h3 {
+    font-size: 20px;
+    color: #0c9c3e;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recipe-card-back p {
+    color: black;
+    font-weight: bold;
+}
+
+.recipe-card-back h2 {
+    color: rgb(242, 82, 82);
+}
+
+/* Ingredients & Procedure List */
+.recipe-card-back ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.recipe-card-back ul li {
+    font-size: 16px;
+    color: #333;
+    padding: 5px 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Custom Bullet Points */
+.recipe-card-back ul li::before {
+    content: "✔";
+    color: #0c9c3e;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+}
+
+/* Add Scroll Effect */
+.recipe-card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.recipe-card-back::-webkit-scrollbar-thumb {
+    background: #0c9c3e;
+    border-radius: 10px;
+}
+
+.recipe-card-back::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+/* Ensure Hover Effect Works */
+.recipe-card:hover .recipe-card-inner {
+    transform: rotateY(180deg);
+}
+
+
+/* Add Scroll Effect */
+.recipe-card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.recipe-card-back::-webkit-scrollbar-thumb {
+    background: #0c9c3e;
+    border-radius: 10px;
+}
+
+.recipe-card-back::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+/* Add Hover Effect */
+.recipe-card:hover .recipe-card-back {
+    background: linear-gradient(to bottom right, #fff, #e6f5ea);
+}
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(170, 115, 33, 0.8);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .bottom-nav a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .recipe-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .recipe-card {
+                width: 90%;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+           
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="vegetarian.html"><i class="fas fa-drumstick-bite"></i> Vegetarian</a>
+    </nav>
+
+    <header>
+        <h1><i class="fas fa-drumstick-bite"></i> Non-Vegetarian Recipes</h1>
+
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+
+    <marquee behavior="scroll" direction="left" scrollamount="8" style="color: #0c9c3e; background: white; padding: 10px; font-size: 18px; font-weight: bold; border-radius: 5px;">
+        🍗🔥 Explore Delicious & Flavorful Non-Vegetarian Recipes – From Spicy Curries to Grilled Delights! 🍖🍛  
+        </marquee>
+        
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('butter\ chicken.jpg');">
+                    Butter Chicken
+                </div>
+                <div class="recipe-card-back">
+                    <h2>Butter Chicken 🍗🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>300g Chicken (boneless, cut into cubes)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp Butter</li>
+    <li>1 tbsp Oil</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/4 cup Cashew Paste</li>
+    <li>1/2 cup Fresh Cream</li>
+    <li>1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>1/2 tsp Sugar (optional)</li>
+    <li>1/2 cup Water</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a bowl, marinate the chicken with yogurt, lemon juice, red chili powder, turmeric powder, garam masala, cumin powder, and salt. Let it rest for at least 30 minutes.</li>
+    <li>Heat oil and butter in a pan on medium flame.</li>
+    <li>Add marinated chicken and cook until golden brown. Remove and set aside.</li>
+    <li>In the same pan, add more butter and sauté chopped onions until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+    <li>Add cashew paste and mix well for a rich texture.</li>
+    <li>Return the cooked chicken to the pan and stir well.</li>
+    <li>Add water and let it simmer for 5 minutes.</li>
+    <li>Stir in fresh cream for a creamy consistency.</li>
+    <li>Crush kasuri methi between your palms and add to the gravy for an enhanced flavor.</li>
+    <li>Add sugar (optional) and mix everything well. Simmer for another 2 minutes.</li>
+    <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or basmati rice.</li>
+</ul>
+
+<p>Enjoy your rich and creamy Butter Chicken at home! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('chicken\ biriyani.jpg');">
+                    Chicken Biryani 
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍗 Chicken Biryani 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1.5 cups Basmati Rice (soaked for 30 minutes)</li>
+    <li>300g Chicken (bone-in or boneless, cut into pieces)</li>
+    <li>1 Onion (thinly sliced)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Biryani Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>2 Bay Leaves</li>
+    <li>2-3 Cloves</li>
+    <li>1-inch Cinnamon Stick</li>
+    <li>2 Green Cardamoms</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped)</li>
+    <li>1 tbsp Mint Leaves (chopped)</li>
+    <li>2.5 Cups Water</li>
+    <li>Salt (to taste)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak basmati rice for 30 minutes. Drain before cooking.</li>
+    <li>Heat ghee or oil in a large pan or pressure cooker.</li>
+    <li>Add cumin seeds, bay leaves, cloves, cinnamon, and cardamoms. Sauté for a few seconds.</li>
+    <li>Add sliced onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in turmeric powder, red chili powder, garam masala, biryani masala, and salt.</li>
+    <li>Add chicken pieces and cook for 5-7 minutes until they turn white.</li>
+    <li>Stir in the yogurt and mix well.</li>
+    <li>Pour in 2.5 cups of water and bring to a boil.</li>
+    <li>Add the soaked basmati rice and mix gently.</li>
+    <li>Sprinkle fresh mint and coriander leaves on top.</li>
+    <li>Cover and cook on low flame for 20 minutes (or 1 whistle in a pressure cooker).</li>
+    <li>Let it sit for 5 minutes before fluffing the biryani gently with a fork.</li>
+    <li>Serve hot with raita, salad, or pickle.</li>
+</ul>
+
+<p>Enjoy your aromatic and delicious Chicken Biryani! 🍛🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('chicken\ tikka\ masala.jpg');">
+                    Chicken Tikka Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍗 Chicken Tikka Masala 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Chicken (boneless, cut into cubes)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Coriander Powder</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp Oil or Butter</li>
+</ul>
+
+<h3>🍛 Masala Sauce</h3>
+<ul>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1/2 cup Heavy Cream</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1 tbsp Butter</li>
+    <li>1/2 cup Water</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a bowl, mix yogurt, ginger-garlic paste, red chili powder, turmeric, garam masala, cumin, coriander powder, lemon juice, and salt.</li>
+    <li>Add chicken pieces and marinate for at least 30 minutes (or overnight for best results).</li>
+    <li>Heat oil or butter in a pan and grill the marinated chicken until fully cooked. Set aside.</li>
+    <li>In the same pan, heat butter and sauté chopped onions until golden brown.</li>
+    <li>Add ginger-garlic paste and sauté until fragrant.</li>
+    <li>Pour in tomato puree and cook until the oil separates.</li>
+    <li>Add red chili powder, turmeric, garam masala, and cumin powder. Mix well.</li>
+    <li>Add water and bring to a boil.</li>
+    <li>Stir in heavy cream and mix until smooth.</li>
+    <li>Add the cooked chicken pieces and simmer for 5 minutes.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or steamed rice.</li>
+</ul>
+
+<p>Enjoy your rich and flavorful Chicken Tikka Masala! 🍛🔥</p>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('chicken\ 65.jpg');">
+                    Chicken 65
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍗 Chicken 65 🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Chicken (boneless, cut into small pieces)</li>
+    <li>2 tbsp Corn Flour</li>
+    <li>1 tbsp All-Purpose Flour (Maida)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>1 Egg (beaten)</li>
+    <li>Salt (to taste)</li>
+    <li>Oil (for deep frying)</li>
+    <li>10-12 Curry Leaves</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1 tbsp Yogurt (optional, for extra flavor)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a bowl, mix chicken pieces with corn flour, all-purpose flour, ginger-garlic paste, red chili powder, turmeric, garam masala, cumin powder, lemon juice, egg, and salt.</li>
+    <li>Marinate for at least 30 minutes (for best flavor, marinate for 2 hours).</li>
+    <li>Heat oil in a pan and deep-fry the marinated chicken pieces until golden brown and crispy. Drain excess oil and set aside.</li>
+    <li>In another pan, heat 1 tbsp oil and add curry leaves and green chilies.</li>
+    <li>Add the fried chicken pieces and sauté for a minute for extra flavor.</li>
+    <li>Optionally, mix in 1 tbsp yogurt for a slight tangy taste.</li>
+    <li>Serve hot with lemon wedges and onion slices.</li>
+</ul>
+
+<p>Enjoy your crispy and spicy Chicken 65! 🍗🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('mutton\ ragon.jpg');">
+                    Mutton Rogan Josh
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍖 Mutton Rogan Josh 🍛</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>500g Mutton (bone-in pieces)</li>
+                        <li>2 Onions (finely sliced)</li>
+                        <li>2 Tomatoes (pureed)</li>
+                        <li>1/2 cup Yogurt</li>
+                        <li>1 tbsp Ginger-Garlic Paste</li>
+                        <li>1/2 tsp Turmeric Powder</li>
+                        <li>1 tsp Red Chili Powder</li>
+                        <li>1 tsp Kashmiri Red Chili Powder (for color)</li>
+                        <li>1 tsp Garam Masala</li>
+                        <li>1/2 tsp Cumin Powder</li>
+                        <li>1/2 tsp Coriander Powder</li>
+                        <li>1 tsp Fennel Powder</li>
+                        <li>1/2 tsp Asafoetida (Hing)</li>
+                        <li>2 Bay Leaves</li>
+                        <li>2-3 Cloves</li>
+                        <li>1-inch Cinnamon Stick</li>
+                        <li>2 Green Cardamoms</li>
+                        <li>1 Black Cardamom</li>
+                        <li>1 tbsp Ghee or Oil</li>
+                        <li>2 cups Water</li>
+                        <li>Salt (to taste)</li>
+                        <li>Fresh Coriander Leaves (for garnish)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Heat ghee or oil in a deep pan or pressure cooker.</li>
+                        <li>Add bay leaves, cloves, cinnamon, green and black cardamoms, and sauté for a few seconds.</li>
+                        <li>Add sliced onions and sauté until golden brown.</li>
+                        <li>Add ginger-garlic paste and cook until fragrant.</li>
+                        <li>Add mutton pieces and sear until they turn brown.</li>
+                        <li>Mix in turmeric powder, red chili powder, Kashmiri chili powder, cumin powder, coriander powder, fennel powder, and salt.</li>
+                        <li>Add tomato puree and cook until oil separates.</li>
+                        <li>Whisk yogurt and add it slowly while stirring to prevent curdling.</li>
+                        <li>Pour in 2 cups of water, cover, and cook on low flame for 1.5 to 2 hours (or 4-5 whistles in a pressure cooker) until the mutton is tender.</li>
+                        <li>Add garam masala and mix well.</li>
+                        <li>Garnish with fresh coriander leaves.</li>
+                        <li>Serve hot with naan, roti, or steamed rice.</li>
+                    </ul>
+                    
+                    <p>Enjoy your rich and aromatic Mutton Rogan Josh! 🍖🔥</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('keema\ muttor.jpg');">
+                    Keema Matar 
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍖 Keema Matar (Minced Meat with Green Peas) 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Minced Mutton or Chicken</li>
+    <li>1 cup Green Peas (Matar, fresh or frozen)</li>
+    <li>2 Onions (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Coriander Powder</li>
+    <li>1 tsp Fennel Powder</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>2 Bay Leaves</li>
+    <li>2 Cloves</li>
+    <li>1-inch Cinnamon Stick</li>
+    <li>2 Green Cardamoms</li>
+    <li>1 Black Cardamom</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>1 cup Water</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat ghee or oil in a deep pan.</li>
+    <li>Add bay leaves, cloves, cinnamon, green and black cardamoms, and sauté for a few seconds.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, and cook until fragrant.</li>
+    <li>Add minced meat (keema) and cook until it turns brown.</li>
+    <li>Mix in turmeric powder, red chili powder, cumin powder, coriander powder, fennel powder, and salt.</li>
+    <li>Add tomato puree and cook until oil separates.</li>
+    <li>Whisk yogurt and mix it in while stirring continuously.</li>
+    <li>Pour in 1 cup of water, cover, and cook on low flame for 15-20 minutes.</li>
+    <li>Add green peas (matar) and cook for another 5-7 minutes until they are soft.</li>
+    <li>Sprinkle garam masala and black pepper powder for extra flavor.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or steamed rice.</li>
+</ul>
+
+<p>Enjoy your delicious and flavorful Keema Matar! 🍖🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('mutton\ korma.jpg');">
+                    Mutton Korma
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍖 Mutton Korma 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Mutton (bone-in pieces)</li>
+    <li>2 Onions (finely sliced)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tsp Fennel Powder</li>
+    <li>1/2 tsp Cardamom Powder</li>
+    <li>1/4 cup Cashew Paste (soaked and blended cashews)</li>
+    <li>2 Bay Leaves</li>
+    <li>2 Cloves</li>
+    <li>1-inch Cinnamon Stick</li>
+    <li>2 Green Cardamoms</li>
+    <li>1 Black Cardamom</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>1 cup Water</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat ghee or oil in a deep pan or pressure cooker.</li>
+    <li>Add bay leaves, cloves, cinnamon, green and black cardamoms, and sauté for a few seconds.</li>
+    <li>Add sliced onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Add mutton pieces and cook until they turn brown.</li>
+    <li>Mix in turmeric powder, red chili powder, coriander powder, cumin powder, fennel powder, black pepper powder, and salt.</li>
+    <li>Add tomato puree and cook until oil separates.</li>
+    <li>Whisk yogurt and add it slowly while stirring continuously to prevent curdling.</li>
+    <li>Mix in cashew paste for a rich, creamy texture.</li>
+    <li>Pour in 1 cup of water, cover, and cook on low flame for 1.5 to 2 hours (or 4-5 whistles in a pressure cooker) until the mutton is tender.</li>
+    <li>Sprinkle garam masala and cardamom powder for extra flavor.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or steamed rice.</li>
+</ul>
+
+<p>Enjoy your royal and creamy Mutton Korma! 🍖🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('lomb\ seekh.jpg');">
+                    Lamb Seekh Kebab
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥩 Lamb Seekh Kebab 🔥</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>500g Lamb Mince (finely ground)</li>
+                        <li>1 Onion (finely chopped or grated)</li>
+                        <li>2 tbsp Fresh Coriander Leaves (chopped)</li>
+                        <li>1 tbsp Mint Leaves (chopped)</li>
+                        <li>1 tbsp Ginger-Garlic Paste</li>
+                        <li>1-2 Green Chilies (finely chopped)</li>
+                        <li>1 tsp Cumin Powder</li>
+                        <li>1 tsp Coriander Powder</li>
+                        <li>1/2 tsp Turmeric Powder</li>
+                        <li>1 tsp Red Chili Powder</li>
+                        <li>1 tsp Garam Masala</li>
+                        <li>1/2 tsp Black Pepper Powder</li>
+                        <li>1/2 tsp Chaat Masala (optional)</li>
+                        <li>1 tbsp Lemon Juice</li>
+                        <li>1 tbsp Ghee or Oil (for basting)</li>
+                        <li>Salt (to taste)</li>
+                        <li>Wooden or Metal Skewers</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>In a large bowl, mix lamb mince with chopped onions, coriander, mint, and green chilies.</li>
+                        <li>Add ginger-garlic paste, cumin powder, coriander powder, turmeric, red chili powder, garam masala, black pepper, and salt.</li>
+                        <li>Drizzle lemon juice and mix everything well to form a smooth kebab mixture.</li>
+                        <li>Cover and refrigerate for at least 30 minutes to enhance flavors.</li>
+                        <li>Preheat the grill or tandoor to medium-high heat.</li>
+                        <li>Wet your hands, take a portion of the mixture, and shape it around a skewer, pressing gently to form an even kebab.</li>
+                        <li>Repeat with the remaining mixture.</li>
+                        <li>Grill the kebabs, turning occasionally, while basting with ghee or oil until golden brown and fully cooked (8-10 minutes).</li>
+                        <li>Remove from skewers and serve hot with mint chutney, onion rings, and lemon wedges.</li>
+                    </ul>
+                    
+                    <p>Enjoy your smoky and flavorful Lamb Seekh Kebabs! 🔥🥩</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('fish\ curry.jpg');">
+                    Fish Curry 
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🐟 Fish Curry 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Fish (Pomfret, Rohu, Tilapia, or any firm fish, cut into pieces)</li>
+    <li>2 tbsp Mustard Oil or Vegetable Oil</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed or finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tsp Mustard Seeds</li>
+    <li>1/2 tsp Fenugreek Seeds (optional)</li>
+    <li>1 tbsp Tamarind Pulp or Lemon Juice</li>
+    <li>1 cup Coconut Milk or Water (for a thinner curry)</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash the fish pieces and marinate them with turmeric powder, red chili powder, and salt. Set aside for 15 minutes.</li>
+    <li>Heat mustard oil in a pan until it starts to smoke, then reduce the heat.</li>
+    <li>Fry the fish pieces lightly for 2-3 minutes on each side until golden brown. Remove and set aside.</li>
+    <li>In the same oil, add mustard seeds and fenugreek seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, cooking until the raw smell disappears.</li>
+    <li>Add tomato puree, cumin powder, coriander powder, black pepper, and garam masala. Cook until oil separates.</li>
+    <li>Pour in coconut milk or water and bring to a boil.</li>
+    <li>Add the fried fish pieces and simmer for 5-7 minutes.</li>
+    <li>Mix in tamarind pulp or lemon juice for a tangy taste.</li>
+    <li>Garnish with fresh coriander leaves and serve hot.</li>
+</ul>
+
+<p>Enjoy your flavorful and aromatic Fish Curry with rice or naan! 🐟🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('prawn\ masala.jpg');">
+                    Prawn Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍤 Prawn Masala 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Prawns (cleaned and deveined)</li>
+    <li>2 tbsp Oil (Coconut or Vegetable Oil)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed or finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1/2 tsp Mustard Seeds</li>
+    <li>1/2 tsp Fennel Seeds (optional)</li>
+    <li>1/2 cup Coconut Milk (optional, for a creamy texture)</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and pat dry the prawns, then marinate them with turmeric, red chili powder, and salt. Set aside for 10 minutes.</li>
+    <li>Heat oil in a pan and add mustard seeds and fennel seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, cooking until the raw smell disappears.</li>
+    <li>Add tomato puree, cumin powder, coriander powder, black pepper, and garam masala. Cook until oil separates.</li>
+    <li>Stir in the marinated prawns and cook for 5-7 minutes, stirring occasionally.</li>
+    <li>Pour in coconut milk (if using) and simmer for 2 minutes.</li>
+    <li>Drizzle lemon juice and mix well.</li>
+    <li>Garnish with fresh coriander leaves and serve hot.</li>
+</ul>
+
+<p>Enjoy your spicy and flavorful Prawn Masala with rice or roti! 🍤🔥</p>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('fish\ fry.jpg');">
+                    Fish Fry
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🐟 Fish Curry 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Fish (Pomfret, Rohu, Tilapia, or any firm fish, cut into pieces)</li>
+    <li>2 tbsp Mustard Oil or Vegetable Oil</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed or finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tsp Mustard Seeds</li>
+    <li>1/2 tsp Fenugreek Seeds (optional)</li>
+    <li>1 tbsp Tamarind Pulp or Lemon Juice</li>
+    <li>1 cup Coconut Milk or Water (for a thinner curry)</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash the fish pieces and marinate them with turmeric powder, red chili powder, and salt. Set aside for 15 minutes.</li>
+    <li>Heat mustard oil in a pan until it starts to smoke, then reduce the heat.</li>
+    <li>Fry the fish pieces lightly for 2-3 minutes on each side until golden brown. Remove and set aside.</li>
+    <li>In the same oil, add mustard seeds and fenugreek seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, cooking until the raw smell disappears.</li>
+    <li>Add tomato puree, cumin powder, coriander powder, black pepper, and garam masala. Cook until oil separates.</li>
+    <li>Pour in coconut milk or water and bring to a boil.</li>
+    <li>Add the fried fish pieces and simmer for 5-7 minutes.</li>
+    <li>Mix in tamarind pulp or lemon juice for a tangy taste.</li>
+    <li>Garnish with fresh coriander leaves and serve hot.</li>
+</ul>
+
+<p>Enjoy your flavorful and aromatic Fish Curry with rice or naan! 🐟🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('crab.jpg');">
+                    Crab Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🦀 Crab Masala 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g Crab (cleaned and cut into pieces)</li>
+    <li>2 tbsp Oil (Coconut or Vegetable Oil)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed or finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tsp Mustard Seeds</li>
+    <li>1/2 tsp Fennel Seeds (optional)</li>
+    <li>1/2 cup Coconut Milk (optional, for a creamy texture)</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Clean the crabs thoroughly and crack the shells slightly for better flavor absorption.</li>
+    <li>Heat oil in a pan and add mustard seeds and fennel seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, cooking until the raw smell disappears.</li>
+    <li>Add tomato puree, cumin powder, coriander powder, black pepper, and garam masala. Cook until oil separates.</li>
+    <li>Stir in the cleaned crab pieces and mix well.</li>
+    <li>Cover and cook for 10-12 minutes, stirring occasionally, until the crab shells turn bright red.</li>
+    <li>Pour in coconut milk (if using) and simmer for another 2 minutes.</li>
+    <li>Drizzle lemon juice and mix well.</li>
+    <li>Garnish with fresh coriander leaves and serve hot.</li>
+</ul>
+
+<p>Enjoy your spicy and delicious Crab Masala with rice or roti! 🦀🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('egg\ curry.jpg');">
+                    Egg Curry 
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥚 Egg Curry 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>4 Boiled Eggs (peeled and slightly slit)</li>
+    <li>2 tbsp Oil (Mustard or Vegetable Oil)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed or finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tsp Mustard Seeds</li>
+    <li>1/2 tsp Fennel Seeds (optional)</li>
+    <li>1/2 cup Coconut Milk or Water (for a thinner curry)</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat 1 tbsp oil in a pan and lightly fry the boiled eggs until golden brown. Remove and set aside.</li>
+    <li>In the same pan, heat the remaining oil and add mustard seeds and fennel seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chilies, cooking until the raw smell disappears.</li>
+    <li>Add tomato puree, cumin powder, coriander powder, black pepper, and garam masala. Cook until oil separates.</li>
+    <li>Pour in coconut milk or water and bring to a simmer.</li>
+    <li>Add the fried eggs and mix gently.</li>
+    <li>Simmer for 5 minutes, allowing the eggs to absorb the flavors.</li>
+    <li>Drizzle lemon juice and mix well.</li>
+    <li>Garnish with fresh coriander leaves and serve hot.</li>
+</ul>
+
+<p>Enjoy your flavorful Egg Curry with rice or roti! 🥚🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('masala\ omelette.jpg');">
+                    Masala Omelette  
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍳 Masala Omelette 🌶️</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>2 Eggs</li>
+                        <li>1/4 cup Onion (finely chopped)</li>
+                        <li>1/4 cup Tomato (finely chopped)</li>
+                        <li>1 Green Chili (finely chopped)</li>
+                        <li>2 tbsp Coriander Leaves (chopped)</li>
+                        <li>1/4 tsp Turmeric Powder</li>
+                        <li>1/2 tsp Red Chili Powder</li>
+                        <li>1/2 tsp Garam Masala</li>
+                        <li>1/4 tsp Cumin Powder</li>
+                        <li>Salt (to taste)</li>
+                        <li>1 tbsp Milk (optional, for a fluffier omelette)</li>
+                        <li>1 tbsp Oil or Butter</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Crack the eggs into a bowl and beat well.</li>
+                        <li>Add chopped onions, tomatoes, green chili, and coriander leaves.</li>
+                        <li>Mix in turmeric, red chili powder, garam masala, cumin powder, and salt.</li>
+                        <li>Optionally, add milk for a softer texture and whisk until frothy.</li>
+                        <li>Heat oil or butter in a pan over medium heat.</li>
+                        <li>Pour the egg mixture into the pan and spread evenly.</li>
+                        <li>Cook on low-medium flame until the bottom is golden brown.</li>
+                        <li>Flip the omelette carefully and cook for another minute.</li>
+                        <li>Once done, transfer to a plate and serve hot.</li>
+                    </ul>
+                    
+                    <p>Enjoy your spicy and fluffy Masala Omelette with toast or roti! 🍳🔥</p>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('egg\ burji.jpg');">
+                    Egg Bhurji  
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥚 Egg Bhurji 🌶️</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>3 Eggs</li>
+    <li>1 tbsp Oil or Butter</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1 Green Chili (finely chopped)</li>
+    <li>1/2 tsp Ginger-Garlic Paste</li>
+    <li>1/4 tsp Turmeric Powder</li>
+    <li>1/2 tsp Red Chili Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+    <li>1 tbsp Lemon Juice</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat oil or butter in a pan over medium heat.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add green chili and ginger-garlic paste, cooking until fragrant.</li>
+    <li>Add chopped tomatoes, turmeric, red chili powder, cumin powder, and salt.</li>
+    <li>Cook until tomatoes turn soft and the mixture thickens.</li>
+    <li>Crack eggs into the pan and mix well.</li>
+    <li>Stir continuously and cook until the eggs are scrambled and cooked through.</li>
+    <li>Sprinkle garam masala and coriander leaves, then mix well.</li>
+    <li>Drizzle lemon juice before serving.</li>
+</ul>
+
+<p>Enjoy your spicy and flavorful Egg Bhurji with toast or roti! 🥚🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('egg\ biriyani.jpg');">
+                    Egg Biryani
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥚 Egg Biryani 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1.5 cups Basmati Rice (soaked for 30 minutes)</li>
+    <li>4 Boiled Eggs (slit slightly for better flavor absorption)</li>
+    <li>1 Onion (thinly sliced)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Biryani Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>2 Bay Leaves</li>
+    <li>2-3 Cloves</li>
+    <li>1-inch Cinnamon Stick</li>
+    <li>2 Green Cardamoms</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped)</li>
+    <li>1 tbsp Mint Leaves (chopped)</li>
+    <li>2.5 Cups Water</li>
+    <li>Salt (to taste)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak basmati rice for 30 minutes. Drain before cooking.</li>
+    <li>Heat ghee or oil in a large pan or pressure cooker.</li>
+    <li>Add cumin seeds, bay leaves, cloves, cinnamon, and cardamoms. Sauté for a few seconds.</li>
+    <li>Add sliced onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in turmeric powder, red chili powder, garam masala, biryani masala, and salt.</li>
+    <li>Stir in the yogurt and mix well.</li>
+    <li>Pour in 2.5 cups of water and bring to a boil.</li>
+    <li>Add the soaked basmati rice and mix gently.</li>
+    <li>Sprinkle fresh mint and coriander leaves on top.</li>
+    <li>Cover and cook on low flame for 20 minutes (or 1 whistle in a pressure cooker).</li>
+    <li>In a separate pan, heat some oil and lightly fry the boiled eggs until golden brown.</li>
+    <li>Place the fried eggs on top of the biryani before serving.</li>
+    <li>Let it sit for 5 minutes before fluffing the biryani gently with a fork.</li>
+    <li>Serve hot with raita, salad, or pickle.</li>
+</ul>
+
+<p>Enjoy your aromatic and delicious Egg Biryani! 🍛🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="desserts.html"><i class="fas fa-cookie"></i> Desserts</a>
+        <a href="drinks.html"><i class="fas fa-coffee"></i> Drinks</a>
+        <a href="diet-foods.html"><i class="fas fa-carrot"></i> Diet Foods</a>
+        <a href="sweets.html"><i class="fas fa-candy-cane"></i> Sweets</a>
+    </nav>
+
+    <script>
+        function searchVegetarianRecipes() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.querySelectorAll('.recipe-card');
+    
+            cards.forEach(card => {
+                let recipeName = card.querySelector('.recipe-card-front').innerText.toLowerCase();
+                
+                if (recipeName.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    
+        // Event Listener for live search as user types (Optional)
+        document.getElementById('searchBar').addEventListener('keyup', searchVegetarianRecipes);
+    </script>
+    
+</body>
+</html>

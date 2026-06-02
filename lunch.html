@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakfast Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .top-nav {
+            background: #560126;
+            padding: 10px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+        }
+        h1 {
+            color: #560126;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .recipes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per row */
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .recipe {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 400px;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        .recipe:hover {
+            transform: scale(1.05);
+        }
+        .recipe img {
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+        }
+        .recipe h2 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #560126;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #560126;
+        }
+        /* Recipe Heading */
+.content h2 {
+    font-size: 22px;
+    color: #560126;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Subheadings */
+.content h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+}
+
+/* Ingredients & Procedure List */
+.content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content ul li {
+    background: #fff5ee;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 4px solid #560126;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Paragraph Styling */
+.content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* Scrollable Content for Large Recipes */
+.content {
+    display: none;
+    padding: 15px;
+    text-align: left;
+    background: #fff5ee;
+    border-radius: 5px;
+    margin-top: 10px;
+    max-height: 400px; /* Set max height for scrolling */
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #560126;
+    border-radius: 5px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #560126;
+}
+
+        .bottom-nav {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+        }
+        
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .recipes {
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row for medium screens */
+            }
+        }
+        @media (max-width: 600px) {
+            .recipes {
+                grid-template-columns: repeat(1, 1fr); /* 1 card per row for small screens */
+            }
+        }
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #560126;
+            border-radius: 5px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="drinks.html"><i class="fa-solid fa-mug-hot"></i> Drinks</a>
+        <a href="breakfast.html"><i class="fa-solid fa-bread-slice"></i> Breakfast</a>
+        <a href="dinner.html"><i class="fa-solid fa-drumstick-bite"></i> Dinner</a>
+
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+    <marquee behavior="scroll" direction="left" scrollamount="6" style="background: #560126; color: white; padding: 10px; font-size: 1.2rem;">
+        🍛🥗🍔🌮🥩 🍽️ Power Through Your Day! Savor Tasty and Nutritious Lunch Recipes! 🍛🥗🍔🌮🥩
+    </marquee>
+    
+
+    <div class="container">
+        <h1><i class="fas fa-coffee"></i> Delicious Lunch Recipes</h1>
+        <div class="recipes">
+            <div class="recipe">
+                <img src="grilled chicken salad.jpg" alt="Pancakes">
+                <h2>Grilled Chicken Salad 🥗🍗</h2>
+                
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Grilled Chicken Salad 🥗🍗</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 boneless, skinless chicken breasts</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 tsp lemon juice</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp garlic powder</li>
+    <li>4 cups mixed salad greens</li>
+    <li>1/2 cup cherry tomatoes (halved)</li>
+    <li>1/4 cup cucumber (sliced)</li>
+    <li>1/4 cup red onion (thinly sliced)</li>
+    <li>1/4 cup feta cheese (crumbled)</li>
+    <li>2 tbsp balsamic vinaigrette dressing</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Preheat the grill to medium-high heat.</li>
+    <li>Rub the chicken breasts with olive oil, lemon juice, salt, black pepper, and garlic powder.</li>
+    <li>Grill the chicken for about 6-7 minutes per side or until fully cooked.</li>
+    <li>Remove the chicken from the grill and let it rest for a few minutes before slicing.</li>
+    <li>In a large bowl, combine salad greens, cherry tomatoes, cucumber, and red onion.</li>
+    <li>Top with sliced grilled chicken and crumbled feta cheese.</li>
+    <li>Drizzle with balsamic vinaigrette dressing and toss gently.</li>
+    <li>Serve fresh and enjoy your healthy Grilled Chicken Salad! 🥗🔥</li>
+</ul>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="vegetable stir-fry.webp" alt="Omelette">
+                <h2>Vegetable Stir-Fry with Rice</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Vegetable Stir-Fry with Rice 🍚🥦</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups cooked rice</li>
+    <li>1 cup broccoli florets</li>
+    <li>1/2 cup bell peppers (sliced, any color)</li>
+    <li>1/2 cup carrots (julienned)</li>
+    <li>1/2 cup snap peas</li>
+    <li>1/2 cup mushrooms (sliced)</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>1 tbsp soy sauce</li>
+    <li>1 tsp sesame oil</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp red chili flakes (optional)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 tbsp sesame seeds (for garnish)</li>
+    <li>2 tbsp green onions (chopped, for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat olive oil in a pan or wok over medium-high heat.</li>
+    <li>Add minced garlic and sauté for 30 seconds until fragrant.</li>
+    <li>Add broccoli, bell peppers, carrots, snap peas, and mushrooms. Stir-fry for 3-4 minutes until slightly tender but still crisp.</li>
+    <li>Pour in soy sauce, sesame oil, black pepper, and red chili flakes (if using). Stir well.</li>
+    <li>Add the cooked rice and mix everything together.</li>
+    <li>Cook for another 2 minutes until everything is well combined.</li>
+    <li>Remove from heat and garnish with sesame seeds and chopped green onions.</li>
+    <li>Serve hot and enjoy your delicious Vegetable Stir-Fry with Rice! 🍛🔥</li>
+</ul>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="paneer butter masala with nan.jpg" alt="Smoothie">
+                <h2>Paneer Butter Masala with Naan 🧈🫓</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Paneer Butter Masala with Naan 🧈🫓</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>200g paneer (cubed)</li>
+    <li>2 tbsp butter</li>
+    <li>1 tbsp oil</li>
+    <li>1 onion (finely chopped)</li>
+    <li>2 tomatoes (pureed)</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1/2 cup fresh cream</li>
+    <li>1/2 cup milk</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp red chili powder</li>
+    <li>1 tsp garam masala</li>
+    <li>1 tsp coriander powder</li>
+    <li>1/2 tsp kasuri methi (dried fenugreek leaves)</li>
+    <li>1 tbsp tomato ketchup</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp coriander leaves (for garnish)</li>
+    <li>4 naan (store-bought or homemade)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat butter and oil in a pan over medium heat.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and sauté until the raw smell disappears.</li>
+    <li>Pour in the tomato puree and cook for 5-6 minutes until oil separates.</li>
+    <li>Add turmeric powder, red chili powder, garam masala, and coriander powder. Mix well.</li>
+    <li>Stir in tomato ketchup and kasuri methi.</li>
+    <li>Add milk and fresh cream, stirring continuously to form a rich gravy.</li>
+    <li>Gently add paneer cubes and simmer for 5 minutes.</li>
+    <li>Garnish with coriander leaves and remove from heat.</li>
+    <li>Serve hot with soft naan for a delicious meal! 🧈🔥</li>
+</ul>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="fish curry with rice.jpg" alt="Pancakes">
+                <h2>Fish Curry with Rice 🐟🍛 </h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Fish Curry with Rice 🐟🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>500g fish (any firm fish like kingfish, salmon, or tilapia, cut into pieces)</li>
+    <li>2 tbsp oil</li>
+    <li>1 onion (finely chopped)</li>
+    <li>2 tomatoes (pureed)</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp red chili powder</li>
+    <li>1 tsp coriander powder</li>
+    <li>1/2 tsp garam masala</li>
+    <li>1 tsp cumin seeds</li>
+    <li>1/2 cup coconut milk</li>
+    <li>1 tbsp tamarind pulp</li>
+    <li>1-2 green chilies (slit)</li>
+    <li>10-12 curry leaves</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh coriander leaves (for garnish)</li>
+    <li>2 cups cooked rice (for serving)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat oil in a pan and add cumin seeds, curry leaves, and green chilies.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and cook until fragrant.</li>
+    <li>Add tomato puree and cook for 5-6 minutes until oil separates.</li>
+    <li>Mix in turmeric, red chili powder, coriander powder, and garam masala.</li>
+    <li>Pour in coconut milk and tamarind pulp, stirring well.</li>
+    <li>Gently add fish pieces and cook for 8-10 minutes until fully cooked.</li>
+    <li>Adjust salt and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with steamed rice for a flavorful meal! 🍛🔥</li>
+</ul>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="alfredo pasta.jpg" alt="Omelette">
+                <h2>Pasta Alfredo</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Paratha 🫓🔥</h2>
+
+                    <h2>Pasta Alfredo 🍝🧀</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>250g fettuccine pasta</li>
+                        <li>2 tbsp butter</li>
+                        <li>2 cloves garlic (minced)</li>
+                        <li>1 cup heavy cream</li>
+                        <li>1 cup parmesan cheese (grated)</li>
+                        <li>1/2 tsp black pepper</li>
+                        <li>1/2 tsp salt (or to taste)</li>
+                        <li>1/4 tsp nutmeg (optional, for extra flavor)</li>
+                        <li>1 tbsp parsley (chopped, for garnish)</li>
+                        <li>1/2 cup cooked chicken or mushrooms (optional, for variation)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Boil fettuccine pasta in salted water according to package instructions. Drain and set aside.</li>
+                        <li>In a pan, melt butter over medium heat and sauté minced garlic for 30 seconds.</li>
+                        <li>Pour in heavy cream and let it simmer for 2 minutes.</li>
+                        <li>Add grated parmesan cheese, black pepper, salt, and nutmeg (if using), stirring continuously until smooth.</li>
+                        <li>Add the cooked pasta to the sauce and toss to coat evenly.</li>
+                        <li>If using, add cooked chicken or mushrooms and mix well.</li>
+                        <li>Garnish with fresh parsley and serve hot. Enjoy your creamy Pasta Alfredo! 🍝🔥</li>
+                    </ul>
+                    
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="egg fried rice.png" alt="Smoothie">
+                <h2>Egg Fried Rice🍳🍚</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Egg Fried Rice 🍳🍚</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>2 cups cooked rice (preferably day-old rice)</li>
+                        <li>3 eggs</li>
+                        <li>2 tbsp oil</li>
+                        <li>2 cloves garlic (minced)</li>
+                        <li>1/2 cup carrots (finely chopped)</li>
+                        <li>1/2 cup bell peppers (chopped)</li>
+                        <li>1/4 cup green peas</li>
+                        <li>2 tbsp soy sauce</li>
+                        <li>1 tsp oyster sauce (optional)</li>
+                        <li>1/2 tsp black pepper</li>
+                        <li>1/2 tsp salt (or to taste)</li>
+                        <li>1/2 tsp red chili flakes (optional, for spice)</li>
+                        <li>2 tbsp green onions (chopped, for garnish)</li>
+                        <li>1 tsp sesame oil (for flavor, optional)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Heat 1 tbsp oil in a pan or wok over medium heat.</li>
+                        <li>Crack the eggs into the pan and scramble them until fully cooked. Remove and set aside.</li>
+                        <li>In the same pan, add the remaining oil and sauté garlic until fragrant.</li>
+                        <li>Add chopped carrots, bell peppers, and green peas. Stir-fry for 2-3 minutes.</li>
+                        <li>Add the cooked rice and mix well.</li>
+                        <li>Pour in soy sauce, oyster sauce (if using), black pepper, salt, and red chili flakes. Stir to combine.</li>
+                        <li>Add the scrambled eggs back into the pan and mix everything together.</li>
+                        <li>Drizzle sesame oil for extra flavor (optional).</li>
+                        <li>Garnish with chopped green onions and serve hot. Enjoy your delicious Egg Fried Rice! 🍳🔥</li>
+                    </ul>
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="chole bhatureeeee.jpg" alt="Pancakes">
+                <h2>Chole Bhature </h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Chole Bhature 🍛🥯</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Chole (Chickpea Curry):</h4>
+<ul>
+    <li>1 cup chickpeas (soaked overnight)</li>
+    <li>1 onion (finely chopped)</li>
+    <li>2 tomatoes (pureed)</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1 tsp cumin seeds</li>
+    <li>1 tsp turmeric powder</li>
+    <li>1 tsp red chili powder</li>
+    <li>1 tsp coriander powder</li>
+    <li>1 tsp garam masala</li>
+    <li>1/2 tsp amchur (dry mango powder)</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>2 tbsp oil</li>
+    <li>2 tbsp fresh coriander (chopped, for garnish)</li>
+</ul>
+
+<h4>For Bhature (Fried Bread):</h4>
+<ul>
+    <li>2 cups all-purpose flour</li>
+    <li>1/2 cup yogurt</li>
+    <li>1/2 tsp baking soda</li>
+    <li>1/2 tsp salt</li>
+    <li>1 tsp sugar</li>
+    <li>Water (as needed)</li>
+    <li>Oil (for deep frying)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>For Chole:</h4>
+<ul>
+    <li>Pressure cook soaked chickpeas with water and a little salt for 4-5 whistles or until soft.</li>
+    <li>Heat oil in a pan, add cumin seeds, and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and cook until fragrant.</li>
+    <li>Add tomato puree, turmeric powder, red chili powder, coriander powder, and garam masala. Cook until oil separates.</li>
+    <li>Add the boiled chickpeas along with some water and let it simmer for 10 minutes.</li>
+    <li>Stir in amchur powder and adjust salt as needed.</li>
+    <li>Garnish with fresh coriander and serve hot.</li>
+</ul>
+
+<h4>For Bhature:</h4>
+<ul>
+    <li>In a bowl, mix all-purpose flour, baking soda, salt, sugar, and yogurt.</li>
+    <li>Add water as needed and knead into a soft dough.</li>
+    <li>Cover the dough and let it rest for 2 hours.</li>
+    <li>Divide the dough into equal portions and roll out into medium-sized discs.</li>
+    <li>Heat oil in a pan and deep-fry the bhature until golden brown.</li>
+    <li>Drain excess oil and serve hot with chole.</li>
+</ul>
+
+<p>Enjoy your crispy Bhature with spicy Chole! 🍛🔥</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="mutton biriyani.jpg" alt="Omelette">
+                <h2>Mutton Biryani🍖🍚</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Mutton Biryani 🍖🍚</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    
+                    <h4>For Marination:</h4>
+                    <ul>
+                        <li>500g mutton (bone-in, cut into pieces)</li>
+                        <li>1 cup yogurt</li>
+                        <li>1 tbsp ginger-garlic paste</li>
+                        <li>1/2 tsp turmeric powder</li>
+                        <li>1 tsp red chili powder</li>
+                        <li>1 tsp garam masala</li>
+                        <li>Salt (to taste)</li>
+                        <li>1 tbsp lemon juice</li>
+                    </ul>
+                    
+                    <h4>For Rice:</h4>
+                    <ul>
+                        <li>2 cups basmati rice</li>
+                        <li>4 cups water</li>
+                        <li>2 bay leaves</li>
+                        <li>4 cloves</li>
+                        <li>2 cardamom pods</li>
+                        <li>1 cinnamon stick</li>
+                        <li>Salt (to taste)</li>
+                    </ul>
+                    
+                    <h4>For Biryani Masala:</h4>
+                    <ul>
+                        <li>2 onions (thinly sliced)</li>
+                        <li>2 tomatoes (chopped)</li>
+                        <li>2 green chilies (slit)</li>
+                        <li>1 tbsp ginger-garlic paste</li>
+                        <li>1/2 tsp turmeric powder</li>
+                        <li>1 tsp red chili powder</li>
+                        <li>1 tsp coriander powder</li>
+                        <li>1/2 tsp cumin powder</li>
+                        <li>1 tsp garam masala</li>
+                        <li>1/2 cup fresh coriander leaves (chopped)</li>
+                        <li>1/2 cup mint leaves (chopped)</li>
+                        <li>1/4 cup milk (with saffron strands soaked)</li>
+                        <li>2 tbsp ghee</li>
+                        <li>2 tbsp oil</li>
+                        <li>Fried onions (for garnish)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    
+                    <h4>Step 1: Marinating the Mutton</h4>
+                    <ul>
+                        <li>In a bowl, mix mutton with yogurt, ginger-garlic paste, turmeric, red chili powder, garam masala, salt, and lemon juice.</li>
+                        <li>Cover and marinate for at least 2 hours (or overnight for better flavor).</li>
+                    </ul>
+                    
+                    <h4>Step 2: Cooking the Rice</h4>
+                    <ul>
+                        <li>Wash and soak basmati rice for 30 minutes.</li>
+                        <li>In a pot, boil water with bay leaves, cloves, cardamom, cinnamon, and salt.</li>
+                        <li>Add the soaked rice and cook until it's 70% done. Drain and set aside.</li>
+                    </ul>
+                    
+                    <h4>Step 3: Preparing the Biryani Masala</h4>
+                    <ul>
+                        <li>Heat oil and ghee in a deep pan.</li>
+                        <li>Add sliced onions and sauté until golden brown.</li>
+                        <li>Stir in ginger-garlic paste and green chilies. Cook until fragrant.</li>
+                        <li>Add chopped tomatoes, turmeric powder, red chili powder, coriander powder, cumin powder, and salt.</li>
+                        <li>Cook until the oil separates from the masala.</li>
+                        <li>Add marinated mutton and cook for 10-15 minutes.</li>
+                        <li>Add 1/2 cup water, cover, and cook on low heat until the mutton is tender.</li>
+                    </ul>
+                    
+                    <h4>Step 4: Layering and Dum Cooking</h4>
+                    <ul>
+                        <li>In a large pot, layer half of the cooked rice over the mutton masala.</li>
+                        <li>Sprinkle chopped mint, coriander, saffron milk, and fried onions.</li>
+                        <li>Add the remaining rice and repeat the garnish.</li>
+                        <li>Cover the pot with a tight lid and cook on low heat (Dum) for 20-25 minutes.</li>
+                        <li>Remove from heat and let it rest for 10 minutes before serving.</li>
+                    </ul>
+                    
+                    <p>Enjoy your aromatic and flavorful Mutton Biryani with raita! 🍖🔥</p>
+                    
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="paneer tikka wrap.jpg" alt="Smoothie">
+                <h2>Paneer Tikka Wrap🌯🧀</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Paneer Tikka Wrap 🌯🧀</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Paneer Tikka:</h4>
+<ul>
+    <li>200g paneer (cut into cubes)</li>
+    <li>1/2 cup yogurt</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp red chili powder</li>
+    <li>1 tsp garam masala</li>
+    <li>1 tsp cumin powder</li>
+    <li>1/2 tsp chaat masala</li>
+    <li>1 tbsp lemon juice</li>
+    <li>1 tbsp gram flour (besan, for binding)</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>1 tbsp oil</li>
+</ul>
+
+<h4>For Wrap:</h4>
+<ul>
+    <li>4 whole wheat rotis/tortillas</li>
+    <li>1/2 cup sliced onions</li>
+    <li>1/2 cup sliced bell peppers</li>
+    <li>2 tbsp green chutney</li>
+    <li>2 tbsp mayonnaise (optional)</li>
+    <li>1/2 tsp chaat masala</li>
+    <li>1 tbsp butter (for toasting)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Marinating the Paneer</h4>
+<ul>
+    <li>In a bowl, mix yogurt, ginger-garlic paste, turmeric powder, red chili powder, garam masala, cumin powder, chaat masala, lemon juice, gram flour, and salt.</li>
+    <li>Add paneer cubes and coat them well in the marinade.</li>
+    <li>Let it rest for at least 30 minutes.</li>
+</ul>
+
+<h4>Step 2: Cooking the Paneer Tikka</h4>
+<ul>
+    <li>Heat oil in a pan and sauté marinated paneer until golden brown on all sides.</li>
+    <li>Add sliced onions and bell peppers to the pan and cook for 2-3 minutes.</li>
+    <li>Sprinkle chaat masala and mix well.</li>
+</ul>
+
+<h4>Step 3: Assembling the Wrap</h4>
+<ul>
+    <li>Spread green chutney and mayonnaise (if using) on a roti/tortilla.</li>
+    <li>Place the cooked paneer tikka mixture in the center.</li>
+    <li>Add some sliced onions and bell peppers for crunch.</li>
+    <li>Roll the wrap tightly and toast it lightly on a pan with butter.</li>
+</ul>
+
+<p>Serve hot and enjoy your delicious Paneer Tikka Wrap! 🌯🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="dal tadka with rice.jpg" alt="Pancakes">
+                <h2>Dal Tadka with Jeera Rice🍛🍚</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Dal Tadka with Jeera Rice 🍛🍚</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    
+                    <h4>For Dal Tadka:</h4>
+                    <ul>
+                        <li>1 cup toor dal (pigeon pea lentils)</li>
+                        <li>3 cups water</li>
+                        <li>1 onion (finely chopped)</li>
+                        <li>2 tomatoes (chopped)</li>
+                        <li>1 tbsp ginger-garlic paste</li>
+                        <li>2 green chilies (slit)</li>
+                        <li>1/2 tsp turmeric powder</li>
+                        <li>1 tsp red chili powder</li>
+                        <li>1/2 tsp garam masala</li>
+                        <li>1 tsp coriander powder</li>
+                        <li>1/2 tsp salt (or to taste)</li>
+                        <li>2 tbsp ghee</li>
+                        <li>1 tsp cumin seeds</li>
+                        <li>1/2 tsp mustard seeds</li>
+                        <li>2 dried red chilies</li>
+                        <li>5-6 curry leaves</li>
+                        <li>2 tbsp fresh coriander (chopped, for garnish)</li>
+                    </ul>
+                    
+                    <h4>For Jeera Rice:</h4>
+                    <ul>
+                        <li>2 cups basmati rice</li>
+                        <li>3.5 cups water</li>
+                        <li>1 tbsp ghee</li>
+                        <li>1 tsp cumin seeds</li>
+                        <li>1 bay leaf</li>
+                        <li>2 cloves</li>
+                        <li>2 cardamom pods</li>
+                        <li>1/2 tsp salt (or to taste)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    
+                    <h4>Step 1: Cooking the Dal</h4>
+                    <ul>
+                        <li>Wash toor dal thoroughly and soak for 30 minutes.</li>
+                        <li>Pressure cook dal with 3 cups of water, turmeric, and salt for 3-4 whistles.</li>
+                        <li>Mash the cooked dal slightly and set aside.</li>
+                    </ul>
+                    
+                    <h4>Step 2: Preparing the Dal Tadka</h4>
+                    <ul>
+                        <li>Heat ghee in a pan and add cumin seeds, mustard seeds, and dried red chilies.</li>
+                        <li>Once they splutter, add chopped onions and sauté until golden brown.</li>
+                        <li>Add ginger-garlic paste and green chilies, cook until fragrant.</li>
+                        <li>Add tomatoes, red chili powder, coriander powder, and garam masala.</li>
+                        <li>Cook until the tomatoes turn mushy and oil separates.</li>
+                        <li>Mix in the cooked dal and simmer for 5 minutes.</li>
+                        <li>Garnish with fresh coriander and set aside.</li>
+                    </ul>
+                    
+                    <h4>Step 3: Preparing Jeera Rice</h4>
+                    <ul>
+                        <li>Wash and soak basmati rice for 30 minutes.</li>
+                        <li>Heat ghee in a pan and add cumin seeds, bay leaf, cloves, and cardamom.</li>
+                        <li>Once fragrant, add the soaked rice and sauté for a minute.</li>
+                        <li>Add water and salt, bring to a boil, then cover and simmer until rice is cooked.</li>
+                    </ul>
+                    
+                    <p>Serve hot Dal Tadka with fragrant Jeera Rice and enjoy! 🍛🔥</p>
+                    
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="shrimp tacos.jpg" alt="Omelette">
+                <h2>Shrimp Tacos🌮🦐</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Shrimp Tacos 🌮🦐</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Shrimp:</h4>
+<ul>
+    <li>250g shrimp (peeled and deveined)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 tsp paprika</li>
+    <li>1/2 tsp cumin powder</li>
+    <li>1/2 tsp garlic powder</li>
+    <li>1/2 tsp chili powder</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>1 tbsp lime juice</li>
+</ul>
+
+<h4>For the Slaw:</h4>
+<ul>
+    <li>1 cup shredded cabbage (purple or green)</li>
+    <li>1/4 cup shredded carrots</li>
+    <li>1/4 cup chopped cilantro</li>
+    <li>2 tbsp mayonnaise or Greek yogurt</li>
+    <li>1 tbsp lime juice</li>
+    <li>1/2 tsp honey</li>
+    <li>Salt and pepper (to taste)</li>
+</ul>
+
+<h4>For the Tacos:</h4>
+<ul>
+    <li>6 small corn or flour tortillas</li>
+    <li>1/2 cup diced avocado</li>
+    <li>1/4 cup crumbled feta or cotija cheese</li>
+    <li>1/4 cup chopped onions</li>
+    <li>1 tbsp sour cream (optional)</li>
+    <li>1 tbsp hot sauce (optional)</li>
+    <li>Lime wedges (for serving)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Cooking the Shrimp</h4>
+<ul>
+    <li>In a bowl, mix shrimp with olive oil, paprika, cumin, garlic powder, chili powder, salt, and lime juice.</li>
+    <li>Heat a pan over medium-high heat and cook shrimp for 2-3 minutes per side until opaque and slightly charred.</li>
+</ul>
+
+<h4>Step 2: Preparing the Slaw</h4>
+<ul>
+    <li>In a mixing bowl, combine shredded cabbage, carrots, and cilantro.</li>
+    <li>Add mayonnaise (or Greek yogurt), lime juice, honey, salt, and pepper.</li>
+    <li>Mix well and set aside.</li>
+</ul>
+
+<h4>Step 3: Assembling the Tacos</h4>
+<ul>
+    <li>Warm the tortillas in a dry pan or microwave.</li>
+    <li>Place a spoonful of slaw in each tortilla.</li>
+    <li>Add a few cooked shrimp on top.</li>
+    <li>Garnish with avocado, crumbled cheese, chopped onions, and sour cream.</li>
+    <li>Drizzle with hot sauce and serve with lime wedges.</li>
+</ul>
+
+<p>Enjoy your delicious Shrimp Tacos with a squeeze of fresh lime! 🌮🔥</p>
+
+                    
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="masala dosa with sambar.jpg" alt="Smoothie">
+                <h2>Masala Dosa with Sambar🥞🍛</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Masala Dosa with Sambar 🥞🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Dosa Batter:</h4>
+<ul>
+    <li>2 cups rice</li>
+    <li>1/2 cup urad dal (black gram lentils)</li>
+    <li>1/4 cup poha (flattened rice)</li>
+    <li>1/2 tsp fenugreek seeds</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as required)</li>
+    <li>Oil or ghee (for cooking)</li>
+</ul>
+
+<h4>For Potato Masala (Dosa Filling):</h4>
+<ul>
+    <li>3 medium potatoes (boiled and mashed)</li>
+    <li>1 onion (thinly sliced)</li>
+    <li>1 green chili (chopped)</li>
+    <li>1/2 tsp mustard seeds</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp chana dal (Bengal gram)</li>
+    <li>1 tsp urad dal</li>
+    <li>5-6 curry leaves</li>
+    <li>2 tbsp coriander leaves (chopped)</li>
+    <li>1 tbsp oil</li>
+    <li>Salt (to taste)</li>
+</ul>
+
+<h4>For Sambar:</h4>
+<ul>
+    <li>1/2 cup toor dal (pigeon pea lentils)</li>
+    <li>1 small onion (chopped)</li>
+    <li>1 small tomato (chopped)</li>
+    <li>1 small carrot (chopped)</li>
+    <li>1/2 cup tamarind water</li>
+    <li>1 tbsp sambar powder</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp oil</li>
+    <li>1 tsp mustard seeds</li>
+    <li>2 dried red chilies</li>
+    <li>5-6 curry leaves</li>
+    <li>2 tbsp coriander leaves (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Preparing the Dosa Batter</h4>
+<ul>
+    <li>Wash and soak rice, urad dal, fenugreek seeds, and poha in water for 6-8 hours.</li>
+    <li>Grind the mixture into a smooth batter, adding water as needed.</li>
+    <li>Mix in salt and let the batter ferment overnight (8-12 hours).</li>
+</ul>
+
+<h4>Step 2: Preparing the Potato Masala</h4>
+<ul>
+    <li>Heat oil in a pan and add mustard seeds, urad dal, chana dal, and curry leaves.</li>
+    <li>Once mustard seeds splutter, add onions and green chilies, sauté until golden brown.</li>
+    <li>Add turmeric and mashed potatoes, mix well.</li>
+    <li>Season with salt and garnish with coriander leaves.</li>
+</ul>
+
+<h4>Step 3: Cooking the Sambar</h4>
+<ul>
+    <li>Pressure cook toor dal with water and turmeric until soft. Mash and set aside.</li>
+    <li>In a pan, heat oil, add mustard seeds, dried red chilies, and curry leaves.</li>
+    <li>Add onions, tomatoes, carrots, and cook until soft.</li>
+    <li>Add tamarind water, sambar powder, salt, and cooked dal.</li>
+    <li>Simmer for 10 minutes, garnish with coriander leaves.</li>
+</ul>
+
+<h4>Step 4: Making the Masala Dosa</h4>
+<ul>
+    <li>Heat a dosa pan and pour a ladleful of batter, spreading it in a circular motion.</li>
+    <li>Drizzle some oil around the edges and cook until golden brown.</li>
+    <li>Place a portion of the potato masala in the center.</li>
+    <li>Fold the dosa and serve hot with sambar and coconut chutney.</li>
+</ul>
+
+<p>Enjoy your crispy Masala Dosa with hot Sambar! 🥞🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="veg pulav with raita.jpg" alt="Pancakes">
+                <h2>Veg Pulao with Raita 🍚🥒</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Veg Pulao with Raita 🍚🥒</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Veg Pulao:</h4>
+<ul>
+    <li>1 cup basmati rice</li>
+    <li>2 cups water</li>
+    <li>1 tbsp ghee or oil</li>
+    <li>1 bay leaf</li>
+    <li>1-inch cinnamon stick</li>
+    <li>2 cloves</li>
+    <li>2 cardamom pods</li>
+    <li>1 tsp cumin seeds</li>
+    <li>1/2 cup mixed vegetables (carrots, beans, peas, bell peppers, etc.)</li>
+    <li>1 onion (sliced)</li>
+    <li>1 green chili (slit)</li>
+    <li>1 tsp ginger-garlic paste</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1/2 tsp garam masala</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp fresh coriander leaves (for garnish)</li>
+</ul>
+
+<h4>For Raita:</h4>
+<ul>
+    <li>1 cup yogurt (curd)</li>
+    <li>1/2 cucumber (grated or finely chopped)</li>
+    <li>1/2 onion (finely chopped)</li>
+    <li>1 small tomato (finely chopped)</li>
+    <li>1 tbsp coriander leaves (chopped)</li>
+    <li>1/2 tsp roasted cumin powder</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 tsp black salt (optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Cooking the Veg Pulao</h4>
+<ul>
+    <li>Wash and soak basmati rice for 30 minutes, then drain.</li>
+    <li>Heat ghee or oil in a pan and add cumin seeds, bay leaf, cinnamon, cloves, and cardamom.</li>
+    <li>Once fragrant, add sliced onions and green chili, sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and sauté until raw smell disappears.</li>
+    <li>Add mixed vegetables, turmeric powder, garam masala, and salt.</li>
+    <li>Mix well and cook for 2 minutes.</li>
+    <li>Add drained rice and sauté for a minute.</li>
+    <li>Pour in 2 cups of water, bring to a boil, then cover and simmer on low heat until rice is cooked.</li>
+    <li>Fluff the pulao with a fork and garnish with fresh coriander leaves.</li>
+</ul>
+
+<h4>Step 2: Preparing the Raita</h4>
+<ul>
+    <li>In a bowl, whisk the yogurt until smooth.</li>
+    <li>Add cucumber, onion, tomato, and coriander leaves.</li>
+    <li>Season with salt, black salt, and roasted cumin powder.</li>
+    <li>Mix well and refrigerate for 10 minutes before serving.</li>
+</ul>
+
+<p>Serve the flavorful Veg Pulao with refreshing Raita and enjoy! 🍚🔥</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="stuffed paratha with curd.jpg" alt="Omelette">
+                <h2>Stuffed Paratha with Curd🫓🥣</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Stuffed Paratha with Curd 🫓🥣</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Paratha Dough:</h4>
+<ul>
+    <li>2 cups whole wheat flour</li>
+    <li>1/2 tsp salt</li>
+    <li>Water (as needed)</li>
+    <li>1 tbsp oil or ghee</li>
+</ul>
+
+<h4>For the Stuffing (Potato Filling):</h4>
+<ul>
+    <li>2 medium potatoes (boiled and mashed)</li>
+    <li>1 green chili (finely chopped)</li>
+    <li>1/2 tsp cumin powder</li>
+    <li>1/2 tsp garam masala</li>
+    <li>1/2 tsp chaat masala</li>
+    <li>1 tbsp coriander leaves (chopped)</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>1/2 tsp red chili powder (optional)</li>
+</ul>
+
+<h4>For the Curd (Yogurt Side):</h4>
+<ul>
+    <li>1 cup fresh yogurt (curd)</li>
+    <li>1/2 tsp roasted cumin powder</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp chopped coriander leaves</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Preparing the Dough</h4>
+<ul>
+    <li>In a bowl, mix whole wheat flour, salt, and oil.</li>
+    <li>Gradually add water and knead into a soft dough.</li>
+    <li>Cover and let it rest for 20 minutes.</li>
+</ul>
+
+<h4>Step 2: Preparing the Stuffing</h4>
+<ul>
+    <li>In a mixing bowl, combine mashed potatoes, green chili, cumin powder, garam masala, chaat masala, red chili powder, salt, and coriander leaves.</li>
+    <li>Mix well to form a flavorful stuffing.</li>
+</ul>
+
+<h4>Step 3: Making the Stuffed Paratha</h4>
+<ul>
+    <li>Divide the dough into equal portions and roll into small balls.</li>
+    <li>Take one dough ball, roll it into a small circle, and place a portion of the stuffing in the center.</li>
+    <li>Seal the edges by bringing the dough together and gently flatten it.</li>
+    <li>Roll it out again into a round paratha without applying too much pressure.</li>
+    <li>Heat a tawa (griddle) and place the rolled paratha on it.</li>
+    <li>Cook for 1-2 minutes, then flip and apply ghee or oil on top.</li>
+    <li>Cook both sides until golden brown and crispy.</li>
+</ul>
+
+<h4>Step 4: Preparing the Curd</h4>
+<ul>
+    <li>In a bowl, whisk yogurt until smooth.</li>
+    <li>Add roasted cumin powder, salt, and chopped coriander leaves.</li>
+    <li>Mix well and serve chilled with paratha.</li>
+</ul>
+
+<p>Enjoy your delicious Stuffed Paratha with cool and refreshing Curd! 🫓🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="chicken cebab.png" alt="Smoothie">
+                <h2>Chicken Kebab with Hummus</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Chicken Kebab with Hummus 🍢🥣</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Chicken Kebab:</h4>
+<ul>
+    <li>500g boneless chicken (cut into cubes)</li>
+    <li>2 tbsp yogurt</li>
+    <li>1 tbsp lemon juice</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1 tsp red chili powder</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp cumin powder</li>
+    <li>1 tsp garam masala</li>
+    <li>1 tsp coriander powder</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp oil</li>
+    <li>Wooden or metal skewers</li>
+    <li>Chopped coriander leaves (for garnish)</li>
+    <li>Onion rings and lemon wedges (for serving)</li>
+</ul>
+
+<h4>For Hummus:</h4>
+<ul>
+    <li>1 cup chickpeas (soaked overnight & boiled)</li>
+    <li>2 tbsp tahini (sesame paste)</li>
+    <li>2 tbsp lemon juice</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>2 tbsp olive oil</li>
+    <li>1/2 tsp cumin powder</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp water (if needed for consistency)</li>
+    <li>1 tsp paprika (for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Step 1: Marinating the Chicken</h4>
+<ul>
+    <li>In a bowl, mix yogurt, lemon juice, ginger-garlic paste, red chili powder, turmeric, cumin, garam masala, coriander powder, salt, and oil.</li>
+    <li>Add the chicken cubes and coat well with the marinade.</li>
+    <li>Cover and refrigerate for at least 1 hour (or overnight for best flavor).</li>
+</ul>
+
+<h4>Step 2: Cooking the Chicken Kebab</h4>
+<ul>
+    <li>Preheat the grill or pan over medium heat.</li>
+    <li>Thread the marinated chicken onto skewers.</li>
+    <li>Cook for 10-12 minutes, turning occasionally until the chicken is golden brown and cooked through.</li>
+    <li>Garnish with coriander leaves and serve with onion rings and lemon wedges.</li>
+</ul>
+
+<h4>Step 3: Preparing Hummus</h4>
+<ul>
+    <li>In a blender, add boiled chickpeas, tahini, lemon juice, garlic, olive oil, cumin, and salt.</li>
+    <li>Blend until smooth, adding water if needed for a creamy texture.</li>
+    <li>Transfer to a bowl and drizzle with olive oil.</li>
+    <li>Sprinkle paprika on top for garnish.</li>
+</ul>
+
+<p>Serve the juicy Chicken Kebab with creamy Hummus and enjoy! 🍢🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    
+
+    <script>
+        $(document).ready(function(){
+            $(".btn").click(function(){
+                $(this).next(".content").slideToggle(300);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const recipes = document.querySelectorAll(".recipe");
+
+    searchBar.addEventListener("keyup", function () {
+        const searchText = searchBar.value.toLowerCase();
+
+        recipes.forEach(recipe => {
+            const recipeName = recipe.querySelector("h2").textContent.toLowerCase();
+            
+            if (recipeName.includes(searchText)) {
+                recipe.style.display = "block";
+            } else {
+                recipe.style.display = "none";
+            }
+        });
+    });
+});
+
+    </script>
+</body>
+</html>
