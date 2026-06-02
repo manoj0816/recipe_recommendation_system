@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Food</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f7f7f7, #d9faff);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+            padding: 20px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            border-bottom: 5px solid #007bff;
+        }
+        .diet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .diet-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 280px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .diet-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .diet-card i {
+            font-size: 60px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .diet-card h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .diet-card p {
+            font-size: 16px;
+            color: #555;
+        }
+       /* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents background scrolling */
+}
+
+/* Modal content with scrolling */
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh; /* Limits height to 80% of the viewport */
+    overflow-y: auto; /* Enables vertical scrolling */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #ff6b6b;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+h4 {
+    color: #4CAF50;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Keyframes for smooth modal appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #ff6b6b;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+h4 {
+    color: #4CAF50;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .back-button {
+            background: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+        .back-button:hover {
+            background: #0056b3;
+        }
+        .food-list {
+            text-align: left;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #444;
+        }
+        .food-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .food-list li {
+            padding-left: 20px;
+            position: relative;
+        }
+        .food-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #28a745;
+            position: absolute;
+            left: 0;
+        }
+        .modal-content{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Healthy & Nutritious Diet Foods</h1>
+    </header>
+    <section class="diet-container">
+        <div class="diet-card" onclick="openModal('fruit')">
+            <i class="fas fa-apple-alt"></i>
+            <h2>Fruits</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Apples</li>
+                    <li>Bananas</li>
+                    <li>Oranges</li>
+                    <li>Berries</li>
+                    <li>Mangoes</li>
+                </ul>
+            </div>
+            <p>Rich in vitamins and fiber, perfect for a healthy diet.</p>
+        </div>
+        <div class="diet-card" onclick="openModal('vege')">
+            <i class="fas fa-carrot"></i>
+            <h2>Vegetables</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Broccoli</li>
+                    <li>Carrots</li>
+                    <li>Spinach</li>
+                    <li>Bell Peppers</li>
+                    <li>Kale</li>
+                </ul>
+            </div>
+            <p>Low in calories and packed with essential nutrients.</p>
+        </div>
+        <div class="diet-card" onclick="openModal('sea')">
+            <i class="fas fa-fish"></i>
+            <h2>Seafood</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Salmon</li>
+                    <li>Tuna</li>
+                    <li>Shrimp</li>
+                    <li>Mackerel</li>
+                    <li>Crab</li>
+                </ul>
+            </div>
+       
+            <p>High in Omega-3 and proteins, great for heart health.</p>
+        </div>
+    </section>
+
+    <section class="diet-container">
+        <div class="diet-card" onclick="openModal('egg')">
+            <i class="fas fa-egg"></i>
+            <h2>Eggs</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Boiled Eggs</li>
+                    <li>Omelette</li>
+                    <li>Scrambled Eggs</li>
+                    <li>Poached Eggs</li>
+                    <li>Egg Salad</li>
+                </ul>
+            </div>
+            <p>Rich in vitamins and fiber, perfect for a healthy diet.</p>
+        </div>
+        <div class="diet-card" onclick="openModal('smoothi')">
+            <i class="fas fa-blender"></i>
+            <h2>Smoothies</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Berry Smoothie</li>
+                    <li>Green Detox Smoothie</li>
+                    <li>Banana Protein Shake</li>
+                    <li>Mango Yogurt Smoothie</li>
+                    <li>Avocado Smoothie</li>
+                </ul>
+            </div>
+            <p>Low in calories and packed with essential nutrients.</p>
+        </div>
+        <div class="diet-card" onclick="openModal('whole')">
+            <i class="fas fa-bread-slice"></i>
+            <h2>Whole Grains</h2>
+            <div class="food-list">
+                <ul>
+                    <li>Oats</li>
+                    <li>Brown Rice</li>
+                    <li>Quinoa</li>
+                    <li>Whole Wheat Bread</li>
+                    <li>Barley</li>
+                </ul>
+            </div>
+            <p>High in Omega-3 and proteins, great for heart health.</p>
+        </div>
+    </section>
+    <div id="fruit" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fruit')">&times;</span>
+            <h2>Fruits - Usage & Benefits</h2>
+            <h3> Apple 🍏</h3>
+<h4>Usage:</h4>
+<ul>
+<li>Eaten raw as a snack</li>
+<li>Used in fruit salads, smoothies, and juices</li>
+<li>Added to oatmeal, yogurt, or desserts</li>
+<li>Used in healthy baking recipes</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+<li>✅ Rich in fiber, aids digestion and weight loss</li>
+<li>✅ Helps regulate blood sugar levels</li>
+<li>✅ Supports heart health by lowering cholesterol</li>
+<li>✅ Contains antioxidants that boost immunity</li>
+</ul>
+
+<h3> Banana 🍌</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Consumed as a quick energy snack</li>
+    <li>Added to smoothies, oatmeal, and yogurt</li>
+    <li>Used in baking (banana bread, muffins)</li>
+    <li>Blended into healthy shakes</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in potassium, supports heart and muscle function</li>
+    <li>✅ Provides natural energy, great for pre/post workouts</li>
+    <li>✅ Aids digestion due to fiber content</li>
+    <li>✅ Helps regulate blood pressure</li>
+</ul>
+<h3>Berries (Strawberries, Blueberries, Raspberries, etc.) 🍓🫐</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Mixed into smoothies, cereals, and yogurt</li>
+    <li>Used in salads and desserts</li>
+    <li>Eaten as a fresh snack</li>
+    <li>Added to detox water or juices</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+<li>✅ Packed with antioxidants, reduces inflammation</li>
+<li>✅ Supports brain health and memory</li>
+<li>✅ Low in calories, great for weight management</li>
+<li>✅ Helps control blood sugar levels</li>
+</ul>
+
+<h3>Orange 🍊</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Eaten raw as a refreshing snack</li>
+    <li>Used in fresh juices and smoothies</li>
+    <li>Added to salads and fruit bowls</li>
+    <li>Used in marinades, sauces, and desserts</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in Vitamin C, boosts immunity</li>
+    <li>✅ Supports skin health and collagen production</li>
+    <li>✅ Aids digestion and hydration with high water content</li>
+    <li>✅ Contains antioxidants that promote heart health</li>
+</ul>
+
+<h3>Mango 🥭</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Enjoyed raw or in fruit salads</li>
+    <li>Blended into smoothies, shakes, and juices</li>
+    <li>Used in desserts like mango pudding and sorbets</li>
+    <li>Added to salsas and chutneys for flavor</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in Vitamin A, great for eye health</li>
+    <li>✅ Supports digestion with natural enzymes</li>
+    <li>✅ High in fiber, aids weight management</li>
+    <li>✅ Boosts skin health and hydration</li>
+</ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="vege" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('vege')">&times;</span>
+           
+            <h2>Vegetables - Usage & Benefits</h2>
+
+<h3>🥦 Broccoli</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Stir-fried with garlic and soy sauce</li>
+    <li>Added to soups, salads, and pasta dishes</li>
+    <li>Roasted with olive oil and seasoning</li>
+    <li>Blended into smoothies for extra nutrients</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in vitamins C and K, boosts immunity and bone health</li>
+    <li>✅ Contains antioxidants that reduce inflammation</li>
+    <li>✅ Supports heart health and digestion</li>
+    <li>✅ High in fiber, promotes gut health</li>
+</ul>
+
+<h3>🥕 Carrots</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Eaten raw as a snack or in salads</li>
+    <li>Used in soups, stews, and stir-fries</li>
+    <li>Blended into juices and smoothies</li>
+    <li>Added to baking recipes like carrot cake</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in beta-carotene, supports eye health</li>
+    <li>✅ Boosts skin health and immunity</li>
+    <li>✅ Aids digestion with fiber content</li>
+    <li>✅ Helps regulate blood sugar levels</li>
+</ul>
+
+<h3>🌿 Spinach</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended into smoothies for a nutrient boost</li>
+    <li>Added to salads, sandwiches, and omelets</li>
+    <li>Stir-fried or sautéed as a side dish</li>
+    <li>Used in soups, curries, and pasta dishes</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in iron, calcium, and vitamins A, C, and K</li>
+    <li>✅ Supports bone health and improves blood circulation</li>
+    <li>✅ High in antioxidants, promotes heart health</li>
+    <li>✅ Aids digestion and helps with weight management</li>
+</ul>
+
+<h3>🌶 Bell Peppers</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Eaten raw in salads and sandwiches</li>
+    <li>Grilled or roasted for a smoky flavor</li>
+    <li>Stir-fried with other vegetables</li>
+    <li>Stuffed with rice or meat and baked</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in vitamin C, strengthens immunity</li>
+    <li>✅ Supports eye health with carotenoids</li>
+    <li>✅ Contains antioxidants that reduce inflammation</li>
+    <li>✅ Aids digestion and promotes weight loss</li>
+</ul>
+
+<h3>🥬 Kale</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended into smoothies or green juices</li>
+    <li>Used in salads with lemon dressing</li>
+    <li>Baked into crispy kale chips</li>
+    <li>Added to soups, stews, and stir-fries</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in vitamins A, C, and K, supports overall health</li>
+    <li>✅ Promotes heart and brain health</li>
+    <li>✅ High in fiber, aids digestion and weight management</li>
+    <li>✅ Contains antioxidants that help reduce stress on cells</li>
+</ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="sea" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sea')">&times;</span>
+            <h2>Seafood - Usage & Benefits</h2>
+
+<h3>🐟 Salmon</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Grilled, baked, or pan-seared as a main dish</li>
+    <li>Used in sushi, salads, and sandwiches</li>
+    <li>Smoked or cured for a flavorful appetizer</li>
+    <li>Blended into spreads or pâtés</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in omega-3 fatty acids, promotes heart and brain health</li>
+    <li>✅ Rich in protein, supports muscle growth and repair</li>
+    <li>✅ Contains antioxidants and vitamins for glowing skin</li>
+    <li>✅ Helps reduce inflammation and improve joint health</li>
+</ul>
+
+<h3>🐟 Tuna</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Eaten raw in sushi and sashimi</li>
+    <li>Used in salads, sandwiches, and wraps</li>
+    <li>Grilled, baked, or seared as a steak</li>
+    <li>Mixed into pasta dishes and casseroles</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in lean protein, supports muscle development</li>
+    <li>✅ Rich in omega-3 fatty acids, good for heart and brain function</li>
+    <li>✅ Contains essential vitamins and minerals for overall health</li>
+    <li>✅ Low in fat, aids in weight management</li>
+</ul>
+
+<h3>🦐 Shrimp</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Grilled, sautéed, or stir-fried as a main dish</li>
+    <li>Added to pasta, salads, and rice dishes</li>
+    <li>Used in seafood soups and curries</li>
+    <li>Served as an appetizer with dipping sauces</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in protein, helps in muscle building</li>
+    <li>✅ Low in calories and fat, good for weight control</li>
+    <li>✅ Contains antioxidants that support brain and skin health</li>
+    <li>✅ Rich in selenium, which boosts immunity</li>
+</ul>
+
+<h3>🐟 Mackerel</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Grilled, baked, or pan-fried as a whole fish</li>
+    <li>Used in curries, stews, and soups</li>
+    <li>Smoked or canned for easy meals</li>
+    <li>Added to salads or pasta dishes</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Extremely high in omega-3 fatty acids, supports heart health</li>
+    <li>✅ Rich in vitamin D, helps maintain strong bones</li>
+    <li>✅ Boosts brain function and reduces inflammation</li>
+    <li>✅ Contains healthy fats that improve cholesterol levels</li>
+</ul>
+
+<h3>🦀 Crab</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Boiled or steamed as a delicacy</li>
+    <li>Used in crab cakes, salads, and soups</li>
+    <li>Added to pasta, fried rice, and sushi</li>
+    <li>Served with butter or spicy sauces</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in protein, helps in muscle recovery</li>
+    <li>✅ Rich in zinc and selenium, supports immunity</li>
+    <li>✅ Low in fat but high in essential vitamins</li>
+    <li>✅ Supports joint health and reduces inflammation</li>
+</ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div id="egg" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('egg')">&times;</span>
+            <h2>Eggs - Usage & Benefits</h2>
+
+<h3>🥚 Boiled Eggs</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Eaten as a protein-rich snack</li>
+    <li>Added to salads and sandwiches</li>
+    <li>Used in ramen, soups, and rice dishes</li>
+    <li>Mashed and mixed with seasonings for spreads</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in protein, supports muscle growth</li>
+    <li>✅ Rich in essential vitamins like B12 and D</li>
+    <li>✅ Helps with weight management and satiety</li>
+    <li>✅ Good source of choline for brain health</li>
+</ul>
+
+<h3>🍳 Omelette</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Cooked with vegetables, cheese, or meat</li>
+    <li>Served as a breakfast or light meal</li>
+    <li>Can be folded or stuffed with various fillings</li>
+    <li>Used in wraps or sandwiches</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Nutrient-dense meal with customizable ingredients</li>
+    <li>✅ Provides high-quality protein and healthy fats</li>
+    <li>✅ Supports brain function and energy levels</li>
+    <li>✅ Helps in muscle recovery and development</li>
+</ul>
+
+<h3>🍳 Scrambled Eggs</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Cooked with butter, milk, or cheese for a creamy texture</li>
+    <li>Served as a breakfast dish or side</li>
+    <li>Added to wraps, burritos, or sandwiches</li>
+    <li>Paired with vegetables or meat for a balanced meal</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Quick and easy source of protein</li>
+    <li>✅ Helps maintain muscle mass and strength</li>
+    <li>✅ Supports brain and heart health</li>
+    <li>✅ Provides essential amino acids for body function</li>
+</ul>
+
+<h3>🥚 Poached Eggs</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Served over toast, salads, or grain bowls</li>
+    <li>Used in dishes like Eggs Benedict</li>
+    <li>Added to soups and broths for extra protein</li>
+    <li>Paired with avocado, smoked salmon, or vegetables</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Soft-cooked, easy to digest</li>
+    <li>✅ Retains most nutrients without added oils</li>
+    <li>✅ Supports brain, heart, and immune health</li>
+    <li>✅ Rich in choline, important for memory and metabolism</li>
+</ul>
+
+<h3>🥗 Egg Salad</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Used as a sandwich filling</li>
+    <li>Added to wraps or served over lettuce</li>
+    <li>Blended with mayonnaise, mustard, and herbs</li>
+    <li>Served as a side dish or protein boost</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Great source of protein and healthy fats</li>
+    <li>✅ Keeps you full and energized</li>
+    <li>✅ Provides vitamins and minerals for overall health</li>
+    <li>✅ Versatile and easy to prepare</li>
+</ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div id="smoothi" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('smoothi')">&times;</span>
+            <h2>Smoothies & Shakes - Usage & Benefits</h2>
+
+<h3>🍓 Berry Smoothie</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended with strawberries, blueberries, raspberries, or blackberries</li>
+    <li>Mixed with yogurt, almond milk, or coconut water</li>
+    <li>Enhanced with honey, chia seeds, or protein powder</li>
+    <li>Served as a refreshing breakfast or post-workout drink</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Packed with antioxidants, reduces inflammation</li>
+    <li>✅ Supports brain health and improves memory</li>
+    <li>✅ Rich in fiber, aids digestion and weight management</li>
+    <li>✅ Boosts immunity with high vitamin C content</li>
+</ul>
+
+<h3>🥬 Green Detox Smoothie</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended with spinach, kale, cucumber, celery, and lemon</li>
+    <li>Mixed with coconut water or almond milk</li>
+    <li>Boosted with chia seeds, flaxseeds, or ginger for extra benefits</li>
+    <li>Consumed as a cleansing drink or morning energy boost</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Helps detoxify the body and flush out toxins</li>
+    <li>✅ Supports digestion and gut health</li>
+    <li>✅ Rich in vitamins and minerals for glowing skin</li>
+    <li>✅ Promotes hydration and boosts energy levels</li>
+</ul>
+
+<h3>🍌 Banana Protein Shake</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended with banana, protein powder, milk, and nuts</li>
+    <li>Used as a pre or post-workout energy booster</li>
+    <li>Can include peanut butter or cocoa for extra flavor</li>
+    <li>Served as a meal replacement or weight gain shake</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in protein, aids muscle recovery</li>
+    <li>✅ Provides natural energy from bananas</li>
+    <li>✅ Supports bone health with calcium and potassium</li>
+    <li>✅ Keeps you full and reduces cravings</li>
+</ul>
+
+<h3>🥭 Mango Yogurt Smoothie</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended with mango, Greek yogurt, and honey</li>
+    <li>Mixed with coconut milk or almond milk for creaminess</li>
+    <li>Served as a refreshing summer drink</li>
+    <li>Can be enhanced with turmeric or ginger for added benefits</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in vitamin A, great for eye and skin health</li>
+    <li>✅ Supports digestion with probiotics from yogurt</li>
+    <li>✅ Boosts immunity with natural antioxidants</li>
+    <li>✅ Provides a natural sweetness with no added sugar</li>
+</ul>
+
+<h3>🥑 Avocado Smoothie</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Blended with avocado, milk, honey, and vanilla</li>
+    <li>Can be mixed with banana, spinach, or cocoa powder</li>
+    <li>Used as a filling and creamy meal replacement</li>
+    <li>Served chilled as a refreshing and nutritious drink</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in healthy fats, supports heart health</li>
+    <li>✅ Rich in fiber, promotes digestion and gut health</li>
+    <li>✅ Boosts energy and keeps you full longer</li>
+    <li>✅ Great for glowing skin and strong hair</li>
+</ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div id="whole" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('whole')">&times;</span>
+            <h2>Whole Grains - Usage & Benefits</h2>
+
+<h3>🥣 Oats</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Cooked as oatmeal for breakfast</li>
+    <li>Used in smoothies, granola, and energy bars</li>
+    <li>Baked into cookies, muffins, and pancakes</li>
+    <li>Blended into flour for healthy baking</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in fiber, promotes digestion and gut health</li>
+    <li>✅ Helps regulate blood sugar levels</li>
+    <li>✅ Supports heart health by lowering cholesterol</li>
+    <li>✅ Provides long-lasting energy and keeps you full</li>
+</ul>
+
+<h3>🍚 Brown Rice</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Served as a side dish with curries, stir-fries, and grilled proteins</li>
+    <li>Used in salads, rice bowls, and sushi</li>
+    <li>Blended into rice flour for gluten-free baking</li>
+    <li>Made into porridge or pudding for breakfast</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in fiber, aids digestion and weight management</li>
+    <li>✅ Packed with essential vitamins and minerals</li>
+    <li>✅ Supports heart health by reducing cholesterol</li>
+    <li>✅ Provides sustained energy with complex carbohydrates</li>
+</ul>
+
+<h3>🍛 Quinoa</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Used as a base for salads and Buddha bowls</li>
+    <li>Served as a side dish or mixed with vegetables</li>
+    <li>Blended into flour for gluten-free baking</li>
+    <li>Added to soups, stews, or breakfast porridges</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Complete protein source, contains all essential amino acids</li>
+    <li>✅ High in fiber, supports digestion and gut health</li>
+    <li>✅ Rich in antioxidants, boosts immunity</li>
+    <li>✅ Helps regulate blood sugar and promotes weight loss</li>
+</ul>
+
+<h3>🍞 Whole Wheat Bread</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Used for sandwiches and toast</li>
+    <li>Made into croutons or breadcrumbs</li>
+    <li>Served with soups, spreads, or dips</li>
+    <li>Used in stuffing, casseroles, or French toast</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ High in fiber, keeps you full longer</li>
+    <li>✅ Supports heart health and lowers cholesterol</li>
+    <li>✅ Helps regulate blood sugar levels</li>
+    <li>✅ Provides essential vitamins and minerals</li>
+</ul>
+
+<h3>🌾 Barley</h3>
+<h4>Usage:</h4>
+<ul>
+    <li>Cooked as a grain for soups, stews, and risottos</li>
+    <li>Used in salads and grain bowls</li>
+    <li>Blended into flour for baking</li>
+    <li>Used in brewing and making barley water</li>
+</ul>
+<h4>Benefits:</h4>
+<ul>
+    <li>✅ Rich in fiber, promotes digestion and gut health</li>
+    <li>✅ Helps regulate blood sugar and cholesterol levels</li>
+    <li>✅ Supports heart health with essential nutrients</li>
+    <li>✅ Provides slow-releasing energy for sustained fullness</li>
+</ul>
+
+        </div>
+    </div>
+    <script>
+        function openModal(id) {
+    document.getElementById(id).style.display = "flex";
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+    </script>
+    <a href="home.html" class="back-button">Back to Home</a>
+</body>
+</html>

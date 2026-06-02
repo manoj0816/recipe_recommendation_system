@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakfast Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .top-nav {
+            background: linear-gradient(to right, #5f0808, #000000);
+            color: #333;
+            padding: 10px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+        }
+        h1 {
+            color: linear-gradient(to right, #b52323, #000000);;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .recipes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per row */
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .recipe {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 400px;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        .recipe:hover {
+            transform: scale(1.05);
+        }
+        .recipe img {
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+        }
+        .recipe h2 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #5f0808, #000000);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: linear-gradient(to right, #5f0808, #000000);;
+        }
+        /* Recipe Heading */
+.content h2 {
+    font-size: 22px;
+    color: linear-gradient(to right, #5f0808, #000000);;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Subheadings */
+.content h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+}
+
+/* Ingredients & Procedure List */
+.content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content ul li {
+    background: #fff5ee;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: linear-gradient(to right, #5f0808, #000000);;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Paragraph Styling */
+.content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* Scrollable Content for Large Recipes */
+.content {
+    display: none;
+    padding: 15px;
+    text-align: left;
+    background: #fff5ee;
+    border-radius: 5px;
+    margin-top: 10px;
+    max-height: 400px; /* Set max height for scrolling */
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #5f0808, #000000);
+    border-radius: 5px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to right, #5f0808, #000000);;
+}
+
+        .bottom-nav {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+        }
+        
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .recipes {
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row for medium screens */
+            }
+        }
+        @media (max-width: 600px) {
+            .recipes {
+                grid-template-columns: repeat(1, 1fr); /* 1 card per row for small screens */
+            }
+        }
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: linear-gradient(to right, #991515, #000000);
+            border-radius: 5px;
+           
+        }
+        marquee{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+<a href="drinks.html"><i class="fa-solid fa-mug-hot"></i> Drinks</a>
+<a href="breakfast.html"><i class="fa-solid fa-egg"></i> Breakfast</a>
+<a href="lunch.html"><i class="fa-solid fa-bowl-food"></i> Lunch</a>
+
+        
+
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+    <marquee behavior="scroll" direction="left" scrollamount="6" style="background: linear-gradient(to right, #5f0808, #000000);; color: white; padding: 10px; font-size: 1.2rem;">
+        🥞☕🥓🍓🥑 🍽️ Delicious Dinner Recipes Await You! 🍽️✨ 🥞☕🥓🍓🥑  Delicious Dinner Recipes Await You! 🍽️✨   🥞☕🥓🍓🥑 🍽️ Delicious Dinner Recipes Await You! 🍽️✨ 🥞☕🥓🍓🥑
+    </marquee>
+
+    <marquee behavior="scroll" direction="right" scrollamount="6" style="background:linear-gradient(to right, #5f0808, #000000);; color: white; padding: 10px; font-size: 1.2rem;">
+        🥞☕🥓🍓🥑 🍽️ Try Our Special Evening Dishes and Enjoy! 🌙🍛 🥞☕🥓🍓🥑 Try Our Special Evening Dishes and Enjoy! 🌙🍛 🥞☕🥓🍓🥑 🍽️ Try Our Special Evening Dishes and Enjoy! 🌙🍛 🥞☕🥓🍓🥑
+    </marquee>
+    
+
+    <div class="container">
+        <h1><i class="fas fa-coffee"></i> Delicious Dinner Recipes</h1>
+        <div class="recipes">
+            <div class="recipe">
+                <img src="garlic butter chicken.webp" alt="Pancakes">
+                <h2>Garlic Butter Chicken with Roasted Veggies🍗🥦</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Garlic Butter Chicken with Roasted Veggies 🍗🥦</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 boneless, skinless chicken breasts</li>
+    <li>3 tbsp butter</li>
+    <li>4 cloves garlic (minced)</li>
+    <li>1 tsp paprika</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp dried oregano</li>
+    <li>1/2 tsp chili flakes (optional)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 cup broccoli florets</li>
+    <li>1 cup cherry tomatoes (halved)</li>
+    <li>1/2 cup bell peppers (sliced)</li>
+    <li>1/2 cup carrots (sliced)</li>
+    <li>1 tsp Italian seasoning</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Preheat your oven to 400°F (200°C).</li>
+    <li>Season the chicken breasts with salt, pepper, paprika, and oregano.</li>
+    <li>In a pan, heat 1 tbsp butter and sear the chicken on both sides for 2-3 minutes until golden brown.</li>
+    <li>In the same pan, add minced garlic and the remaining butter. Let it melt and coat the chicken.</li>
+    <li>Transfer the chicken to a baking tray.</li>
+    <li>In a bowl, mix the broccoli, cherry tomatoes, bell peppers, and carrots with olive oil, salt, pepper, and Italian seasoning.</li>
+    <li>Spread the veggies around the chicken on the tray.</li>
+    <li>Bake for 20-25 minutes until the chicken is fully cooked and veggies are roasted.</li>
+    <li>Let it rest for 5 minutes before slicing.</li>
+    <li>Serve hot with your favorite dip or rice.</li>
+</ul>
+
+<p>🔥 Enjoy your delicious and healthy Garlic Butter Chicken with Roasted Veggies! 😋🍽️</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="garlic shrimp.png" alt="Omelette">
+                <h2>Spicy Shrimp Tacos with Avocado Slaw🌮🦐</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Spicy Shrimp Tacos with Avocado Slaw 🌮🦐</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>1 lb (450g) shrimp (peeled and deveined)</li>
+                        <li>1 tbsp olive oil</li>
+                        <li>1 tsp chili powder</li>
+                        <li>1/2 tsp paprika</li>
+                        <li>1/2 tsp cumin</li>
+                        <li>1/2 tsp garlic powder</li>
+                        <li>1/2 tsp salt</li>
+                        <li>1/4 tsp black pepper</li>
+                        <li>Juice of 1 lime</li>
+                        <li>8 small corn tortillas</li>
+                    </ul>
+                    
+                    <h3>🥑 Avocado Slaw</h3>
+                    <ul>
+                        <li>1 cup shredded cabbage (purple or green)</li>
+                        <li>1/2 cup shredded carrots</li>
+                        <li>1 ripe avocado (mashed)</li>
+                        <li>1/4 cup plain Greek yogurt or sour cream</li>
+                        <li>1 tbsp lime juice</li>
+                        <li>1 tbsp chopped cilantro</li>
+                        <li>1/2 tsp salt</li>
+                        <li>1/4 tsp black pepper</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>In a bowl, mix shrimp with olive oil, chili powder, paprika, cumin, garlic powder, salt, pepper, and lime juice. Let marinate for 10 minutes.</li>
+                        <li>In another bowl, combine shredded cabbage, carrots, mashed avocado, Greek yogurt, lime juice, cilantro, salt, and pepper. Mix well to make the slaw.</li>
+                        <li>Heat a pan over medium-high heat and cook shrimp for 2-3 minutes per side until pink and fully cooked.</li>
+                        <li>Warm the corn tortillas on a dry skillet or directly over a flame for a few seconds on each side.</li>
+                        <li>Assemble the tacos by adding avocado slaw to each tortilla and topping with spicy shrimp.</li>
+                        <li>Garnish with extra lime wedges and fresh cilantro.</li>
+                        <li>Serve immediately and enjoy!</li>
+                    </ul>
+                    
+                    <p>🔥 Enjoy your flavorful Spicy Shrimp Tacos with Avocado Slaw! 🌮😋</p>
+                    
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="creame mushroom pasta.jpg" alt="Smoothie">
+                <h2>Creamy Mushroom Pasta</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Creamy Mushroom Pasta 🍝🍄</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>250g pasta (spaghetti, fettuccine, or penne)</li>
+    <li>2 tbsp butter</li>
+    <li>1 tbsp olive oil</li>
+    <li>3 cloves garlic (minced)</li>
+    <li>200g mushrooms (sliced)</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp red chili flakes (optional)</li>
+    <li>1 cup heavy cream</li>
+    <li>1/2 cup grated Parmesan cheese</li>
+    <li>1/2 cup vegetable or chicken broth</li>
+    <li>1 tsp dried oregano or Italian seasoning</li>
+    <li>Fresh parsley (chopped, for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Cook the pasta according to the package instructions. Drain and set aside.</li>
+    <li>In a large pan, heat butter and olive oil over medium heat.</li>
+    <li>Add minced garlic and sauté for 30 seconds until fragrant.</li>
+    <li>Add sliced mushrooms and cook for 5-7 minutes until they release moisture and turn golden brown.</li>
+    <li>Season with salt, black pepper, and red chili flakes (if using).</li>
+    <li>Pour in the vegetable or chicken broth and let it simmer for 2 minutes.</li>
+    <li>Lower the heat and add the heavy cream, stirring well.</li>
+    <li>Mix in the grated Parmesan cheese and dried oregano. Stir until the sauce thickens.</li>
+    <li>Add the cooked pasta to the sauce and toss until well coated.</li>
+    <li>Garnish with fresh parsley and extra Parmesan if desired.</li>
+    <li>Serve hot and enjoy your delicious Creamy Mushroom Pasta!</li>
+</ul>
+
+<p>🔥 Enjoy your rich and creamy mushroom pasta! 🍝😋</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="grilled lemon herb.jpg" alt="Pancakes">
+                <h2>Grilled Lemon Herb Salmon🍋🐟</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Grilled Lemon Herb Salmon 🍋🐟</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 salmon fillets</li>
+    <li>2 tbsp olive oil</li>
+    <li>2 tbsp fresh lemon juice</li>
+    <li>1 tsp lemon zest</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>1 tsp dried oregano</li>
+    <li>1/2 tsp dried thyme</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp red chili flakes (optional)</li>
+    <li>1 tbsp fresh parsley (chopped, for garnish)</li>
+    <li>Lemon slices (for serving)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a bowl, mix olive oil, lemon juice, lemon zest, minced garlic, oregano, thyme, salt, black pepper, and red chili flakes.</li>
+    <li>Place the salmon fillets in a dish and pour the marinade over them. Let them marinate for 15-20 minutes.</li>
+    <li>Preheat the grill or a grill pan over medium-high heat.</li>
+    <li>Brush the grill with a little oil to prevent sticking.</li>
+    <li>Place the salmon fillets skin-side down and grill for 4-5 minutes per side until golden brown and cooked through.</li>
+    <li>Remove from the grill and let rest for a minute.</li>
+    <li>Garnish with fresh parsley and serve with lemon slices.</li>
+    <li>Enjoy with roasted vegetables, rice, or a fresh salad!</li>
+</ul>
+
+<p>🔥 Enjoy your flavorful Grilled Lemon Herb Salmon! 🍽️😋</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="beef stragonaffa.png" alt="Omelette">
+                <h2>Beef Stroganoff with Egg Noodles🥩🍜</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Beef Stroganoff with Egg Noodles 🥩🍜</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>250g egg noodles</li>
+    <li>2 tbsp butter</li>
+    <li>1 tbsp olive oil</li>
+    <li>500g beef sirloin or tenderloin (sliced into thin strips)</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp black pepper</li>
+    <li>1/2 tsp paprika</li>
+    <li>1 small onion (finely chopped)</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>200g mushrooms (sliced)</li>
+    <li>1 cup beef broth</li>
+    <li>1 tbsp Worcestershire sauce</li>
+    <li>1 tsp Dijon mustard</li>
+    <li>1/2 cup sour cream</li>
+    <li>1 tbsp fresh parsley (chopped, for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Cook the egg noodles according to the package instructions. Drain and set aside.</li>
+    <li>Heat 1 tbsp butter and 1 tbsp olive oil in a large pan over medium-high heat.</li>
+    <li>Season the beef strips with salt, pepper, and paprika, then sear them in the pan for 2-3 minutes until browned. Remove and set aside.</li>
+    <li>In the same pan, add the remaining butter and sauté onions and garlic until fragrant.</li>
+    <li>Add the sliced mushrooms and cook for 5 minutes until softened.</li>
+    <li>Pour in the beef broth, Worcestershire sauce, and Dijon mustard. Stir well and let it simmer for 5 minutes.</li>
+    <li>Reduce the heat and stir in the sour cream until smooth.</li>
+    <li>Return the cooked beef to the pan and mix well, letting it heat through for 2 minutes.</li>
+    <li>Serve the beef stroganoff over egg noodles and garnish with fresh parsley.</li>
+    <li>Enjoy your creamy and savory Beef Stroganoff!</li>
+</ul>
+
+<p>🔥 Enjoy your delicious Beef Stroganoff with Egg Noodles! 🍽️😋</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="paneer butter masala with nan.jpg" alt="Smoothie">
+                <h2>Paneer Butter Masala with Naan🧈🧀🥖</h2>
+                
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Paneer Butter Masala with Naan 🧈🧀🥖</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Paneer Butter Masala:</h4>
+<ul>
+    <li>200g paneer (cubed)</li>
+    <li>2 tbsp butter</li>
+    <li>1 tbsp oil</li>
+    <li>1 onion (finely chopped)</li>
+    <li>2 tomatoes (pureed)</li>
+    <li>1 tbsp ginger-garlic paste</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1 tsp red chili powder</li>
+    <li>1 tsp garam masala</li>
+    <li>1/2 tsp cumin powder</li>
+    <li>1/2 tsp coriander powder</li>
+    <li>1/2 cup fresh cream</li>
+    <li>1/4 cup cashews (soaked and blended into a paste)</li>
+    <li>1 tsp sugar</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 cup water</li>
+    <li>1 tbsp dried fenugreek leaves (kasuri methi, crushed)</li>
+    <li>Fresh coriander leaves (for garnish)</li>
+</ul>
+
+<h4>For Naan:</h4>
+<ul>
+    <li>2 cups all-purpose flour</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp sugar</li>
+    <li>1/2 tsp baking powder</li>
+    <li>1/4 tsp baking soda</li>
+    <li>1/4 cup yogurt</li>
+    <li>1/2 cup warm milk</li>
+    <li>2 tbsp oil</li>
+    <li>2 tbsp butter (for brushing)</li>
+    <li>1 tbsp chopped garlic (for garlic naan, optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Paneer Butter Masala:</h4>
+<ul>
+    <li>Heat butter and oil in a pan. Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and sauté for another minute.</li>
+    <li>Pour in the tomato puree and cook until the oil starts to separate.</li>
+    <li>Add turmeric, red chili powder, cumin powder, coriander powder, garam masala, and salt. Mix well.</li>
+    <li>Add the cashew paste and cook for 2 minutes.</li>
+    <li>Pour in water and let it simmer for 5 minutes.</li>
+    <li>Add paneer cubes, sugar, and fresh cream. Stir gently and cook for another 2-3 minutes.</li>
+    <li>Crush and sprinkle dried fenugreek leaves (kasuri methi) over the curry.</li>
+    <li>Garnish with fresh coriander and turn off the heat.</li>
+</ul>
+
+<h4>Naan:</h4>
+<ul>
+    <li>In a bowl, mix flour, salt, sugar, baking powder, and baking soda.</li>
+    <li>Add yogurt, warm milk, and oil. Knead into a soft dough.</li>
+    <li>Cover and let it rest for 1 hour.</li>
+    <li>Divide the dough into small balls and roll into oval shapes.</li>
+    <li>Sprinkle chopped garlic on top if making garlic naan.</li>
+    <li>Cook on a hot pan for 1-2 minutes on each side until bubbles appear.</li>
+    <li>Flip and cook directly over the flame or in a tandoor for a charred effect.</li>
+    <li>Brush with melted butter and serve hot.</li>
+</ul>
+
+<p>🔥 Enjoy your rich and creamy Paneer Butter Masala with soft, buttery Naan! 🍽️😋</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="chicken alfredo .jpg" alt="Pancakes">
+                <h2>Classic Chicken Alfredo Pasta🍗🍝 </h2>
+                
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Classic Chicken Alfredo Pasta 🍗🍝</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    
+                    <h4>For the Chicken:</h4>
+                    <ul>
+                        <li>2 boneless, skinless chicken breasts</li>
+                        <li>1 tsp salt</li>
+                        <li>1/2 tsp black pepper</li>
+                        <li>1/2 tsp garlic powder</li>
+                        <li>1/2 tsp paprika</li>
+                        <li>1 tbsp olive oil</li>
+                    </ul>
+                    
+                    <h4>For the Alfredo Sauce:</h4>
+                    <ul>
+                        <li>2 tbsp butter</li>
+                        <li>3 cloves garlic (minced)</li>
+                        <li>1 cup heavy cream</li>
+                        <li>1 cup whole milk</li>
+                        <li>1 cup grated Parmesan cheese</li>
+                        <li>1/2 tsp salt</li>
+                        <li>1/2 tsp black pepper</li>
+                        <li>1/2 tsp Italian seasoning</li>
+                        <li>1/4 tsp red chili flakes (optional)</li>
+                    </ul>
+                    
+                    <h4>For the Pasta:</h4>
+                    <ul>
+                        <li>250g fettuccine pasta</li>
+                        <li>Water (for boiling)</li>
+                        <li>1/2 tsp salt (for boiling water)</li>
+                        <li>1 tbsp fresh parsley (chopped, for garnish)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    
+                    <h4>Cooking the Chicken:</h4>
+                    <ul>
+                        <li>Season the chicken breasts with salt, black pepper, garlic powder, and paprika.</li>
+                        <li>Heat olive oil in a pan over medium-high heat.</li>
+                        <li>Cook the chicken for 5-6 minutes per side until golden brown and fully cooked.</li>
+                        <li>Remove from the pan, let it rest for a few minutes, then slice into strips.</li>
+                    </ul>
+                    
+                    <h4>Preparing the Pasta:</h4>
+                    <ul>
+                        <li>Boil water in a large pot and add salt.</li>
+                        <li>Cook fettuccine pasta according to the package instructions until al dente.</li>
+                        <li>Drain and set aside.</li>
+                    </ul>
+                    
+                    <h4>Making the Alfredo Sauce:</h4>
+                    <ul>
+                        <li>In the same pan, melt butter over medium heat.</li>
+                        <li>Add minced garlic and sauté for 30 seconds until fragrant.</li>
+                        <li>Pour in heavy cream and whole milk, stirring continuously.</li>
+                        <li>Add Parmesan cheese, salt, black pepper, Italian seasoning, and red chili flakes (if using).</li>
+                        <li>Stir well until the sauce thickens (about 3-4 minutes).</li>
+                    </ul>
+                    
+                    <h4>Combining Everything:</h4>
+                    <ul>
+                        <li>Add the cooked pasta to the Alfredo sauce and toss to coat evenly.</li>
+                        <li>Top with sliced chicken and mix gently.</li>
+                        <li>Garnish with fresh parsley and extra Parmesan if desired.</li>
+                        <li>Serve hot and enjoy!</li>
+                    </ul>
+                    
+                    <p>🔥 Enjoy your creamy and delicious Chicken Alfredo Pasta! 🍽️😋</p>
+                    
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="vegetable stir-fry.webp" alt="Omelette">
+                <h2>Vegetable Stir-Fry with Tofu🥦🥕🍲</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Vegetable Stir-Fry with Tofu 🥦🥕🍲</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    
+                    <h4>For the Tofu:</h4>
+                    <ul>
+                        <li>200g firm tofu (cubed)</li>
+                        <li>1 tbsp cornstarch</li>
+                        <li>1/2 tsp salt</li>
+                        <li>1/2 tsp black pepper</li>
+                        <li>1 tbsp soy sauce</li>
+                        <li>1 tbsp olive oil</li>
+                    </ul>
+                    
+                    <h4>For the Stir-Fry Vegetables:</h4>
+                    <ul>
+                        <li>1 tbsp sesame oil (or olive oil)</li>
+                        <li>1/2 cup bell peppers (sliced, any color)</li>
+                        <li>1/2 cup broccoli florets</li>
+                        <li>1/2 cup carrots (julienned)</li>
+                        <li>1/2 cup snap peas</li>
+                        <li>1 small onion (sliced)</li>
+                        <li>2 cloves garlic (minced)</li>
+                        <li>1 tsp ginger (grated)</li>
+                    </ul>
+                    
+                    <h4>For the Stir-Fry Sauce:</h4>
+                    <ul>
+                        <li>2 tbsp soy sauce</li>
+                        <li>1 tbsp hoisin sauce (optional)</li>
+                        <li>1 tbsp rice vinegar</li>
+                        <li>1 tbsp honey or maple syrup</li>
+                        <li>1 tsp sriracha or chili sauce (optional)</li>
+                        <li>1 tsp cornstarch (mixed with 2 tbsp water)</li>
+                    </ul>
+                    
+                    <h4>For Garnish:</h4>
+                    <ul>
+                        <li>1 tbsp sesame seeds</li>
+                        <li>1 tbsp fresh coriander or green onions (chopped)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    
+                    <h4>Preparing the Tofu:</h4>
+                    <ul>
+                        <li>Pat dry the tofu and cut it into cubes.</li>
+                        <li>In a bowl, mix tofu with cornstarch, salt, black pepper, and soy sauce.</li>
+                        <li>Heat olive oil in a pan over medium heat.</li>
+                        <li>Fry tofu cubes for 5-6 minutes, flipping until golden brown and crispy. Set aside.</li>
+                    </ul>
+                    
+                    <h4>Making the Stir-Fry:</h4>
+                    <ul>
+                        <li>In the same pan, heat sesame oil over medium-high heat.</li>
+                        <li>Add garlic and ginger, and sauté for 30 seconds until fragrant.</li>
+                        <li>Add onions, bell peppers, carrots, broccoli, and snap peas.</li>
+                        <li>Stir-fry for 3-4 minutes until slightly tender but still crisp.</li>
+                    </ul>
+                    
+                    <h4>Preparing the Sauce:</h4>
+                    <ul>
+                        <li>In a small bowl, mix soy sauce, hoisin sauce, rice vinegar, honey, and sriracha.</li>
+                        <li>Add the cornstarch slurry and mix well.</li>
+                        <li>Pour the sauce into the stir-fried vegetables and mix.</li>
+                    </ul>
+                    
+                    <h4>Combining Everything:</h4>
+                    <ul>
+                        <li>Add the crispy tofu back into the pan and toss everything well.</li>
+                        <li>Cook for another 1-2 minutes until the sauce thickens.</li>
+                        <li>Garnish with sesame seeds and fresh coriander or green onions.</li>
+                        <li>Serve hot with rice or noodles.</li>
+                    </ul>
+                    
+                    <p>🔥 Enjoy your flavorful and healthy Vegetable Stir-Fry with Tofu! 🍽️😋</p>
+                    
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="stuffed bell peppers.jpg" alt="Smoothie">
+                <h2>Stuffed Bell Peppers with Quinoa🫑🍛</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Stuffed Bell Peppers with Quinoa 🫑🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Bell Peppers:</h4>
+<ul>
+    <li>4 large bell peppers (any color)</li>
+    <li>1 tbsp olive oil</li>
+    <li>Salt and black pepper (to taste)</li>
+</ul>
+
+<h4>For the Quinoa Filling:</h4>
+<ul>
+    <li>1 cup quinoa (rinsed and drained)</li>
+    <li>2 cups vegetable broth (or water)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 small onion (finely chopped)</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>1 cup tomatoes (diced)</li>
+    <li>1/2 cup black beans (cooked or canned, drained)</li>
+    <li>1/2 cup corn kernels</li>
+    <li>1/2 cup shredded cheese (cheddar or mozzarella, optional)</li>
+    <li>1 tsp cumin powder</li>
+    <li>1/2 tsp smoked paprika</li>
+    <li>1/2 tsp chili powder</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>1/4 tsp black pepper</li>
+    <li>1 tbsp fresh cilantro (chopped, for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Bell Peppers:</h4>
+<ul>
+    <li>Preheat oven to 375°F (190°C).</li>
+    <li>Cut the tops off the bell peppers and remove the seeds and membranes.</li>
+    <li>Brush the inside and outside of the peppers with olive oil and season with salt and pepper.</li>
+    <li>Place them in a baking dish, cut side up, and bake for 10 minutes to soften slightly.</li>
+</ul>
+
+<h4>Cooking the Quinoa:</h4>
+<ul>
+    <li>In a saucepan, bring vegetable broth or water to a boil.</li>
+    <li>Add the rinsed quinoa, cover, and reduce heat to low.</li>
+    <li>Simmer for about 15 minutes, or until the quinoa is tender and the liquid is absorbed.</li>
+    <li>Fluff with a fork and set aside.</li>
+</ul>
+
+<h4>Making the Filling:</h4>
+<ul>
+    <li>In a pan, heat olive oil over medium heat.</li>
+    <li>Add chopped onions and sauté until soft.</li>
+    <li>Add garlic and cook for another 30 seconds.</li>
+    <li>Stir in diced tomatoes, black beans, corn, and cooked quinoa.</li>
+    <li>Add cumin, smoked paprika, chili powder, salt, and black pepper.</li>
+    <li>Cook for 3-4 minutes until everything is well combined.</li>
+</ul>
+
+<h4>Stuffing and Baking:</h4>
+<ul>
+    <li>Spoon the quinoa mixture into the pre-baked bell peppers.</li>
+    <li>Sprinkle shredded cheese on top if using.</li>
+    <li>Cover the baking dish with foil and bake for 15 minutes.</li>
+    <li>Remove the foil and bake for another 5 minutes until the cheese is melted and bubbly.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Remove from the oven and let cool slightly.</li>
+    <li>Garnish with fresh cilantro.</li>
+    <li>Serve warm and enjoy!</li>
+</ul>
+
+<p>🔥 Enjoy your delicious and healthy Stuffed Bell Peppers with Quinoa! 🍽️😋</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="homade shushi rolls.jpg" alt="Pancakes">
+                <h2>Homemade Sushi Rolls🍣</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Homemade Sushi Rolls 🍣</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Sushi Rice:</h4>
+<ul>
+    <li>2 cups sushi rice</li>
+    <li>2 1/2 cups water</li>
+    <li>1/4 cup rice vinegar</li>
+    <li>1 tbsp sugar</li>
+    <li>1/2 tsp salt</li>
+</ul>
+
+<h4>For the Sushi Rolls:</h4>
+<ul>
+    <li>5-6 sheets nori (seaweed)</li>
+    <li>1 small cucumber (julienned)</li>
+    <li>1 small carrot (julienned)</li>
+    <li>1 ripe avocado (sliced)</li>
+    <li>200g fresh salmon or imitation crab (optional, sliced thinly)</li>
+    <li>2 tbsp cream cheese (optional)</li>
+    <li>1 tbsp sesame seeds (for garnish)</li>
+</ul>
+
+<h4>For Serving:</h4>
+<ul>
+    <li>Soy sauce</li>
+    <li>Wasabi</li>
+    <li>Pickled ginger</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Sushi Rice:</h4>
+<ul>
+    <li>Rinse sushi rice under cold water until the water runs clear.</li>
+    <li>Cook rice with 2 1/2 cups water in a rice cooker or on the stovetop.</li>
+    <li>In a small pan, heat rice vinegar, sugar, and salt until dissolved (do not boil).</li>
+    <li>Once rice is cooked, transfer it to a large bowl and mix in the vinegar mixture.</li>
+    <li>Let the rice cool to room temperature.</li>
+</ul>
+
+<h4>Assembling the Sushi Rolls:</h4>
+<ul>
+    <li>Place a sheet of nori on a bamboo sushi mat (shiny side down).</li>
+    <li>Wet your hands and spread a thin layer of sushi rice over the nori, leaving 1 inch uncovered at the top.</li>
+    <li>Lay cucumber, carrot, avocado, and your choice of fish or crab in a line near the bottom edge of the rice.</li>
+</ul>
+
+<h4>Rolling the Sushi:</h4>
+<ul>
+    <li>Using the sushi mat, roll the nori tightly over the filling.</li>
+    <li>Continue rolling while applying gentle pressure.</li>
+    <li>Seal the edge with a little water.</li>
+    <li>Use a sharp knife to slice the roll into even pieces.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Garnish with sesame seeds.</li>
+    <li>Serve with soy sauce, wasabi, and pickled ginger.</li>
+    <li>Enjoy your homemade sushi rolls! 🍣😋</li>
+</ul>
+
+<p>🔥 Enjoy your fresh and delicious Homemade Sushi Rolls! 🍽️</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="stepherd pie.jpg" alt="Omelette">
+                <h2>Shepherd’s Pie 🥧🥔</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Shepherd’s Pie 🥧🥔</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Meat Filling:</h4>
+<ul>
+    <li>500g ground lamb (or beef for Cottage Pie)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 small onion (chopped)</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>1 cup carrots (diced)</li>
+    <li>1/2 cup peas</li>
+    <li>1/2 cup corn</li>
+    <li>2 tbsp tomato paste</li>
+    <li>1 cup beef broth</li>
+    <li>1 tsp Worcestershire sauce</li>
+    <li>1 tsp fresh thyme (or 1/2 tsp dried thyme)</li>
+    <li>1/2 tsp salt (or to taste)</li>
+    <li>1/4 tsp black pepper</li>
+</ul>
+
+<h4>For the Mashed Potato Topping:</h4>
+<ul>
+    <li>3 large potatoes (peeled and chopped)</li>
+    <li>2 tbsp butter</li>
+    <li>1/4 cup milk</li>
+    <li>1/2 cup shredded cheese (optional)</li>
+    <li>1/2 tsp salt</li>
+    <li>1/4 tsp black pepper</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Meat Filling:</h4>
+<ul>
+    <li>Heat olive oil in a pan over medium heat.</li>
+    <li>Add chopped onions and garlic, sauté until soft.</li>
+    <li>Add ground lamb (or beef) and cook until browned.</li>
+    <li>Stir in carrots, peas, and corn, and cook for 2 minutes.</li>
+    <li>Add tomato paste, Worcestershire sauce, thyme, salt, and black pepper.</li>
+    <li>Pour in beef broth and let simmer for 10 minutes until thickened.</li>
+</ul>
+
+<h4>Making the Mashed Potato Topping:</h4>
+<ul>
+    <li>Boil potatoes in salted water for 15-20 minutes until fork-tender.</li>
+    <li>Drain and mash with butter, milk, salt, and black pepper.</li>
+    <li>Mix in shredded cheese for extra creaminess (optional).</li>
+</ul>
+
+<h4>Assembling and Baking:</h4>
+<ul>
+    <li>Preheat oven to 375°F (190°C).</li>
+    <li>Spread the meat mixture evenly in a baking dish.</li>
+    <li>Top with mashed potatoes, spreading evenly with a spoon or spatula.</li>
+    <li>Use a fork to create texture on top.</li>
+    <li>Bake for 20-25 minutes until golden brown.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Let it cool for a few minutes before serving.</li>
+    <li>Garnish with fresh parsley (optional).</li>
+    <li>Enjoy your delicious homemade Shepherd’s Pie! 😋</li>
+</ul>
+
+<p>🔥 Enjoy your comforting Shepherd’s Pie! 🍽️</p>
+
+                    
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="mediterian chick pea.png" alt="Smoothie">
+                <h2>Mediterranean Chickpea Salad with Grilled Chicken🥗🍗</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Mediterranean Chickpea Salad with Grilled Chicken 🥗🍗</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Grilled Chicken:</h4>
+<ul>
+    <li>2 boneless, skinless chicken breasts</li>
+    <li>1 tbsp olive oil</li>
+    <li>1 tsp lemon juice</li>
+    <li>1 tsp garlic powder</li>
+    <li>1/2 tsp dried oregano</li>
+    <li>1/2 tsp salt</li>
+    <li>1/4 tsp black pepper</li>
+</ul>
+
+<h4>For the Chickpea Salad:</h4>
+<ul>
+    <li>1 can (15 oz) chickpeas (drained and rinsed)</li>
+    <li>1 cup cherry tomatoes (halved)</li>
+    <li>1/2 cucumber (diced)</li>
+    <li>1/4 red onion (thinly sliced)</li>
+    <li>1/4 cup Kalamata olives (sliced)</li>
+    <li>1/4 cup feta cheese (crumbled)</li>
+    <li>2 tbsp fresh parsley (chopped)</li>
+</ul>
+
+<h4>For the Dressing:</h4>
+<ul>
+    <li>3 tbsp olive oil</li>
+    <li>1 tbsp red wine vinegar</li>
+    <li>1 tsp lemon juice</li>
+    <li>1 tsp Dijon mustard</li>
+    <li>1/2 tsp dried oregano</li>
+    <li>1/2 tsp salt</li>
+    <li>1/4 tsp black pepper</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Grilling the Chicken:</h4>
+<ul>
+    <li>Preheat a grill or stovetop pan over medium heat.</li>
+    <li>In a small bowl, mix olive oil, lemon juice, garlic powder, oregano, salt, and black pepper.</li>
+    <li>Rub the mixture over the chicken breasts.</li>
+    <li>Grill the chicken for 5-6 minutes per side until fully cooked.</li>
+    <li>Remove from heat, let rest for a few minutes, then slice.</li>
+</ul>
+
+<h4>Preparing the Chickpea Salad:</h4>
+<ul>
+    <li>In a large bowl, combine chickpeas, cherry tomatoes, cucumber, red onion, olives, and feta cheese.</li>
+    <li>Add chopped parsley for extra freshness.</li>
+</ul>
+
+<h4>Making the Dressing:</h4>
+<ul>
+    <li>In a small bowl, whisk together olive oil, red wine vinegar, lemon juice, Dijon mustard, oregano, salt, and black pepper.</li>
+</ul>
+
+<h4>Assembling:</h4>
+<ul>
+    <li>Pour the dressing over the chickpea salad and toss well to combine.</li>
+    <li>Serve the salad in a bowl and top with sliced grilled chicken.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Garnish with extra feta cheese or parsley if desired.</li>
+    <li>Enjoy your fresh and healthy Mediterranean Chickpea Salad with Grilled Chicken! 😋</li>
+</ul>
+
+<p>🔥 Enjoy your nutritious and flavorful Mediterranean Chickpea Salad with Grilled Chicken! 🍽️🥗</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="thai green curry.jpg" alt="Pancakes">
+                <h2>Thai Green Curry with Jasmine Rice🍛🌿</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Thai Green Curry with Jasmine Rice 🍛🌿</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Green Curry:</h4>
+<ul>
+    <li>2 tbsp vegetable oil</li>
+    <li>1 small onion (sliced)</li>
+    <li>2 cloves garlic (minced)</li>
+    <li>1 tbsp ginger (grated)</li>
+    <li>2 tbsp Thai green curry paste</li>
+    <li>400ml coconut milk</li>
+    <li>1 cup vegetable or chicken broth</li>
+    <li>1 red bell pepper (sliced)</li>
+    <li>1 small zucchini (sliced)</li>
+    <li>1 cup baby eggplant (sliced, optional)</li>
+    <li>1/2 cup green beans</li>
+    <li>1 cup cooked chicken, tofu, or shrimp (optional)</li>
+    <li>1 tbsp fish sauce (or soy sauce for vegetarian option)</li>
+    <li>1 tbsp brown sugar</li>
+    <li>1 tsp lime juice</li>
+    <li>1/2 cup fresh Thai basil leaves</li>
+    <li>1-2 Thai green chilies (optional, for extra spice)</li>
+</ul>
+
+<h4>For the Jasmine Rice:</h4>
+<ul>
+    <li>1 cup jasmine rice</li>
+    <li>2 cups water</li>
+    <li>1/2 tsp salt</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Cooking the Jasmine Rice:</h4>
+<ul>
+    <li>Rinse jasmine rice under cold water until the water runs clear.</li>
+    <li>In a pot, bring 2 cups of water to a boil.</li>
+    <li>Add the rinsed rice and salt, then reduce heat to low.</li>
+    <li>Cover and simmer for 15 minutes.</li>
+    <li>Remove from heat and let it sit for 5 minutes before fluffing with a fork.</li>
+</ul>
+
+<h4>Preparing the Thai Green Curry:</h4>
+<ul>
+    <li>Heat vegetable oil in a large pan or wok over medium heat.</li>
+    <li>Add onions, garlic, and ginger, and sauté until fragrant.</li>
+    <li>Stir in the green curry paste and cook for 1-2 minutes to release its flavors.</li>
+    <li>Pour in coconut milk and broth, stirring to combine.</li>
+    <li>Add bell peppers, zucchini, eggplant, and green beans. Simmer for 5 minutes.</li>
+    <li>Add cooked chicken, tofu, or shrimp (if using) and simmer for another 5 minutes.</li>
+    <li>Season with fish sauce (or soy sauce), brown sugar, and lime juice.</li>
+    <li>Stir in Thai basil leaves and Thai green chilies for extra spice.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve the Thai Green Curry hot with fluffy jasmine rice.</li>
+    <li>Garnish with extra Thai basil or lime wedges.</li>
+    <li>Enjoy your aromatic and flavorful Thai Green Curry with Jasmine Rice! 😋</li>
+</ul>
+
+<p>🔥 Experience the rich and authentic taste of Thailand with this homemade Thai Green Curry! 🍛🌿</p>
+
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="honey garlic glazed salmon.webp" alt="Omelette">
+                <h2>Honey Garlic Glazed Salmon🍯🐟</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Honey Garlic Glazed Salmon 🍯🐟</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Salmon:</h4>
+<ul>
+    <li>4 salmon fillets (skin-on or skinless)</li>
+    <li>1 tbsp olive oil</li>
+    <li>1/2 tsp salt</li>
+    <li>1/4 tsp black pepper</li>
+    <li>1/2 tsp paprika (optional, for extra flavor)</li>
+</ul>
+
+<h4>For the Honey Garlic Glaze:</h4>
+<ul>
+    <li>1/4 cup honey</li>
+    <li>3 cloves garlic (minced)</li>
+    <li>2 tbsp soy sauce</li>
+    <li>1 tbsp fresh lemon juice</li>
+    <li>1/2 tsp red pepper flakes (optional, for spice)</li>
+    <li>1 tbsp butter</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Cooking the Salmon:</h4>
+<ul>
+    <li>Pat dry the salmon fillets and season both sides with salt, black pepper, and paprika.</li>
+    <li>Heat olive oil in a large pan over medium-high heat.</li>
+    <li>Place the salmon fillets skin-side down (if using skin-on) and cook for 4-5 minutes until crispy.</li>
+    <li>Flip and cook the other side for 3-4 minutes until golden brown.</li>
+    <li>Remove the salmon from the pan and set aside.</li>
+</ul>
+
+<h4>Preparing the Honey Garlic Glaze:</h4>
+<ul>
+    <li>In the same pan, reduce the heat to medium and melt the butter.</li>
+    <li>Add minced garlic and sauté for about 30 seconds until fragrant.</li>
+    <li>Stir in honey, soy sauce, lemon juice, and red pepper flakes (if using).</li>
+    <li>Simmer the sauce for 1-2 minutes until slightly thickened.</li>
+</ul>
+
+<h4>Glazing the Salmon:</h4>
+<ul>
+    <li>Return the cooked salmon fillets to the pan.</li>
+    <li>Spoon the glaze over the salmon and let it coat evenly.</li>
+    <li>Cook for another 1-2 minutes, basting with the glaze.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve hot with steamed rice, roasted vegetables, or a fresh salad.</li>
+    <li>Garnish with chopped parsley or sesame seeds (optional).</li>
+    <li>Enjoy your delicious Honey Garlic Glazed Salmon! 😋</li>
+</ul>
+
+<p>🔥 A perfect balance of sweet, savory, and garlicky flavors in every bite! 🍯🐟</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="chicken tikka masala.jpg" alt="Smoothie">
+                <h2>Chicken Tikka Masala with Basmati Rice</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Chicken Tikka Masala with Basmati Rice 🍛🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Chicken Tikka:</h4>
+<ul>
+    <li>500g boneless chicken (cubed)</li>
+    <li>1/2 cup plain yogurt</li>
+    <li>1 tbsp lemon juice</li>
+    <li>2 tsp garam masala</li>
+    <li>1 tsp turmeric powder</li>
+    <li>1 tsp cumin powder</li>
+    <li>1 tsp paprika</li>
+    <li>1/2 tsp red chili powder (adjust to taste)</li>
+    <li>1 tsp garlic paste</li>
+    <li>1 tsp ginger paste</li>
+    <li>1/2 tsp salt</li>
+    <li>1 tbsp oil</li>
+</ul>
+
+<h4>For the Masala Sauce:</h4>
+<ul>
+    <li>2 tbsp butter or oil</li>
+    <li>1 medium onion (finely chopped)</li>
+    <li>3 cloves garlic (minced)</li>
+    <li>1 tsp ginger paste</li>
+    <li>1 1/2 tsp garam masala</li>
+    <li>1 tsp cumin powder</li>
+    <li>1/2 tsp turmeric powder</li>
+    <li>1/2 tsp red chili powder</li>
+    <li>1 tsp coriander powder</li>
+    <li>1 cup tomato purée</li>
+    <li>1/2 cup heavy cream (or coconut milk for dairy-free)</li>
+    <li>1 tsp sugar (optional, to balance acidity)</li>
+    <li>1/2 tsp salt (adjust to taste)</li>
+    <li>1/4 cup fresh cilantro (chopped, for garnish)</li>
+</ul>
+
+<h4>For the Basmati Rice:</h4>
+<ul>
+    <li>1 cup basmati rice</li>
+    <li>2 cups water</li>
+    <li>1/2 tsp salt</li>
+    <li>1/2 tsp cumin seeds (optional, for extra flavor)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Marinating the Chicken:</h4>
+<ul>
+    <li>In a bowl, mix yogurt, lemon juice, garlic paste, ginger paste, garam masala, turmeric, cumin, paprika, red chili powder, salt, and oil.</li>
+    <li>Add chicken pieces, coat well, and marinate for at least 1 hour (overnight for best flavor).</li>
+</ul>
+
+<h4>Cooking the Chicken:</h4>
+<ul>
+    <li>Heat a pan or grill over medium-high heat.</li>
+    <li>Cook the marinated chicken pieces for about 3-4 minutes per side until slightly charred and cooked through.</li>
+    <li>Remove from heat and set aside.</li>
+</ul>
+
+<h4>Making the Masala Sauce:</h4>
+<ul>
+    <li>Heat butter or oil in a pan over medium heat.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in garlic and ginger paste, cooking for 30 seconds.</li>
+    <li>Add garam masala, cumin, turmeric, red chili powder, and coriander powder. Stir well.</li>
+    <li>Pour in the tomato purée and simmer for 5-7 minutes until thickened.</li>
+    <li>Stir in the cooked chicken pieces and mix well.</li>
+    <li>Add heavy cream (or coconut milk) and sugar, then simmer for another 5 minutes.</li>
+    <li>Adjust seasoning and garnish with fresh cilantro.</li>
+</ul>
+
+<h4>Cooking the Basmati Rice:</h4>
+<ul>
+    <li>Rinse basmati rice under cold water until the water runs clear.</li>
+    <li>In a pot, bring 2 cups of water to a boil.</li>
+    <li>Add rice, salt, and cumin seeds (if using).</li>
+    <li>Cover and simmer on low heat for 15 minutes.</li>
+    <li>Remove from heat and let it sit for 5 minutes before fluffing with a fork.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve the Chicken Tikka Masala hot over fluffy basmati rice.</li>
+    <li>Garnish with extra cilantro and a drizzle of cream.</li>
+    <li>Enjoy your rich and flavorful Chicken Tikka Masala with Basmati Rice! 😋</li>
+</ul>
+
+<p>🔥 A creamy, spicy, and aromatic Indian classic perfect for any occasion! 🍛🔥</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    
+
+    <script>
+        $(document).ready(function(){
+            $(".btn").click(function(){
+                $(this).next(".content").slideToggle(300);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const recipes = document.querySelectorAll(".recipe");
+
+    searchBar.addEventListener("keyup", function () {
+        const searchText = searchBar.value.toLowerCase();
+
+        recipes.forEach(recipe => {
+            const recipeName = recipe.querySelector("h2").textContent.toLowerCase();
+            
+            if (recipeName.includes(searchText)) {
+                recipe.style.display = "block";
+            } else {
+                recipe.style.display = "none";
+            }
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

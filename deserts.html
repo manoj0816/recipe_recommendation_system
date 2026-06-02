@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desserts | Recipe Recommendations</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+    background: #ff6f61;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    height: 20px;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+
+        .top-navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .top-navbar ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .top-navbar ul li {
+            margin: 0 15px;
+        }
+
+        .top-navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+           
+        }
+
+        /* Dessert Grid */
+        .dessert-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dessert-card {
+            width: 250px;
+            background: white;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .dessert-card:hover{
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+            transform: scale(1.05);
+        }
+
+        .dessert-card img {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+        }
+
+        .dessert-card h3 {
+            color: #ff6f61;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            width: 50%;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .modal-content h2{
+            color: #25e22b;
+        }
+        .modal-content h3{
+            color: #e225ac;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Bottom Navbar */
+        .bottom-navbar {
+    background: #ff6f61;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    height: 40px; /* Increased height for better alignment */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bottom-navbar p {
+    margin: 0; /* Remove extra spacing */
+    padding: 0;
+}
+.modal-content ul li{
+    list-style: none;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="logo">COOKING MASTER</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="drinks.html" class="active">drinks</a></li>
+            <li><a href="about.html">About</a></li>
+           
+        </ul>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+    <!-- Dessert Grid -->
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Chocolate Lava Cake" onclick="openModal('chocolateLava')">
+            <img src="chocalate lava.jpg" alt="Chocolate Lava Cake">
+            <h3>Chocolate Lava Cake</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Classic Tiramisu" onclick="openModal('tiramisu')">
+            <img src="classic timarisu.jpg" alt="Classic Tiramisu">
+            <h3>Classic Tiramisu</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Vanilla Panna Cotta" onclick="openModal('pannaCotta')">
+            <img src="vennila panna cotta.jpg" alt="Vanilla Panna Cotta">
+            <h3>Vanilla Panna Cotta</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Strawberry Cheesecake" onclick="openModal('Strawberrycheese')">
+            <img src="strawberry cheese cake.jpg" alt="Strawberry Cheesecake">
+            <h3>Strawberry Cheesecake</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Classic Brownies" onclick="openModal('brownie')">
+            <img src="brownie.jpg" alt="Classic Brownies">
+            <h3>Classic Brownies</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Red Velvet Cake" onclick="openModal('redvelvet')">
+            <img src="red velvet.jpg" alt="Red Velvet Cake">
+            <h3>Red Velvet Cake</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Creme Brulee" onclick="openModal('cremebrulee')">
+            <img src="creme burlee.jpg" alt="Crème Brûlée">
+            <h3>Crème Brûlée</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Molten Lava Cake" onclick="openModal('moltenlava')">
+            <img src="molten lava.jpg" alt="Molten Lava Cake">
+            <h3>Molten Lava Cake</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Panna Cotta" onclick="openModal('pannaCotta1')">
+            <img src="panna cotta.jpg" alt="Panna Cotta">
+            <h3>Panna Cotta</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Eclairs" onclick="openModal('eclairs')">
+            <img src="eclairs.jpg" alt="Éclairs">
+            <h3> Éclairs</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Lemon Tart" onclick="openModal('lemon')">
+            <img src="lemon.jpg" alt="Lemon Tart">
+            <h3>Lemon Tart</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Strawberry Shortcake" onclick="openModal('strawberyshort')">
+            <img src="strawberry short.jpg" alt="Strawberry Shortcake">
+            <h3>Strawberry Shortcake</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Macarons" onclick="openModal('macrons')">
+            <img src="macorons.jpg" alt="Macarons">
+            <h3>Macarons</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Baklava" onclick="openModal('baklava')">
+            <img src="baklava.jpg" alt="Baklava">
+            <h3> Baklava</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Black Forest Cake" onclick="openModal('blackforest')">
+            <img src="black forest.jpg" alt="Black Forest Cake">
+            <h3>Black Forest Cake</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Cannoli" onclick="openModal('cannoli')">
+            <img src="cannoli.jpg" alt="Cannoli">
+            <h3>Cannoli</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Cupcakes" onclick="openModal('cupcake')">
+            <img src="cup cake.jpg" alt="Cupcakes">
+            <h3>Cupcakes</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Banana Pudding" onclick="openModal('bananapudding')">
+            <img src="banana pudding.jpg" alt="Banana Pudding">
+            <h3>Banana Pudding</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Profiterols" onclick="openModal('profit')">
+            <img src="profit roles.jpg" alt="Profiteroles">
+            <h3>Profiteroles</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Carrot Cake" onclick="openModal('carrot')">
+            <img src="carrot cake.jpg" alt="Carrot Cake">
+            <h3>Carrot Cake</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Coconut Macaroons" onclick="openModal('coconut')">
+            <img src="coconut macorons.jpg" alt="Coconut Macaroons">
+            <h3>Coconut Macaroons</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Fruit Tart" onclick="openModal('fruittart')">
+            <img src="fruit tart.jpg" alt="Fruit Tart">
+            <h3>Fruit Tart</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Mango Sticky Rice" onclick="openModal('mangosticky')">
+            <img src="mango sticky rice.jpg" alt="Mango Sticky Rice">
+            <h3>Mango Sticky Rice</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Pavlova" onclick="openModal('pavlova')">
+            <img src="pavlova.jpg" alt="Pavlova">
+            <h3>Pavlova</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <!-- Dessert Modals -->
+    <div id="chocolateLava" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('chocolateLava')">&times;</span>
+            <h2>Chocolate Lava Cake</h2>
+            <p><strong>Total Time:</strong> 25 minutes | <strong>Servings:</strong> 4</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>½ cup unsalted butter</li>
+                <li>4 oz dark chocolate</li>
+                <li>2 eggs</li>
+                <li>2 egg yolks</li>
+                <li>¼ cup granulated sugar</li>
+                <li>2 tbsp all-purpose flour</li>
+                <li>½ tsp vanilla extract</li>
+                <li>Pinch of salt</li>
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 425°F. Grease four ramekins with butter and dust with flour.</li>
+                <li>Melt butter and chocolate, mix well.</li>
+                <li>Whisk eggs, yolks, and sugar until fluffy.</li>
+                <li>Mix everything together and pour into ramekins.</li>
+                <li>Bake for 10-12 minutes. Let cool for 1 min and serve warm.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="tiramisu" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('tiramisu')">&times;</span>
+            <h2>Classic Tiramisu</h2>
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>	1 cup heavy cream</li>
+	               <li> 8 oz (227g) mascarpone cheese</li>
+	                <li>⅓ cup granulated sugar</li>
+	                <li>1 tsp vanilla extract</li>
+	                <li>1 cup brewed espresso (cooled)</li>
+	                <li>2 tbsp coffee liqueur (optional)</li>
+	                <li>24 ladyfinger biscuits</li>
+	                <li>2 tbsp cocoa powder (for dusting)</li>
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li><strong>Prepare Cream:</strong> Beat heavy cream, sugar, vanilla extract, and mascarpone cheese until smooth and creamy.</li>
+                <li><strong>Prepare Coffee Mixture:</strong> In a bowl, mix espresso with coffee liqueur.</li>
+                <li><strong>Dip & Layer:</strong> Dip each ladyfinger into the coffee mixture for about 2 seconds (don’t soak too much). Arrange a layer of soaked ladyfingers in a dish.</li>
+                <li><strong>Add Cream: </strong>Spread half of the mascarpone mixture over the ladyfingers. Repeat another layer with soaked ladyfingers and the remaining cream.</li>
+                <li><strong>Chill:</strong> Cover and refrigerate for at least 4 hours (preferably overnight).</li>
+                <li><strong>Add Cream:</strong> Spread half of the mascarpone mixture over the ladyfingers. Repeat another layer with soaked ladyfingers and the remaining cream.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="pannaCotta" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('pannaCotta')">&times;</span>
+            <h2>Vanilla Panna Cotta</h2>
+            <p><strong>Total Time:</strong> 3 hours(including chilling) | <strong>Servings:4</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>2 cups heavy cream</li>
+	               <li>½ cup whole milk</li>
+	                <li>¼ cup granulated sugar</li>
+	                <li>1 tsp vanilla extract</li>
+	                <li>1 packet (2 ½ tsp) gelatin</li>
+	                <li>2 tbsp cold water</li>
+	                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li><strong>Prepare Gelatin:</strong> In a small bowl, sprinkle gelatin over cold water and let it sit for 5 minutes.</li>
+                <li><strong>Heat Cream: </strong>In a saucepan, heat heavy cream, milk, and sugar over medium heat until warm but not boiling. Stir until sugar dissolves.</li>
+                <li><strong>Add Gelatin:</strong> Remove from heat and add the bloomed gelatin. Stir until completely dissolved.</li>
+                <li><strong>Add Vanilla & Pour:</strong> Mix in vanilla extract, then pour the mixture into ramekins or serving glasses.</li>
+                <li><strong>Chill:</strong> Refrigerate for at least 3 hours until set.</li>
+                <li><strong>Serve:</strong> Optionally, top with fresh berries or caramel sauce before serving.</li>
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Strawberrycheese" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Strawberrycheese')">&times;</span>
+            <h2>Strawberry Cheesecake</h2>
+            <p><strong>Total Time:</strong> 6 hours(including chilling) | <strong>Servings:</strong> 8</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>1 ½ cups crushed graham crackers</li>
+	               <li> ¼ cup melted butter</li>
+	                <li>2 tbsp sugar</li>
+	        </ul>
+            <h3>For The Filling:</h3>
+            <ul>
+                <li>16 oz (454g) cream cheese (room temperature)</li>
+                   <li>>½ cup granulated sugar</li>
+                   <li>1 tsp vanilla extract</li>
+                   <li>1 cup heavy whipping cream</li>
+                   <li>1 cup fresh strawberries (blended into a puree)</li>
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li><strong>Prepare Crust:</strong> Mix crushed graham crackers, melted butter, and sugar. Press the mixture into the base of a springform pan. Refrigerate for 30 minutes.</li>
+                <li><strong>Make Filling:</strong> Beat cream cheese, sugar, and vanilla until smooth. Add heavy whipping cream and beat until fluffy. Mix in strawberry puree.</li>
+                <li><strong>Assemble & Chill: </strong>Pour the filling over the crust and smooth the top. Cover and refrigerate for at least 5-6 hours (or overnight).</li>
+                <li><strong>Garnish & Serve: </strong>Top with fresh strawberries before serving.</li>
+                
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="brownie" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('brownie')">&times;</span>
+            <h2>Classic Brownies</h2>
+            <p><strong>Total Time:</strong> 35 minutes | <strong>Servings:</strong> 12</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>½ cup unsalted butter</li>
+	               <li>1 cup granulated sugar</li>
+	                <li>2 large eggs</li>
+	                <li>1 tsp vanilla extract</li>
+	                <li>½ cup all-purpose flour</li>
+	                <li>⅓ cup cocoa powder</li>
+	                <li>¼ tsp salt</li>
+	                <li>½ tsp baking powder</li>
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li><strong>Preheat Oven:</strong> Set oven to 350°F (175°C). Grease and line an 8x8-inch baking pan.</li>
+                <li><strong>Melt Butter & Mix:</strong> Melt butter, then mix with sugar, eggs, and vanilla until smooth.</li>
+                <li><strong>Add Dry Ingredients: </strong>Sift in flour, cocoa powder, salt, and baking powder. Stir until combined.</li>
+                <li><strong>Bake:</strong> Pour batter into the pan and bake for 20-25 minutes. A toothpick inserted should come out with a few moist crumbs.</li>
+                <li><strong>Cool & Serve:</strong> Let it cool before slicing. Enjoy warm or chilled.</li>
+                
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="redvelvet" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('redvelvet')">&times;</span>
+            <h2>Red Velvet Cake</h2>
+            <p><strong>Total Time:</strong> 1 hours 30 minutes(Preparation: 30 minutes, Baking: 30 minutes, Cooling & Frosting: 30 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>	2 ½ cups (315g) all-purpose flour  </li>
+	               <li> 1 ½ cups (300g) granulated sugar  </li>
+	                <li>1 teaspoon baking soda  </li>
+	                <li>1 teaspoon salt  </li>
+	                <li>1 teaspoon cocoa powder  </li>
+	                <li>1 ½ cups (360ml) vegetable oil  </li>
+	                <li>1 cup (240ml) buttermilk, room temperature  </li>
+	                <li>2 large eggs  </li>
+                    <li>2 tablespoons (30ml) red food coloring  </li>
+                    <li>1 teaspoon vanilla extract  </li>
+                    <li>1 teaspoon white vinegar  </li>
+            </ul>
+             <h3>For The Cream Cheese Frosting:</h3>
+            <ul>
+                <li>8 oz (225g) cream cheese, softened  </li>
+                <li>½ cup (115g) unsalted butter, softened  </li>
+                <li>4 cups (480g) powdered sugar  </li>
+                <li>1 teaspoon vanilla extract   </li>
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 350°F (175°C). Grease and flour two 9-inch cake pans.  </li>
+                <li>In a bowl, whisk flour, sugar, baking soda, salt, and cocoa powder.  </li>
+                <li>In another bowl, whisk vegetable oil, buttermilk, eggs, food coloring, vanilla extract, and vinegar.  </li>
+                <li> Gradually add dry ingredients to wet ingredients, mixing until smooth.  </li>
+                <li>Divide batter evenly between cake pans.</br>  
+                    Bake for 30 minutes or until a toothpick inserted in the center comes out clean. </br> 
+                    Let cakes cool in pans for 10 minutes, then transfer to a wire rack to cool completely.</br> 
+                 </li>
+                 <li>Make the frosting:Beat cream cheese and butter until smooth.</br>  
+                    Gradually add powdered sugar and vanilla, beating until fluffy.</li>
+                 <li>Spread frosting between layers, on top, and around the cake. </li> 
+                 <li>Chill for 30 minutes before serving.  </li>  
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="cremebrulee" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cremebrulee')">&times;</span>
+            <h2>Crème Brûlée</h2>
+            <p><strong>Total Time:</strong> 2 hours(including cooling,Preparation: 15 minutes, Baking: 50 minutes, Cooling & Chilling: 1 hour ) | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>	2 cups (480ml) heavy cream  </li>
+	               <li>5 large egg yolks  </li>
+	                <li>½ cup (100g) granulated sugar (plus extra for caramelizing)  </li>
+	                <li>1 teaspoon vanilla extract  </li>
+	               
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 325°F (160°C). Place four ramekins in a baking dish.  </li>
+                <li>Heat cream over medium heat until hot but not boiling.  </li>
+                <li>In a bowl, whisk egg yolks and sugar until pale.</li>
+                <li>Gradually add warm cream while whisking continuously.  </li>
+                <li>Stir in vanilla extract.  </li>
+                <li>Strain mixture into ramekins.  </li>
+                <li>Pour hot water into the baking dish (halfway up the ramekins).  </li>  
+                <li>Bake for 45–50 minutes until slightly jiggly in the center.  </li>
+                <li>Cool at room temperature, then refrigerate for 1 hour.  </li>
+                <li>Sprinkle a thin layer of sugar on top.  </li>
+                <li>Use a kitchen torch to caramelize until golden brown.  </li>
+                <li>Let sit for a minute before serving.  </li>
+            
+                  
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="moltenlava" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('moltenlava')">&times;</span>
+            <h2>Molten Lava Cake</h2>
+            <p><strong>Total Time:</strong> 25 minutes (Preparation: 10 minutes, Baking: 12–15 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>½ cup (115g) unsalted butter  </li>
+	               <li>4 oz (115g) dark chocolate, chopped  </li>
+	                <li>2 large eggs  </li>
+	                <li> 2 large egg yolks  </li>
+	                <li> ¼ cup (50g) granulated sugar  </li>
+	                <li>2 tablespoons (15g) all-purpose flour  </li>
+	                <li>½ teaspoon vanilla extract  </li>
+	                <li>Pinch of salt  </li>
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 425°F (220°C). Grease and flour four ramekins.  </li>
+                <li>Melt butter and chocolate together over a double boiler or in the microwave. Stir until smooth.  </li>
+                <li>In a bowl, whisk eggs, egg yolks, and sugar until pale and thick.  </li>
+                <li>Stir in melted chocolate mixture, then add flour, salt, and vanilla.  </li>
+                <li> Divide batter into ramekins.  </li>
+                <li>Bake for 12–15 minutes until edges are set but centers are soft.  </li>
+                <li>Let sit for 1 minute, then invert onto plates. Serve warm with ice cream.  </li>    
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="pannaCotta1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('pannaCotta1')">&times;</span>
+            <h2>Panna Cotta</h2>
+            <p><strong>Total Time:</strong> 4 hours (including chilling,Preparation: 10 minutes, Cooking: 10 minutes, Chilling: 3–4 hours)| <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                   <li>2 cups (480ml) heavy cream  </li>
+	               <li>½ cup (120ml) whole milk  </li>
+	                <li>½ cup (100g) granulated sugar  </li>
+	                <li> 1 teaspoon vanilla extract  </li>
+	                <li>2 ½ teaspoons (7g) gelatin powder  </li>
+	                <li>3 tablespoons (45ml) cold water  </li>
+	                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>In a small bowl, sprinkle gelatin over cold water and let sit for 5 minutes.  </li>
+                <li>In a saucepan, heat cream, milk, and sugar over medium heat until hot but not boiling</li>
+                <li>Remove from heat and stir in vanilla</li>
+                <li>Add bloomed gelatin to the hot mixture, stirring until fully dissolved.  </li>
+                <li>Pour mixture into ramekins or molds.  </li>
+                <li> Refrigerate for at least 3–4 hours until set.  </li>
+                <li> Run a knife around the edges and invert onto plates. Serve with fruit or sauce.</li>
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="eclairs" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('eclairs')">&times;</span>
+            <h2>Éclairs</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 45 minutes, Baking: 30 minutes, Filling & Cooling: 45 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Choux Pastry:  </h4>
+            <ul>
+                   <li> 1 cup (240ml) water  </li>
+	               <li> ½ cup (115g) unsalted butter  </li>
+	                <li> 1 cup (125g) all-purpose flour  </li>
+	                <li> 4 large eggs  </li>
+	                <li> ¼ teaspoon salt  </li>
+	                
+            </ul>
+            <h4>For the Pastry Cream (Filling):</h4>
+            <ul>
+                <li>2 cups (480ml) whole milk  </li>
+                <li> ½ cup (100g) granulated sugar  </li>
+                <li> 4 large egg yolks  </li>
+                <li> ¼ cup (30g) cornstarch  </li>
+                <li> 2 teaspoons vanilla extract  </li>
+                <li> 2 tablespoons (30g) unsalted butter  </li>
+            </ul>
+            <h4>For the Chocolate Glaze:  </h4>
+            <ul>
+                <li> 4 oz (115g) dark chocolate, chopped  </li>
+                <li> ½ cup (120ml) heavy cream  </li>
+                
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 375°F (190°C). </li> 
+                <li> In a saucepan, heat water, butter, and salt until boiling.  </li>
+                <li> Add flour and stir continuously until dough pulls away from the sides. </li> 
+                <li>Let cool for 5 minutes, then beat in eggs one at a time.  </li>
+                <li>Pipe dough onto a baking sheet in 4-inch logs.</li>  
+                <li> Bake for 25–30 minutes until golden and puffed. Cool completely. </li>
+                <li> Heat milk over medium heat.</li>  
+                <li> Whisk egg yolks, sugar, and cornstarch in a bowl. </li> 
+                <li> Slowly add warm milk, whisking constantly.</li>  
+                <li> Return to heat, stirring until thick.  </li>
+                <li> Remove from heat, add vanilla and butter. Let cool. </li> 
+                <li> Slice éclairs in half and pipe pastry cream inside.  </li>
+                <li> Heat cream and pour over chopped chocolate. Stir until smooth. </li> 
+                <li> Dip the tops of éclairs in chocolate glaze. </li> 
+                <li> Let set before serving.  </li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="lemon" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('lemon')">&times;</span>
+            <h2>Lemon Tart</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 30 minutes, Baking: 30 minutes, Cooling: 1 hour)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Tart Crust:</h4>
+            <ul>
+                 <li>1 ¼ cups (160g) all-purpose flour </li> 
+                 <li>½ cup (115g) unsalted butter, chilled and cubed  </li> 
+                 <li> ¼ cup (50g) granulated sugar </li>  
+                 <li> 1 egg yolk  </li> 
+                 <li> 1 tablespoon cold water  </li> 
+                
+            </ul>
+            <h4>For the Lemon Filling:</h4>
+            <ul>
+                <li>3 large eggs </li> 
+                <li> ¾ cup (150g) granulated sugar  </li>
+                <li>½ cup (120ml) fresh lemon juice  </li>
+                <li>1 tablespoon lemon zest  </li>
+                <li>½ cup (120ml) heavy cream </li> 
+                 
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Blend flour, butter, and sugar in a food processor.  </li>
+                <li> Add egg yolk and water, mixing until dough forms.  </li> 
+                <li>Chill for 30 minutes.   </li>
+                <li> Roll out and fit into a tart pan.   </li>
+                 <li> Preheat oven to 350°F (175°C) and bake for 15 minutes.   </li>
+                 <li> Whisk eggs, sugar, lemon juice, and zest.   </li>
+                 <li> Stir in heavy cream.   </li>
+                 <li> Pour filling into the crust. </li>  
+                 <li> Bake for 20–25 minutes until set.   </li>
+                 <li>Cool and refrigerate before serving.   </li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="strawberyshort" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('strawberyshort')">&times;</span>
+            <h2>Strawberry Shortcake</h2>
+            <p><strong>Total Time:</strong>45 minutes (Preparation: 20 minutes, Baking: 20 minutes, Assembling: 5 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Shortcake:</h4>
+
+            <ul>
+                  <li>2 cups (250g) all-purpose flour </li> 
+                  <li>⅓ cup (67g) granulated sugar </li>  
+                  <li>1 tablespoon baking powder  </li> 
+                  <li> ½ teaspoon salt  </li> 
+                  <li>½ cup (115g) unsalted butter, cubed  </li> 
+                  <li>¾ cup (180ml) heavy cream  </li> 
+
+            </ul>
+            <h4>For the Filling:</h4>
+            <ul>
+                <li>2 cups (300g) fresh strawberries, sliced  </li> 
+                <li>2 tablespoons sugar  </li> 
+                <li>1 cup (240ml) whipped cream  </li> 
+                 
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Preheat oven to 400°F (200°C).   </li> 
+                <li> Mix flour, sugar, baking powder, and salt.   </li> 
+                <li>Cut in butter until crumbly.   </li> 
+                <li>Stir in cream, forming a dough. </li>   
+                <li>Roll out and cut into rounds. </li>   
+                <li> Bake for 15–20 minutes.   </li> 
+                <li>Toss strawberries with sugar. Let sit for 10 minutes.   </li> 
+                <li> Slice shortcakes in half.   </li> 
+                <li> Layer with strawberries and whipped cream.   </li> 
+                             
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="macrons" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('macrons')">&times;</span>
+            <h2> Macarons</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 30 minutes, Resting: 1 hour, Baking: 15 minutes) | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Macaron Shells:</h4>
+            <ul>
+                <li>1 cup (100g) almond flour  </li> 
+                <li> 1 cup (125g) powdered sugar </li>  
+                <li> 2 large egg whites  </li> 
+                 <li> ¼ cup (50g) granulated sugar </li>  
+                 <li>Food coloring (optional)  </li> 
+                
+            </ul>
+            <h4>For the Filling (Buttercream):  </h4>
+            <ul>
+                <li>½ cup (115g) unsalted butter  </li>
+                <li>1 cup (125g) powdered sugar  </li>
+                <li>1 teaspoon vanilla extract </li> 
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+               <li>Sift almond flour and powdered sugar.  </li>
+               <li> Whisk egg whites until foamy, then add sugar and beat until stiff peaks form.  </li>
+               <li>Fold in dry ingredients gently.  </li>
+               <li>Pipe small circles onto a baking sheet. </li> 
+               <li>Let sit for 1 hour. </li> 
+               <li> Preheat oven to 300°F (150°C).  </li>
+               <li>Bake for 12–15 minutes. Let cool. </li> 
+               <li>Beat butter, sugar, and vanilla until smooth.</li>
+               <li>Pipe filling onto one macaron shell and top with another.  </li>  
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="baklava" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('baklava')">&times;</span>
+            <h2>Baklava</h2>
+            <p><strong>Total Time:</strong> 3 hours (Preparation: 30 minutes, Baking: 1 hour, Cooling: 1.5 hours)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+              <li>1 package (16 oz) phyllo dough </li> 
+              <li>1 cup (230g) unsalted butter, melted  </li>
+              <li> 2 cups (250g) chopped walnuts or pistachios  </li>
+              <li>1 teaspoon cinnamon  
+                
+            </ul>
+            <h4>For the Syrup:  </h4>
+            <ul>
+                <li>1 cup (200g) granulated sugar </li> 
+                <li>½ cup (120ml) honey  </li>
+                <li>½ cup (120ml) water  </li>
+                <li>1 teaspoon lemon juice  </li>
+                 
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Mix nuts and cinnamon. </li> 
+                <li>Preheat oven to 350°F (175°C). </li> 
+                <li>Brush a baking dish with butter. </li> 
+                <li>Layer phyllo sheets, brushing each with butter.</li>  
+                <li>Add a layer of nuts after every few sheets.</li>  
+                <li>Continue layering, finishing with phyllo. </li>
+                <li> Cut into diamond shapes.  </li>
+                <li>Bake for 50–60 minutes. </li> 
+                <li>Simmer sugar, honey, water, and lemon juice for 10 minutes. </li> 
+                <li>Pour syrup over hot baklava. Let cool before serving.</li>
+ 
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="blackforest" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('blackforest')">&times;</span>
+            <h2>Black Forest Cake</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 45 minutes, Baking: 35 minutes, Cooling & Assembly: 1 hour)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Chocolate Cake:</h4>
+            <ul>
+                <li>2 cups (250g) all-purpose flour  </li>
+                 <li>1 ¾ cups (350g) granulated sugar  </li>
+                 <li>¾ cup (75g) unsweetened cocoa powder  </li>
+                 <li> 2 teaspoons baking powder  </li>
+                 <li> 1 teaspoon baking soda  </li>
+                 <li> ½ teaspoon salt  </li>
+                 <li> 1 cup (240ml) buttermilk</li>  
+                 <li> ½ cup (120ml) vegetable oil  </li>
+                 <li> 2 large eggs  </li>
+                 <li> 1 teaspoon vanilla extract</li>  
+                 <li> 1 cup (240ml) boiling water  </li>
+                
+            </ul>
+            <h4>For the Filling & Decoration:</h4>
+            <ul>
+                <li>2 cups (480ml) heavy cream </li> 
+                <li>¼ cup (30g) powdered sugar  </li> 
+                <li> 1 teaspoon vanilla extract  </li> 
+                <li>1 ½ cups (250g) pitted cherries (fresh or canned)</li>   
+                <li>¼ cup (60ml) cherry liqueur (optional)  </li> 
+                <li>1 cup (100g) chocolate shavings  </li> 
+                 
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+            <li> Preheat oven to 350°F (175°C). Grease two 9-inch cake pans.</li>  
+            <li>  Whisk flour, sugar, cocoa, baking powder, baking soda, and salt.</li>  
+            <li>Add buttermilk, oil, eggs, and vanilla. Mix well. </li> 
+            <li>Stir in boiling water (batter will be thin).  </li>
+            <li> Divide into pans and bake for 30–35 minutes. Cool completely.  </li>
+            <li> Beat heavy cream, powdered sugar, and vanilla until stiff peaks form.  </li>
+            <li> Drain cherries and mix with cherry liqueur if using.</li>  
+            <li>Slice cakes in half horizontally. </li> 
+            <li> Layer with whipped cream and cherries. </li> 
+            <li> Frost the outside with whipped cream and decorate with chocolate shavings and cherries. </li> 
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="cannoli" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cannoli')">&times;</span>
+            <h2>Cannoli</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 45 minutes, Frying: 15 minutes, Cooling & Filling: 1 hour)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Shells:</h4>
+            <ul>
+               <li>2 cups (250g) all-purpose flour </li>   
+               <li> 1 tablespoon granulated sugar  </li>  
+               <li>¼ teaspoon salt  </li>  
+               <li>2 tablespoons (30g) unsalted butter, cubed  </li>  
+               <li> 1 large egg  </li>  
+               <li> ½ cup (120ml) white wine or water</li>    
+               <li> Vegetable oil for frying  </li>  
+                
+            </ul>
+            <h4>For the Ricotta Filling:</h4>
+            <ul>
+                <li>2 cups (480g) ricotta cheese, drained  </li> 
+                <li> ¾ cup (90g) powdered sugar  </li> 
+                <li>1 teaspoon vanilla extract  </li> 
+                <li>½ teaspoon cinnamon  </li> 
+                <li> ¼ cup (50g) mini chocolate chips  </li> 
+                 
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Mix flour, sugar, and salt. Cut in butter.</li>  
+                <li>Add egg and wine/water, kneading into a dough.  </li>
+                <li> Wrap and chill for 30 minutes.  </li>
+                <li>Roll dough thin, cut circles, and wrap around cannoli molds.  </li>
+                <li>Fry in hot oil (375°F/190°C) until golden. Drain and cool.  </li>
+                <li>Mix ricotta, powdered sugar, vanilla, and cinnamon. Stir in chocolate chips. </li> 
+                <li> Pipe filling into cooled shells. Dust with powdered sugar before serving.  </li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="cupcake" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cupcake')">&times;</span>
+            <h2>Cupcakes</h2>
+            <p><strong>Total Time:</strong> 45 hours (Preparation: 15 minutes, Baking: 20 minutes, Cooling & Frosting: 10 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 1 ½ cups (190g) all-purpose flour </li> 
+                <li> 1 ½ teaspoons baking powder  </li>
+                <li>  ½ teaspoon salt  </li>
+                <li>  ½ cup (115g) unsalted butter, softened  </li>
+                <li> ¾ cup (150g) granulated sugar  </li>
+                <li> 2 large eggs  </li>
+                <li> 1 teaspoon vanilla extract  </li>
+                <li>  ½ cup (120ml) milk  </li>
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Preheat oven to 350°F (175°C). Line a muffin tin with cupcake liners.  </li>
+                <li> Whisk flour, baking powder, and salt.  </li>
+                <li> Beat butter and sugar until fluffy. Add eggs and vanilla. </li> 
+                <li> Mix in dry ingredients alternately with milk.  </li>
+                <li> Fill liners ¾ full and bake for 18–20 minutes. Cool before frosting.</li>
+                <li> Use buttercream or cream cheese frosting. </li> 
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="bananapudding" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('bananapudding')">&times;</span>
+            <h2>Banana Pudding</h2>
+            <p><strong>Total Time:</strong> 4 hours (Preparation: 20 minutes, Chilling: 3–4 hours)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 3 cups (720ml) whole milk  </li> 
+                <li> ¾ cup (150g) granulated sugar </li>  
+                <li>  ¼ cup (30g) cornstarch  </li> 
+                <li> 4 large egg yolks  </li> 
+                <li> 2 teaspoons vanilla extract  </li> 
+                <li>  3 ripe bananas, sliced  </li> 
+                <li> 2 cups (250g) vanilla wafers </li>  
+                <li> 2 cups (480ml) whipped cream  </li> 
+                
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Heat milk in a saucepan. Whisk egg yolks, sugar, and cornstarch. </li>  
+                <li>Slowly add warm milk, whisking constantly.  </li> 
+                <li>Return to heat, stir until thick, then add vanilla.  </li> 
+                <li>Layer vanilla wafers, banana slices, and custard. Repeat layers. </li>  
+                <li>Top with whipped cream and chill for at least 3 hours.  </li> 
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="profit" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('profit')">&times;</span>
+            <h2>Profiteroles</h2>
+            <p><strong>Total Time:</strong> 1.5 hours (Preparation: 30 minutes, Baking: 25 minutes, Filling & Cooling: 35 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Choux Pastry:</h4>
+            <ul>
+                <li> 1 cup (240ml) water  </li> 
+                <li>½ cup (115g) unsalted butter  </li> 
+                <li>1 cup (125g) all-purpose flour </li>  
+                <li> 4 large eggs  </li> 
+                <li>¼ teaspoon salt  </li> 
+                
+            </ul>
+            <h4>For the Filling:</h4>
+            <ul>
+                <li> 2 cups (480ml) heavy cream  </li> 
+                <li>¼ cup (30g) powdered sugar  </li> 
+                <li>1 teaspoon vanilla extract  </li> 
+                 
+            </ul>
+            <h4>For the Chocolate Sauce:  </h4>
+            <ul>
+                <li>4 oz (115g) dark chocolate  </li> 
+                <li>½ cup (120ml) heavy cream  </li> 
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Preheat oven to 375°F (190°C). </li>  
+                <li> Heat water, butter, and salt in a saucepan. Add flour and stir until dough forms.  </li> 
+                <li>Beat in eggs one at a time.  </li> 
+                <li>Pipe small rounds onto a baking sheet and bake for 25 minutes. Cool.  </li> 
+                <li>Whip heavy cream, sugar, and vanilla.  </li> 
+                <li>Slice puffs open and fill with whipped cream.  </li> 
+                <li>Heat heavy cream and pour over chocolate. Stir until smooth.  </li> 
+                <li>Drizzle over profiteroles before serving.  </li> 
+
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="carrot" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('carrot')">&times;</span>
+            <h2>Carrot Cake</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 30 minutes, Baking: 50 minutes, Cooling & Frosting: 40 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Cake:</h4>
+            <ul>
+                <li>2 cups (250g) all-purpose flour  </li> 
+                <li>1 ½ teaspoons baking soda  </li> 
+                <li>1 teaspoon cinnamon  </li> 
+                <li> ½ teaspoon salt  </li> 
+                <li>1 cup (200g) granulated sugar </li>  
+                <li>½ cup (100g) brown sugar  </li> 
+                <li> ¾ cup (180ml) vegetable oil  </li> 
+                <li> 3 large eggs  </li> 
+                <li>2 cups (250g) grated carrots  </li> 
+                
+            </ul>
+            <h4>For the Frosting:</h4>
+            <ul>
+                <li>8 oz (225g) cream cheese, softened   </li> 
+                <li>½ cup (115g) unsalted butter   </li> 
+                <li>2 cups (240g) powdered sugar  </li>  
+                <li>1 teaspoon vanilla extract   </li> 
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Mix flour, baking soda, cinnamon, and salt.   </li> 
+                <li>Beat eggs, sugars, and oil. Add carrots.   </li> 
+                <li> Combine wet and dry ingredients.   </li> 
+                <li> Bake at 350°F (175°C) for 50 minutes. Cool.   </li> 
+                <li>Beat cream cheese, butter, sugar, and vanilla.  </li>  
+                <li>Frost cake and chill before serving. </li> 
+             
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="coconut" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('coconut')">&times;</span>
+            <h2>Coconut Macaroons</h2>
+            <p><strong>Total Time:</strong> 45 hours (Preparation: 15 minutes, Baking: 25 minutes, Cooling: 5 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 3 cups (240g) shredded coconut   </li> 
+                <li>¾ cup (150g) granulated sugar   </li> 
+                <li>3 large egg whites   </li> 
+                <li>1 teaspoon vanilla extract   </li> 
+                <li>¼ teaspoon salt   </li> 
+                <li>Optional: 4 oz (115g) dark chocolate, melted   </li> 
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Preheat oven to 325°F (165°C).   </li> 
+                <li> In a bowl, mix coconut, sugar, egg whites, vanilla, and salt until well combined.   </li> 
+                <li> Scoop small mounds onto a lined baking sheet.   </li> 
+                <li>Bake for 20–25 minutes until golden brown.   </li> 
+                <li>Let cool completely.   </li> 
+                <li>Dip bottoms in melted chocolate and let set.  </li>  
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="fruittart" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fruittart')">&times;</span>
+            <h2>Fruit Tart</h2>
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Crust:</h4>
+            <ul>
+                <li>1 ¼ cups (160g) all-purpose flour  </li> 
+                <li>½ cup (115g) unsalted butter, chilled and cubed  </li> 
+                <li> ¼ cup (50g) granulated sugar </li>  
+                <li>1 egg yolk  </li> 
+                <li>1 tablespoon cold water  </li> 
+                
+            </ul>
+            <h4>For the Pastry Cream:</h4>
+            <ul>
+                <li> 2 cups (480ml) whole milk </li>  
+                <li> ½ cup (100g) granulated sugar </li>  
+                <li> 4 large egg yolks  </li> 
+                <li>¼ cup (30g) cornstarch  </li> 
+                <li>1 teaspoon vanilla extract  </li> 
+                <li>2 tablespoons (30g) unsalted butter  </li> 
+                 
+            </ul>
+            <h4>For Topping:</h4>
+            <ul>
+                - 2 cups mixed fresh fruits (strawberries, kiwi, blueberries, etc.)  
+- ¼ cup (60ml) apricot jam (for glaze)  
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Blend flour, butter, and sugar in a food processor. Add egg yolk and water. </li> 
+                <li>Chill for 30 minutes, then roll out and fit into a tart pan.  </li>
+                <li>Preheat oven to 350°F (175°C), bake for 15 minutes.  </li>
+                <li> Heat milk. Whisk egg yolks, sugar, and cornstarch in a bowl.  </li>
+                <li> Slowly add warm milk, whisking constantly.  </li>
+                <li>Return to heat, stir until thick, then add vanilla and butter.  </li>
+                <li>Spread pastry cream in cooled crust.  </li>
+                <li>Arrange fresh fruit on top. Brush with warm apricot jam for shine.</li>  
+                 
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="mangosticky" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('mangosticky')">&times;</span>
+            <h2>Mango Sticky Rice</h2>
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup (200g) glutinous rice (sticky rice)  </li>  
+                <li>1 ½ cups (360ml) coconut milk  </li>  
+                <li> ½ cup (100g) granulated sugar </li>   
+                <li> ¼ teaspoon salt  </li>  
+                <li>2 ripe mangoes, sliced  </li>  
+                <li>1 tablespoon sesame seeds (optional)  </li>  
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Soak rice in water for 1 hour, then steam for 25–30 minutes until tender.</li>  
+                <li>Heat coconut milk, sugar, and salt until dissolved.  </li>  
+                <li>Pour over cooked rice and let it absorb for 20 minutes.  </li>  
+                <li>Plate sticky rice with mango slices. Drizzle extra coconut milk and sprinkle sesame seeds.  </li>  
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="pavlova" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('pavlova')">&times;</span>
+            <h2>Pavlova</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 20 minutes, Baking: 1.5 hours, Cooling: 30 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <h4>For the Meringue:</h4>
+            <ul>
+                <li>4 large egg whites  </li>  
+                <li>1 cup (200g) granulated sugar  </li>  
+                <li>1 teaspoon vinegar or lemon juice  </li>  
+                <li>1 teaspoon cornstarch  </li>  
+                <li>1 teaspoon vanilla extract  </li>  
+                
+            </ul>
+            <h4>For Topping:</h4>
+            <ul>
+                <li> 1 cup (240ml) heavy cream, whipped  </li>  
+                <li>1 cup fresh fruits (strawberries, kiwi, passion fruit)  </li>  
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Preheat oven to 250°F (120°C). </li>   
+                <li>Beat egg whites until soft peaks form. Gradually add sugar and beat until stiff peaks form. </li>   
+                <li>Fold in vinegar, cornstarch, and vanilla.  </li>  
+                <li>Shape meringue into a round disc on a lined baking sheet.  </li>  
+                <li>Bake for 1.5 hours, then turn off the oven and let cool inside.  </li>  
+                <li>Top with whipped cream and fresh fruits.   </li>      
+            </ol>
+        </div>
+    </div>
+
+
+
+    <!-- Bottom Navbar -->
+    <footer class="bottom-navbar">
+        <p>&copy; 2025 Sweet Treats. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Search Bar Functionality
+        function searchDesserts() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.querySelectorAll('.dessert-card');
+
+            cards.forEach(card => {
+                let name = card.dataset.name.toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Modal Functionality
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

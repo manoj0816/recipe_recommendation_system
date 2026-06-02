@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Country</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: url('cook.jpg') no-repeat center center;
+            background-size: cover; /* Ensures the image covers the full screen */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+             /* Adds dark overlay for contrast */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .country-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .country-list li {
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            background: white;
+            color: black;
+            border-radius: 25px;
+            margin: 8px 0;
+            cursor: pointer;
+            border: 2px solid black;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .country-list li:hover {
+            background: black;
+            color: white;
+        }
+
+        .country-list li.selected {
+            background: rgb(104, 104, 107);
+            color: white;
+        }
+
+        .next-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            background: rgb(133, 249, 133);
+            color: rgb(12, 12, 12);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .next-btn:hover {
+            background: rgb(23, 93, 4);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <h2>Select Your Country</h2>
+        <ul class="country-list">
+            <li onclick="selectCountry(this, 'USA')">USA</li>
+            <li onclick="selectCountry(this, 'UK')">UK</li>
+            <li onclick="selectCountry(this, 'Italy')">Italy</li>
+            <li onclick="selectCountry(this, 'France')">France</li>
+            <li onclick="selectCountry(this, 'India')">India</li>
+            <li onclick="selectCountry(this, 'China')">China</li>
+            <li onclick="selectCountry(this, 'Mexico')">Mexico</li>
+            <li onclick="selectCountry(this, 'Japan')">Japan</li>
+            <li onclick="selectCountry(this, 'Ethiopia')">Ethiopia</li>
+            <li onclick="selectCountry(this, 'Brazil')">Brazil</li>
+        </ul>
+
+        <button class="next-btn" onclick="goToHome()">Next</button>
+    </div>
+
+    <script>
+        let selectedCountry = "";
+
+        function selectCountry(element, country) {
+            selectedCountry = country;
+            localStorage.setItem("selectedCountry", country);
+
+            // Remove existing selection
+            document.querySelectorAll('.country-list li').forEach(item => {
+                item.classList.remove("selected");
+            });
+
+            // Highlight selected country
+            element.classList.add("selected");
+
+            // Show the Next button
+            document.querySelector(".next-btn").style.display = "block";
+        }
+
+        function goToHome() {
+            if (selectedCountry) {
+                window.location.href = "home.html"; // Redirect to home page
+            }
+        }
+    </script>
+
+</body>
+</html>

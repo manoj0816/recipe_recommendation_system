@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desserts | Recipe Recommendations</title>
+    <style>
+        /* General Styles */
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    width: 100vw;  /* Full width */
+    min-height: 100vh; /* Ensure full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+        /* Top Navbar */
+        .top-navbar {
+    background: #ff6f61;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    height: 20px;
+    width: 204vh;
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+
+        .top-navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .top-navbar ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .top-navbar ul li {
+            margin: 0 15px;
+        }
+
+        .top-navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+           
+        }
+
+        /* Dessert Grid */
+        .dessert-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dessert-card {
+            width: 250px;
+            background: white;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .dessert-card:hover{
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+            transform: scale(1.05);
+        }
+
+        .dessert-card img {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+        }
+
+        .dessert-card h3 {
+            color: #ff6f61;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            width: 50%;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .modal-content h2{
+            color: #25e22b;
+        }
+        .modal-content h3{
+            color: #e225ac;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Bottom Navbar */
+        .bottom-navbar {
+    background: #ff6f61;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    height: 40px; /* Increased height for better alignment */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bottom-navbar p {
+    margin: 0; /* Remove extra spacing */
+    padding: 0;
+}
+.modal-content ul li{
+    list-style: none;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="logo">COOKING MASTER</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="deserts.html" class="active">Desserts</a></li>
+            <li><a href="about.html">About</a></li>
+            
+        </ul>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+    <marquee behavior="scroll" direction="left" scrollamount="8" style="color: #ff6f61; background: white; padding: 10px; font-size: 18px; font-weight: bold; border-radius: 5px;">
+        🍹✨**"Sip, Savor, and Refresh – Discover Delightful Drinks from Around the World!"** 🍹✨
+        </marquee>
+
+    <!-- Dessert Grid -->
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Chocolate Lava Cake" onclick="openModal('icedffee')">
+            <img src="iced coffee.jpg" alt="Chocolate Lava Cake">
+            <h3> Iced Coffee</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Classic Tiramisu" onclick="openModal('Lemonade')">
+            <img src="lemonodee.jpg" alt="Classic Tiramisu">
+            <h3> Lemonade</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Vanilla Panna Cotta" onclick="openModal('matcha')">
+            <img src="matchaa.jpg" alt="Vanilla Panna Cotta">
+            <h3>Matcha Latte</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Strawberry Cheesecake" onclick="openModal('chai')">
+            <img src="chaii.jpg" alt="Strawberry Cheesecake">
+            <h3>Chai Tea  </h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Classic Brownies" onclick="openModal('Smoothie')">
+            <img src="mango smoothi.jpg" alt="Classic Brownies">
+            <h3>Smoothie (Mango, Berry, Green, etc.)</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Red Velvet Cake" onclick="openModal('coconut')">
+            <img src="coconut water.jpg" alt="Red Velvet Cake">
+            <h3>Coconut Water</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Creme Brulee" onclick="openModal('Bubble')">
+            <img src="bubble.jpg" alt="Crème Brûlée">
+            <h3>Bubble Tea (Boba Tea)</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Molten Lava Cake" onclick="openModal('coldBrew')">
+            <img src="cold brew.jpg" alt="Molten Lava Cake">
+            <h3>Cold Brew Coffee</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Panna Cotta" onclick="openModal('hotchocolate')">
+            <img src="hot chocalate.jpg" alt="Panna Cotta">
+            <h3>Hot Chocolate</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Eclairs" onclick="openModal('fruitpunch')">
+            <img src="fruit punch.jpg" alt="Éclairs">
+            <h3> Fruit Punch</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Lemon Tart" onclick="openModal('Milkshake')">
+            <img src="milkshake.jpg" alt="Lemon Tart">
+            <h3>Milkshake (Chocolate, Vanilla, Strawberry, etc.)</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Strawberry Shortcake" onclick="openModal('Herbal')">
+            <img src="herbal tea.jpg" alt="Strawberry Shortcake">
+            <h3>Herbal Tea (Chamomile, Peppermint, Hibiscus, etc.)</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Macarons" onclick="openModal('buttermilk')">
+            <img src="butter milk.jpg" alt="Macarons">
+            <h3>Buttermilk (Lassi, Ayran, etc.)</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Baklava" onclick="openModal('soymilk')">
+            <img src="soy milk.jpg" alt="Baklava">
+            <h3> Soy Milk / Almond Milk Drinks</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Black Forest Cake" onclick="openModal('Sugarcane')">
+            <img src="sugarcan juice.jpg" alt="Black Forest Cake">
+            <h3>Sugarcane Juice</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Cannoli" onclick="openModal('soda')">
+            <img src="soda.jpg" alt="Cannoli">
+            <h3>Soda (Coke, Pepsi, Sprite, etc.)</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Cupcakes" onclick="openModal('tonicwater')">
+            <img src="tonic water.jpg" alt="Cupcakes">
+            <h3>Tonic Water</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Banana Pudding" onclick="openModal('clubsoda')">
+            <img src="club soda.jpg" alt="Banana Pudding">
+            <h3>Club Soda</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Profiterols" onclick="openModal('Ginger')">
+            <img src="ginger ali.jpg" alt="Profiteroles">
+            <h3>Ginger Ale</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Carrot Cake" onclick="openModal('Energy')">
+            <img src="energy drink.jpg" alt="Carrot Cake">
+            <h3>Energy Drink (Red Bull, Monster, etc.)</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Coconut Macaroons" onclick="openModal('Virgin')">
+            <img src="vitgin mojito.jpg" alt="Coconut Macaroons">
+            <h3>Virgin Mojito</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <div class="dessert-container">
+        <div class="dessert-card" data-name="Fruit Tart" onclick="openModal('Shirley')">
+            <img src="shirley.jpg" alt="Fruit Tart">
+            <h3>Shirley Temple</h3>
+            <p>Rich and gooey molten chocolate cake served warm.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Mango Sticky Rice" onclick="openModal('pina')">
+            <img src="pina colada.jpg" alt="Mango Sticky Rice">
+            <h3>Piña Colada (Non-Alcoholic)</h3>
+            <p>A delightful Italian dessert with layers of mascarpone and coffee-soaked biscuits.</p>
+        </div>
+
+        <div class="dessert-card" data-name="Pavlova" onclick="openModal('Blue')">
+            <img src="blue lagoon.jpg" alt="Pavlova">
+            <h3>Blue Lagoon (Mocktail Version)</h3>
+            <p>Creamy vanilla-flavored Italian pudding, best served with fresh berries.</p>
+        </div>
+    </div>
+
+    <!-- Dessert Modals -->
+    <div id="icedffee" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('icedffee')">&times;</span>
+            <h2>Iced Coffee</h2>
+            <p><strong>Total Time:</strong> 25 minutes | <strong>Servings:</strong> 4</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>Iced Coffee</li>
+                <li>Ice cubes</li>
+                <li>1/2 cup milk or cream</li>
+                <li>1-2 tsp sugar (optional)</li>
+               
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Brew coffee and let it cool.</li>
+                <li> Fill a glass with ice cubes.</li>
+                <li> Pour the cooled coffee over the ice.</li>
+                <li> Add milk or cream and sugar, then stir well.</li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="Lemonade" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Lemonade')">&times;</span>
+            <h2>Lemonade</h2>
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 1/2 cup fresh lemon juice</li>
+                <li>2 cups cold water</li>
+                <li>2-3 tbsp sugar</li>
+                <li> Ice cubes</li>
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> 1/2 cup fresh lemon juice</li>
+                <li>2 cups cold water</li>
+                <li> 2-3 tbsp sugar</li>
+                <li> Ice cubes</li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="matcha" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('matcha')">&times;</span>
+            <h2>Matcha Latte</h2>
+            <p><strong>Total Time:</strong> 3 hours(including chilling) | <strong>Servings:4</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 1 tsp matcha powder</li>
+                <li>1/2 cup hot water</li>
+                <li> 1 cup milk</li>
+                <li>1-2 tsp honey or sugar</li>
+                
+	                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Whisk matcha powder with hot water until smooth.</li>
+                <li> Heat milk and froth it using a frother.</li>
+                <li> Pour the frothed milk into the matcha mixture.</li>
+                <li>Sweeten if desired and serve warm.</li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="chai" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('chai')">&times;</span>
+            <h2>Chai Tea</h2>
+            <p><strong>Total Time:</strong> 6 hours(including chilling) | <strong>Servings:</strong> 8</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup water</li>
+                <li>1 cup milk</li>
+                <li> 1 black tea bag</li>
+                <li> 1 tsp chai spices (cinnamon, cardamom, ginger, cloves)</li>
+                <li> 1-2 tsp sugar</li>
+                
+	        </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Boil water and add tea bag and spices.</li>
+                <li> Simmer for 5 minutes, then add milk and sugar.</li>
+                <li> Simmer for another 5 minutes.</li>
+                <li> Strain and serve hot</li>
+
+                
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Smoothie" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Smoothie')">&times;</span>
+            <h2>Smoothie (Mango, Berry, Green, etc.)</h2>
+                
+            <p><strong>Total Time:</strong> 35 minutes | <strong>Servings:</strong> 12</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup fruit of choice (mango, berries, banana, etc.)</li>
+                <li>1/2 cup yogurt or milk</li>
+                <li> 1 tbsp honey (optional)</li>
+                <li> Ice cubes</li>
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Blend all ingredients until smooth.</li>
+                <li>Pour into a glass and enjoy.</li>
+
+                
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="coconut" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('coconut')">&times;</span>
+            <h2>Coconut Water</h2>
+            <p><strong>Total Time:</strong> 1 hours 30 minutes(Preparation: 30 minutes, Baking: 30 minutes, Cooling & Frosting: 30 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                Coconut Water</li>
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Open a fresh coconut.</li>
+                <li> Pour the coconut water into a glass and serve chilled.</li>
+ 
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Bubble" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Bubble')">&times;</span>
+            <h2>Bubble Tea (Boba Tea)</h2>
+            <p><strong>Total Time:</strong> 2 hours(including cooling,Preparation: 15 minutes, Baking: 50 minutes, Cooling & Chilling: 1 hour ) | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1/2 cup tapioca pearls</li>
+                <li> 1 cup brewed black tea</li>
+                <li> 1/2 cup milk</li>
+                <li> 2 tbsp sugar</li>
+                <li>Ice cubes</li>
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Boil tapioca pearls until soft, then drain.</li>
+                <li> Brew black tea and let it cool.</li>
+                <li> Mix tea, milk, and sugar.</li>
+                <li> Add ice and tapioca pearls, then serve.</li>
+
+            
+                  
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="coldBrew" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('coldBrew')">&times;</span>
+            <h2>Cold Brew Coffee</h2>
+            <p><strong>Total Time:</strong> 25 minutes (Preparation: 10 minutes, Baking: 12–15 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 1/2 cup ground coffee</li>
+                <li>2 cups cold water</li>
+                <li> Ice cubes</li>
+                <li> Milk or sweetener (optional)</li>
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Mix coffee with cold water and let it steep for 12-24 hours.</li>
+                <li> Strain and serve over ice with milk or sweetener.</li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="hotchocolate" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hotchocolate')">&times;</span>
+            <h2>Hot Chocolate</h2>
+            <p><strong>Total Time:</strong> 4 hours (including chilling,Preparation: 10 minutes, Cooking: 10 minutes, Chilling: 3–4 hours)| <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup milk</li>
+                <li>2 tbsp cocoa powder</li>
+                <li> 2 tbsp sugar</li>
+                <li>Whipped cream (optional)</li>
+                
+	                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>Heat milk and mix in cocoa powder and sugar.</li>
+                <li> Stir well and bring to a simmer.</li>
+                <li> Pour into a mug and top with whipped cream.</li>
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="fruitpunch" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fruitpunch')">&times;</span>
+            <h2>Fruit Punch</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 45 minutes, Baking: 30 minutes, Filling & Cooling: 45 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+           
+            <ul>
+                <li> 2 cups mixed fruit juice</li>
+                <li> 1 cup soda or sparkling water</li>
+                <li> 1/2 cup chopped fruits</li>
+                <li> Ice cubes</li>
+                
+            </ul>
+           
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Mix fruit juice with soda or sparkling water.</li>
+                <li> Add chopped fruits and ice, then serve chilled.</li>
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Milkshake" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Milkshake')">&times;</span>
+            <h2>Milkshake (Chocolate, Vanilla, Strawberry, etc.)</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 30 minutes, Baking: 30 minutes, Cooling: 1 hour)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+            <ul>
+                <li> 1 cup milk</li>
+                <li> 2 scoops ice cream (flavor of choice)</li>
+                <li> 1 tbsp flavored syrup (chocolate, vanilla, strawberry)</li>
+                <li> Whipped cream (optional)</li>
+                 
+                
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Blend milk, ice cream, and syrup until smooth.</li>
+                <li> Pour into a glass and top with whipped cream if desired.</li>
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Herbal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Herbal')">&times;</span>
+            <h2>Herbal Tea (Chamomile, Peppermint, Hibiscus, etc.)</h2>
+            <p><strong>Total Time:</strong>45 minutes (Preparation: 20 minutes, Baking: 20 minutes, Assembling: 5 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+
+            <ul>
+                <li> 1 herbal tea bag (chamomile, peppermint, hibiscus, etc.)</li>
+                <li>1 cup hot water</li>
+                <li> Honey or lemon (optional)</li>
+                
+
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> 1 herbal tea bag (chamomile, peppermint, hibiscus, etc.)</li>
+                <li> 1 cup hot water</li>
+                <li>Honey or lemon (optional)</li>
+
+                             
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="buttermilk" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('buttermilk')">&times;</span>
+            <h2>Buttermilk (Lassi, Ayran, etc.)</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 30 minutes, Resting: 1 hour, Baking: 15 minutes) | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+           
+            <ul>
+                <li> 1 cup yogurt</li>
+                <li>1/2 cup water</li>
+                <li>Salt or sugar (as per taste)</li>
+                <li> Mint leaves (optional)</li>
+                
+            </ul>
+           
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Blend yogurt, water, and salt/sugar until smooth.</li>
+                <li>Serve chilled with mint leaves as garnish.</li>
+                
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="soymilk" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('soymilk')">&times;</span>
+            <h2>Soy Milk / Almond Milk Drinks</h2>
+            <p><strong>Total Time:</strong> 3 hours (Preparation: 30 minutes, Baking: 1 hour, Cooling: 1.5 hours)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup soy milk or almond milk</li>
+                <li>1 tsp honey or sweetener (optional)</li>
+                <li>Cinnamon or cocoa powder (optional)</li>
+                
+                
+            </ul>
+           
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Heat the milk slightly if preferred warm.</li>
+                <li> Add honey or sweetener and stir.</li>
+                <li>Sprinkle with cinnamon or cocoa powder and serve.</li>
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="Sugarcane" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Sugarcane')">&times;</span>
+            <h2>Sugarcane Juice</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 45 minutes, Baking: 35 minutes, Cooling & Assembly: 1 hour)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+           
+            <ul>
+                <li>2 cups fresh sugarcane juice</li>
+                <li>1/2 tsp lemon juice</li>
+                <li> 1/2 tsp ginger juice (optional)</li>
+                <li> Ice cubes</li>
+
+                
+            </ul>
+           
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Extract fresh sugarcane juice.</li>
+                <li>Mix in lemon juice and ginger juice if desired.</li>
+                <li> Serve chilled over ice.</li>
+                
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="soda" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('soda')">&times;</span>
+            <h2>Soda (Coke, Pepsi, Sprite, etc.)</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 45 minutes, Frying: 15 minutes, Cooling & Filling: 1 hour)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+           
+            <ul>
+                <li>1 can soda (Coke, Pepsi, Sprite, etc.)</li>
+                <li>Ice cubes</li>
+                <li>Lemon slice (optional)</li>
+                
+                
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Pour soda into a glass filled with ice cubes.</li>
+                <li> Garnish with a lemon slice if desired.</li>
+                <li>Serve immediately.</li>
+
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="tonicwater" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('tonicwater')">&times;</span>
+            <h2>Tonic Water</h2>
+            <p><strong>Total Time:</strong> 45 hours (Preparation: 15 minutes, Baking: 20 minutes, Cooling & Frosting: 10 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>1 cup tonic water</li>
+                <li>Ice cubes</li>
+                <li>Lemon or lime slice</li>
+
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Pour tonic water into a glass with ice cubes.</li>
+                <li>Garnish with a lemon or lime slice.</li>
+                <li>Serve chilled.</li>
+
+
+            </ol>
+        </div>
+    </div>
+
+    
+    <div id="clubsoda" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('clubsoda')">&times;</span>
+            <h2>Club Soda</h2>
+            <p><strong>Total Time:</strong> 4 hours (Preparation: 20 minutes, Chilling: 3–4 hours)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>  1 cup club soda</li>
+                <li> Ice cubes</li>
+                <li> Lemon or lime wedgev</li>
+                
+                
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Pour club soda over ice in a glass.</li>
+                <li> Squeeze a lemon or lime wedge for flavor.</li>
+                <li> Stir lightly and serve.</li>
+
+
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="Ginger" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Ginger')">&times;</span>
+            <h2>Ginger Ale</h2>
+                
+            <p><strong>Total Time:</strong> 1.5 hours (Preparation: 30 minutes, Baking: 25 minutes, Filling & Cooling: 35 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+            <ul>
+                <li> 1 cup soda water</li>
+                <li> 1 tbsp fresh ginger juice</li>
+                <li> 1 tbsp lemon juice</li>
+                <li> 1 tbsp honey or sugar syrup</li>
+                <li> Ice cubes</li>
+
+                
+            </ul>
+            
+           
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Mix ginger juice, lemon juice, and honey in a glass.</li>
+                <li>  Add ice cubes and pour soda water over it.</li>
+                <li>  Stir well and serve chilled.</li>
+
+
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="Energy" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Energy')">&times;</span>
+            <h2>Energy Drink (Red Bull, Monster, etc.)</h2>
+            <p><strong>Total Time:</strong> 2 hours (Preparation: 30 minutes, Baking: 50 minutes, Cooling & Frosting: 40 minutes)  | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+            <ul>
+                <li>  1 can energy drink (Red Bull, Monster, etc.)</li>
+                <li> Ice cubes</li>
+                <li> Lemon wedge (optional)</li>
+
+                
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Pour the energy drink into a glass filled with ice.</li>
+                <li> Garnish with a lemon wedge if desired.</li>
+                <li> Serve chilled.</li>
+
+
+             
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="Virgin" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Virgin')">&times;</span>
+            <h2>Virgin Mojito</h2>
+            <p><strong>Total Time:</strong> 45 hours (Preparation: 15 minutes, Baking: 25 minutes, Cooling: 5 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 10 fresh mint leaves</li>
+                <li> 1 tbsp sugar</li>
+                <li> 1/2 lime (sliced)</li>
+                <li> 1 cup soda water</li>
+                <li> Ice cubes</li>
+
+                
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Muddle mint leaves, sugar, and lime slices in a glass.</li>
+                <li> Add ice cubes and pour soda water over it.</li>
+                <li>  Stir and serve chilled.</li>
+                
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="Shirley" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Shirley')">&times;</span>
+            <h2>Shirley Temple</h2>
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+            <ul>
+                <li> 1 cup ginger ale or lemon-lime soda</li>
+                <li> 1 tbsp grenadine syrup</li>
+                <li> Ice cubes</li>
+                <li>  Maraschino cherry for garnish</li>
+                
+            </ul>
+            
+            
+            <h3>Procedure:</h3>
+            <ol>
+                <li> Fill a glass with ice cubes.</li>
+                <li>  Pour ginger ale and grenadine syrup over the ice.</li>
+                <li> Stir gently and garnish with a cherry.</li>
+                
+                
+                 
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="pina" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('pina')">&times;</span>
+            <h2>Piña Colada (Non-Alcoholic)</h2>
+                
+            <p><strong>Total Time:</strong> 4 hours | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li> 1 cup pineapple juice</li>
+                <li> 1/2 cup coconut milk</li>
+                <li> 1/2 cup crushed ice</li>
+                <li> 1 tbsp honey (optional)</li>
+                <li> Pineapple slice for garnish</li>
+
+            </ul>
+            <h3>Procedure:</h3>
+            <ol>
+                <li>  Blend pineapple juice, coconut milk, and crushed ice until smooth.</li>
+                <li> Pour into a glass and garnish with a pineapple slice.</li>
+                <li> Serve chilled.</li>
+
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="Blue" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('Blue')">&times;</span>
+            <h2>Blue Lagoon (Mocktail Version)</h2>
+            <p><strong>Total Time:</strong> 2.5 hours (Preparation: 20 minutes, Baking: 1.5 hours, Cooling: 30 minutes)   | <strong>Servings:</strong> 6</p>
+            <h3>Ingredients:</h3>
+            
+            <ul>
+                <li>  1 cup lemon-lime soda</li>
+                <li> 1 tbsp blue curaçao syrup (non-alcoholic)</li>
+                <li> Ice cubes</li>
+                <li> Lemon slice for garnish</li>
+
+                
+            </ul>
+            
+            <h3>Procedure:</h3>
+            <ol>
+               <li> Fill a glass with ice cubes.</li>
+               <li>  Add blue curaçao syrup and top with lemon-lime soda.</li>
+               <li> Stir and garnish with a lemon slice.</li>
+     
+            </ol>
+        </div>
+    </div>
+
+
+
+    <!-- Bottom Navbar -->
+    <footer class="bottom-navbar">
+        <p>&copy; 2025 Cooking Master. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Search Bar Functionality
+        function searchDesserts() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.querySelectorAll('.dessert-card');
+
+            cards.forEach(card => {
+                let name = card.dataset.name.toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Modal Functionality
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
