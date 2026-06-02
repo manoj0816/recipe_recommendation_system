@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakfast Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .top-nav {
+            background: #ff6347;
+            padding: 10px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+        }
+        h1 {
+            color: #ff6347;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .recipes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per row */
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .recipe {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 400px;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        .recipe:hover {
+            transform: scale(1.05);
+        }
+        .recipe img {
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+        }
+        .recipe h2 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #ff6347;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #e5533d;
+        }
+        /* Recipe Heading */
+.content h2 {
+    font-size: 22px;
+    color: #ff6347;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Subheadings */
+.content h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+}
+
+/* Ingredients & Procedure List */
+.content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content ul li {
+    background: #fff5ee;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 4px solid #ff6347;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Paragraph Styling */
+.content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* Scrollable Content for Large Recipes */
+.content {
+    display: none;
+    padding: 15px;
+    text-align: left;
+    background: #fff5ee;
+    border-radius: 5px;
+    margin-top: 10px;
+    max-height: 400px; /* Set max height for scrolling */
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #ff6347;
+    border-radius: 5px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #e5533d;
+}
+
+        .bottom-nav {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            height: 20px;
+            width: 100%;
+        }
+        
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .recipes {
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row for medium screens */
+            }
+        }
+        @media (max-width: 600px) {
+            .recipes {
+                grid-template-columns: repeat(1, 1fr); /* 1 card per row for small screens */
+            }
+        }
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="drinks.html"><i class="fa-solid fa-mug-hot"></i> Drinks</a>
+        <a href="lunch.html"><i class="fa-solid fa-bowl-food"></i> Lunch</a>
+        <a href="dinner.html"><i class="fa-solid fa-drumstick-bite"></i> Dinner</a>
+
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+    <marquee behavior="scroll" direction="left" scrollamount="6" style="background: #ff6347; color: white; padding: 10px; font-size: 1.2rem;">
+        🥞☕🥓🍓🥑 🍽️ Start Your Day Right! Enjoy Delicious and Healthy Breakfast Recipes! 🥞☕🥓🍓🥑
+    </marquee>
+    
+
+    <div class="container">
+        <h1><i class="fas fa-coffee"></i> Delicious Breakfast Recipes</h1>
+        <div class="recipes">
+            <div class="recipe">
+                <img src="idly.jpg" alt="Pancakes">
+                <h2>Idli🍚</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Idli 🍚🥥</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Idli Rice</li>
+    <li>1 cup Urad Dal (Black Gram Lentils)</li>
+    <li>1/2 tsp Fenugreek Seeds (Methi)</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as required)</li>
+    <li>Oil (for greasing the idli plates)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak the idli rice and urad dal separately in water for 6-8 hours.</li>
+    <li>Soak fenugreek seeds along with urad dal.</li>
+    <li>Grind urad dal and fenugreek seeds into a smooth, fluffy batter using little water.</li>
+    <li>Grind idli rice into a slightly coarse batter.</li>
+    <li>Mix both batters well, add salt, and let it ferment overnight (8-12 hours) until it doubles in volume.</li>
+    <li>Grease the idli plates with oil and pour the batter into each mold.</li>
+    <li>Steam in an idli cooker or steamer for 10-12 minutes.</li>
+    <li>Check with a toothpick—if it comes out clean, the idlis are ready.</li>
+    <li>Remove from the steamer, let cool for a minute, and gently scoop out the idlis.</li>
+    <li>Serve hot with coconut chutney and sambar.</li>
+</ul>
+
+<p>Enjoy your soft and fluffy Idlis with chutney and sambar! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="dosa.jpg" alt="Omelette">
+                <h2>Dosa🌯</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Dosa 🥞🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Idli Rice</li>
+    <li>1/2 cup Urad Dal (Black Gram Lentils)</li>
+    <li>1/4 cup Chana Dal (Bengal Gram Lentils)</li>
+    <li>1/2 tsp Fenugreek Seeds (Methi)</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as required)</li>
+    <li>Oil or Ghee (for cooking)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak idli rice, urad dal, chana dal, and fenugreek seeds separately in water for 6-8 hours.</li>
+    <li>Grind urad dal and fenugreek seeds into a smooth, fluffy batter using little water.</li>
+    <li>Grind the rice and chana dal into a slightly coarse batter.</li>
+    <li>Mix both batters well, add salt, and let it ferment overnight (8-12 hours) until it doubles in volume.</li>
+    <li>Heat a non-stick or cast-iron dosa tawa on medium flame and grease it lightly.</li>
+    <li>Pour a ladleful of batter onto the tawa and spread it in a circular motion to form a thin dosa.</li>
+    <li>Drizzle a little oil or ghee around the edges and cook until golden brown.</li>
+    <li>Flip if needed and cook for a few seconds.</li>
+    <li>Remove from the tawa and serve hot with coconut chutney and sambar.</li>
+</ul>
+
+<p>Enjoy your crispy and delicious Dosa with chutney and sambar! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="poha.jpg" alt="Smoothie">
+                <h2>Poha🍛</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Poha 🍛🥔</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Poha (Flattened Rice)</li>
+    <li>1 medium Onion (finely chopped)</li>
+    <li>1 small Potato (peeled & diced)</li>
+    <li>1 Green Chili (chopped)</li>
+    <li>1/2 tsp Mustard Seeds</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/4 tsp Asafoetida (Hing)</li>
+    <li>8-10 Curry Leaves</li>
+    <li>1 tbsp Peanuts</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+    <li>2 tbsp Oil</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as needed)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Rinse the poha in water for a few seconds, drain it completely, and let it rest.</li>
+    <li>Heat oil in a pan and add mustard seeds, cumin seeds, and peanuts. Let them splutter.</li>
+    <li>Add chopped onions and green chili. Sauté until onions turn soft.</li>
+    <li>Add diced potatoes, turmeric powder, and salt. Cook until potatoes are soft.</li>
+    <li>Add curry leaves and asafoetida, mix well.</li>
+    <li>Gently add the soaked poha and mix everything well.</li>
+    <li>Cover and cook for 2-3 minutes on low heat.</li>
+    <li>Turn off the flame, add lemon juice and coriander leaves, and mix well.</li>
+    <li>Serve hot with tea or as a light breakfast.</li>
+</ul>
+
+<p>Enjoy your delicious and healthy Poha! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="upma.jpg" alt="Pancakes">
+                <h2>Upma🥣</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Upma 🍛🌿</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Rava (Semolina/Sooji)</li>
+    <li>2 cups Water</li>
+    <li>1 small Onion (finely chopped)</li>
+    <li>1 Green Chili (chopped)</li>
+    <li>1/2 inch Ginger (grated)</li>
+    <li>1/2 tsp Mustard Seeds</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>8-10 Curry Leaves</li>
+    <li>1 tbsp Chana Dal (optional)</li>
+    <li>1 tbsp Urad Dal (optional)</li>
+    <li>1 tbsp Peanuts or Cashews (optional)</li>
+    <li>2 tbsp Oil or Ghee</li>
+    <li>1/4 tsp Asafoetida (Hing)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Dry roast the rava in a pan on low flame until it turns slightly golden and aromatic. Set aside.</li>
+    <li>Heat oil or ghee in a pan and add mustard seeds. Let them splutter.</li>
+    <li>Add cumin seeds, chana dal, urad dal, peanuts/cashews, and sauté until golden.</li>
+    <li>Add chopped onions, green chili, ginger, and curry leaves. Sauté until onions turn soft.</li>
+    <li>Add asafoetida, turmeric powder, and salt. Mix well.</li>
+    <li>Pour in water and bring it to a boil.</li>
+    <li>Slowly add the roasted rava while stirring continuously to prevent lumps.</li>
+    <li>Cover and cook on low flame for 2-3 minutes until the water is absorbed.</li>
+    <li>Turn off the heat, add lemon juice and coriander leaves, and mix well.</li>
+    <li>Serve hot with coconut chutney or pickle.</li>
+</ul>
+
+<p>Enjoy your delicious and healthy Upma! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="paratha.jpg" alt="Omelette">
+                <h2>Paratha🫓</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Paratha 🫓🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Whole Wheat Flour</li>
+    <li>1/2 tsp Salt</li>
+    <li>3/4 cup Water (as needed)</li>
+    <li>2 tbsp Ghee or Oil (for kneading and cooking)</li>
+    <li>Extra Flour (for rolling)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a mixing bowl, add whole wheat flour and salt.</li>
+    <li>Gradually add water and knead into a soft, smooth dough.</li>
+    <li>Apply 1/2 tbsp ghee or oil, cover, and rest the dough for 15-20 minutes.</li>
+    <li>Divide the dough into equal portions and roll them into small balls.</li>
+    <li>Take a ball, dust it with dry flour, and roll it into a circle using a rolling pin.</li>
+    <li>Heat a tawa (griddle) on medium flame and place the rolled paratha on it.</li>
+    <li>Cook for 30-40 seconds until bubbles appear, then flip.</li>
+    <li>Apply ghee or oil on the top side and flip again.</li>
+    <li>Press gently with a spatula and cook until golden brown spots appear.</li>
+    <li>Flip one more time, apply ghee, and cook until fully done.</li>
+    <li>Remove from heat and serve hot with curd, pickle, or butter.</li>
+</ul>
+
+<p>Enjoy your soft and crispy homemade Paratha! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="chole bhature.jpg" alt="Smoothie">
+                <h2>Chole Bhature🍽️</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Chole Bhature 🍛🫓</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For Chole (Chickpea Curry):</h4>
+<ul>
+    <li>1 cup Chickpeas (soaked overnight)</li>
+    <li>1 large Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (chopped)</li>
+    <li>1 tsp Cumin Seeds</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1 tsp Chole Masala (optional)</li>
+    <li>1/2 tsp Amchur (Dry Mango Powder)</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Oil</li>
+    <li>2 cups Water</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h4>For Bhature (Deep-Fried Bread):</h4>
+<ul>
+    <li>2 cups All-Purpose Flour (Maida)</li>
+    <li>2 tbsp Semolina (Sooji)</li>
+    <li>1/2 cup Yogurt</li>
+    <li>1/2 tsp Baking Soda</li>
+    <li>1/2 tsp Salt</li>
+    <li>1 tbsp Sugar</li>
+    <li>Water (as needed)</li>
+    <li>Oil (for frying)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>For Chole:</h4>
+<ul>
+    <li>Pressure cook the soaked chickpeas with 2 cups of water and a pinch of salt for 4-5 whistles.</li>
+    <li>Heat oil in a pan, add cumin seeds, and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and green chili, sauté for another minute.</li>
+    <li>Pour in the tomato puree and cook until the oil separates.</li>
+    <li>Add turmeric, red chili powder, coriander powder, chole masala, and salt. Mix well.</li>
+    <li>Add the cooked chickpeas along with the water and let it simmer for 10 minutes.</li>
+    <li>Sprinkle garam masala and amchur powder, mix well, and cook for another 2 minutes.</li>
+    <li>Garnish with fresh coriander leaves and turn off the heat.</li>
+</ul>
+
+<h4>For Bhature:</h4>
+<ul>
+    <li>In a mixing bowl, add all-purpose flour, semolina, baking soda, salt, and sugar.</li>
+    <li>Add yogurt and mix well. Gradually add water and knead into a soft dough.</li>
+    <li>Cover and let the dough rest for 1-2 hours.</li>
+    <li>Divide the dough into equal portions and roll them into balls.</li>
+    <li>Roll each ball into a circular shape using a rolling pin.</li>
+    <li>Heat oil in a deep pan and carefully slide in the rolled bhature.</li>
+    <li>Fry until golden and puffed up, then remove on a paper towel.</li>
+    <li>Repeat for all bhature.</li>
+</ul>
+
+<p>Serve hot Chole with crispy Bhature and enjoy a delicious North Indian feast! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="aloo puri.jpg" alt="Pancakes">
+                <h2>Aloo Puri🍲 </h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Aloo Puri 🍲</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Whole Wheat Flour</li>
+    <li>1/2 tsp Salt</li>
+    <li>1/2 cup Water (as needed)</li>
+    <li>1 tsp Oil (for kneading)</li>
+    <li>Oil (for deep frying)</li>
+</ul>
+
+<h3>For Aloo Sabzi:</h3>
+<ul>
+    <li>3 Medium-sized Potatoes (boiled & mashed)</li>
+    <li>1 Onion (chopped)</li>
+    <li>1 Tomato (chopped)</li>
+    <li>1 tsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (chopped)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 tbsp Oil</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+    <li>1 cup Water (as needed for gravy)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li><strong>For Puri:</strong></li>
+    <li>In a bowl, mix whole wheat flour, salt, and 1 tsp oil.</li>
+    <li>Gradually add water and knead into a firm dough. Let it rest for 15 minutes.</li>
+    <li>Divide the dough into small balls and roll them into small circles.</li>
+    <li>Heat oil in a deep pan and fry the puris until golden brown.</li>
+    <li>Drain excess oil and keep warm.</li>
+    
+    <li><strong>For Aloo Sabzi:</strong></li>
+    <li>Heat oil in a pan and add cumin seeds.</li>
+    <li>Once they splutter, add chopped onions and sauté until golden.</li>
+    <li>Add ginger-garlic paste and green chili, sauté for a minute.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in turmeric powder, red chili powder, coriander powder, and salt.</li>
+    <li>Add mashed potatoes and stir well.</li>
+    <li>Pour water as needed for a gravy-like consistency and let it simmer for 5 minutes.</li>
+    <li>Finish with garam masala and fresh coriander leaves.</li>
+    <li>Serve hot with crispy puris!</li>
+</ul>
+
+<p>Enjoy your delicious Aloo Puri with pickles and curd! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="medu vada.jpg" alt="Omelette">
+                <h2>Medu Vada🍩</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Medu Vada 🍩</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Urad Dal (Black Gram Lentils)</li>
+    <li>1 Green Chili (finely chopped)</li>
+    <li>1-inch Ginger (grated)</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+    <li>1 tbsp Curry Leaves (chopped)</li>
+    <li>1/2 tsp Black Pepper (crushed)</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as needed)</li>
+    <li>Oil (for deep frying)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak urad dal in water for 4-6 hours.</li>
+    <li>Drain the water and grind the dal into a thick, smooth batter using very little water.</li>
+    <li>Transfer the batter to a bowl and beat it for 3-4 minutes to make it airy and fluffy.</li>
+    <li>Add chopped green chilies, ginger, coriander leaves, curry leaves, black pepper, cumin seeds, and salt. Mix well.</li>
+    <li>Heat oil in a deep pan over medium flame.</li>
+    <li>Wet your hands, take a small portion of the batter, and shape it into a donut-like vada with a hole in the center.</li>
+    <li>Carefully slide the vadas into the hot oil and fry until golden brown and crispy.</li>
+    <li>Drain excess oil using a paper towel.</li>
+    <li>Serve hot with coconut chutney and sambar.</li>
+</ul>
+
+<p>Enjoy your crispy and fluffy Medu Vadas with chutney and sambar! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="misal pav.jpg" alt="Smoothie">
+                <h2>Misal Pav🍞</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Misal Pav 🍞🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Sprouted Moth Beans (Matki)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>2 tbsp Oil</li>
+    <li>1 tsp Mustard Seeds</li>
+    <li>1 tsp Cumin Seeds</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Goda Masala (optional)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>2 cups Water</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 cup Farsan (Spicy Mixed Snack)</li>
+    <li>1 tbsp Coriander Leaves (chopped, for garnish)</li>
+    <li>1 Lemon (cut into wedges)</li>
+    <li>4 Pav (Bread Rolls)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Heat oil in a pan and add mustard seeds, cumin seeds, and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and cook until fragrant.</li>
+    <li>Add tomatoes and cook until soft.</li>
+    <li>Add turmeric powder, red chili powder, garam masala, goda masala, and salt. Mix well.</li>
+    <li>Add the sprouted moth beans and mix thoroughly.</li>
+    <li>Pour water and let it simmer for 10-15 minutes until the beans are soft.</li>
+    <li>Adjust the seasoning as per taste.</li>
+    <li>In a serving bowl, pour the prepared misal.</li>
+    <li>Top with farsan, chopped coriander, and a squeeze of lemon.</li>
+    <li>Toast the pav with butter on a hot pan.</li>
+    <li>Serve the hot misal with pav on the side.</li>
+</ul>
+
+<p>Enjoy your spicy and delicious Misal Pav with a side of chopped onions and lemon! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="apam.jpg" alt="Pancakes">
+                <h2>Appam with Stew🍛</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Appam with Stew 🍛🥥</h2>
+
+<h3>🥘 Ingredients</h3>
+<h4>For Appam:</h4>
+<ul>
+    <li>2 cups Raw Rice</li>
+    <li>1/2 cup Cooked Rice</li>
+    <li>1/2 tsp Yeast</li>
+    <li>1 tsp Sugar</li>
+    <li>1/2 cup Coconut Milk</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as needed)</li>
+</ul>
+
+<h4>For Vegetable Stew:</h4>
+<ul>
+    <li>1 cup Mixed Vegetables (Carrot, Potato, Beans, Peas)</li>
+    <li>1 Onion (sliced)</li>
+    <li>1 Green Chili (slit)</li>
+    <li>1/2 inch Ginger (julienned)</li>
+    <li>1 cup Coconut Milk</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1/2 tsp Black Pepper Powder</li>
+    <li>1 tbsp Coconut Oil</li>
+    <li>1/2 tsp Mustard Seeds</li>
+    <li>1 sprig Curry Leaves</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as needed)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<h4>For Appam:</h4>
+<ul>
+    <li>Wash and soak raw rice for 4-5 hours, then drain.</li>
+    <li>Grind soaked rice with cooked rice, coconut milk, and a little water into a smooth batter.</li>
+    <li>Dissolve yeast and sugar in warm water and let it activate for 5-10 minutes.</li>
+    <li>Add the yeast mixture and salt to the batter, mix well, and let it ferment overnight.</li>
+    <li>Heat an appam pan, pour a ladle of batter, swirl the pan to spread it thin on the edges, and cook covered until done.</li>
+</ul>
+
+<h4>For Vegetable Stew:</h4>
+<ul>
+    <li>Heat coconut oil in a pan, add mustard seeds, and let them splutter.</li>
+    <li>Add curry leaves, green chili, and ginger, sauté for a few seconds.</li>
+    <li>Add onions and sauté until translucent.</li>
+    <li>Add chopped vegetables, turmeric powder, black pepper, salt, and water. Cook until vegetables are soft.</li>
+    <li>Lower the flame and pour in coconut milk. Mix gently and let it simmer for 2 minutes (do not boil).</li>
+    <li>Turn off the heat and garnish with fresh curry leaves.</li>
+</ul>
+
+<p>Serve soft and fluffy Appam with creamy and flavorful Vegetable Stew! 😋🥥🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="pesarathu.jpg" alt="Omelette">
+                <h2>Pesarattu🌿</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Pesarattu 🌿🥞</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>1 cup Green Gram (Moong Dal) (soaked for 4-6 hours)</li>
+                        <li>2 tbsp Rice (optional, for crispiness)</li>
+                        <li>1 Green Chili (chopped)</li>
+                        <li>1/2 inch Ginger (chopped)</li>
+                        <li>2 tbsp Coriander Leaves (chopped)</li>
+                        <li>1/2 tsp Cumin Seeds</li>
+                        <li>Salt (to taste)</li>
+                        <li>Water (as required for grinding)</li>
+                        <li>Oil (for cooking)</li>
+                    </ul>
+                    
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Wash and soak green gram (moong dal) and rice for 4-6 hours.</li>
+                        <li>Drain the water and grind soaked dal with green chili, ginger, coriander leaves, cumin, and salt into a smooth batter. Add water as needed to get a pouring consistency.</li>
+                        <li>Heat a tawa (griddle) on medium flame and grease it lightly with oil.</li>
+                        <li>Pour a ladleful of batter onto the tawa and spread it in a circular motion like a dosa.</li>
+                        <li>Drizzle oil around the edges and cook until golden brown and crisp.</li>
+                        <li>Flip and cook for another 30 seconds if needed.</li>
+                        <li>Serve hot with coconut chutney or ginger chutney.</li>
+                    </ul>
+                    
+                    <p>Enjoy your crispy and protein-rich Pesarattu with chutney! 😋🔥</p>
+                    
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="thepla.jpg" alt="Smoothie">
+                <h2>Thepla🌾</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Thepla 🌾🥞</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Whole Wheat Flour</li>
+    <li>1/2 cup Fenugreek Leaves (Methi) (chopped)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Carom Seeds (Ajwain)</li>
+    <li>2 tbsp Yogurt (Dahi)</li>
+    <li>1 tbsp Oil (for kneading)</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as required for kneading)</li>
+    <li>Oil/Ghee (for cooking)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a mixing bowl, combine whole wheat flour, chopped fenugreek leaves, turmeric powder, red chili powder, coriander powder, cumin seeds, ajwain, yogurt, oil, and salt.</li>
+    <li>Gradually add water and knead into a soft dough.</li>
+    <li>Cover and let the dough rest for 15-20 minutes.</li>
+    <li>Divide the dough into equal portions and roll each portion into a thin round chapati-like disc.</li>
+    <li>Heat a tawa (griddle) on medium flame and place the rolled thepla on it.</li>
+    <li>Cook for a few seconds, then flip and apply oil or ghee on both sides.</li>
+    <li>Cook until golden brown spots appear on both sides.</li>
+    <li>Repeat the process for the remaining dough.</li>
+    <li>Serve hot with yogurt, pickle, or tea.</li>
+</ul>
+
+<p>Enjoy your delicious and flavorful Thepla with a side of yogurt or pickle! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipes">
+            <div class="recipe">
+                <img src="methithepla.jpg" alt="Pancakes">
+                <h2>Methi Thepla🥬</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Methi Thepla 🥬🥞</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups Whole Wheat Flour</li>
+    <li>1 cup Fresh Fenugreek Leaves (Methi) (finely chopped)</li>
+    <li>1/4 cup Besan (Gram Flour)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Carom Seeds (Ajwain)</li>
+    <li>1/2 tsp Sesame Seeds</li>
+    <li>2 tbsp Yogurt (Dahi)</li>
+    <li>1 tbsp Oil (for kneading)</li>
+    <li>Salt (to taste)</li>
+    <li>Water (as required for kneading)</li>
+    <li>Oil/Ghee (for cooking)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a large mixing bowl, combine whole wheat flour, besan, chopped fenugreek leaves, turmeric powder, red chili powder, coriander powder, cumin powder, carom seeds, sesame seeds, yogurt, oil, and salt.</li>
+    <li>Mix well and gradually add water to knead into a soft and smooth dough.</li>
+    <li>Cover and let the dough rest for 15-20 minutes.</li>
+    <li>Divide the dough into equal portions and roll each portion into a thin round disc.</li>
+    <li>Heat a tawa (griddle) on medium flame and place the rolled thepla on it.</li>
+    <li>Cook for a few seconds, then flip and apply oil or ghee on both sides.</li>
+    <li>Cook until golden brown spots appear on both sides.</li>
+    <li>Repeat the process for the remaining dough.</li>
+    <li>Serve hot with yogurt, pickle, or tea.</li>
+</ul>
+
+<p>Enjoy your nutritious and flavorful Methi Thepla with curd or pickle! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="ravadosa.jpg" alt="Omelette">
+                <h2>Rava Dosa🌮</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Rava Dosa 🌮</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Semolina (Rava/Suji)</li>
+    <li>1/4 cup Rice Flour</li>
+    <li>1/4 cup All-Purpose Flour (Maida)</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Black Pepper (crushed)</li>
+    <li>1/2 tsp Ginger (grated)</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+    <li>1 Green Chili (finely chopped)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>5-6 Curry Leaves (chopped)</li>
+    <li>Salt (to taste)</li>
+    <li>2 1/2 cups Water</li>
+    <li>Oil or Ghee (for cooking)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>In a mixing bowl, combine semolina, rice flour, and all-purpose flour.</li>
+    <li>Add cumin seeds, black pepper, grated ginger, green chili, chopped coriander leaves, chopped onion, curry leaves, and salt.</li>
+    <li>Gradually add water while stirring to form a thin, runny batter.</li>
+    <li>Let the batter rest for 15-20 minutes.</li>
+    <li>Heat a non-stick tawa (griddle) on medium-high flame.</li>
+    <li>Stir the batter well before making each dosa as semolina tends to settle.</li>
+    <li>Pour the batter from the edges to the center in a circular motion—do not spread like regular dosa.</li>
+    <li>Drizzle oil or ghee around the edges and let it cook until crispy and golden brown.</li>
+    <li>Flip if needed and cook for a few more seconds.</li>
+    <li>Serve hot with coconut chutney and sambar.</li>
+</ul>
+
+<p>Enjoy the crispy and flavorful Rava Dosa! 😋🔥</p>
+
+                </div>
+            </div>
+            <div class="recipe">
+                <img src="sabudana.jpg" alt="Smoothie">
+                <h2>Sabudana Khichdi🌟</h2>
+                <button class="btn">View Recipe</button>
+                <div class="content">
+                    <h2>Sabudana Khichdi 🌟</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Sabudana (Sago/Tapioca Pearls)</li>
+    <li>1 medium Potato (boiled & diced)</li>
+    <li>1/4 cup Roasted Peanuts (coarsely ground)</li>
+    <li>1 Green Chili (finely chopped)</li>
+    <li>1 tsp Cumin Seeds</li>
+    <li>5-6 Curry Leaves</li>
+    <li>1/2 tsp Sugar (optional)</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>Salt (to taste)</li>
+    <li>1 tbsp Lemon Juice</li>
+    <li>2 tbsp Coriander Leaves (chopped)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Rinse sabudana under running water until the water runs clear to remove excess starch.</li>
+    <li>Soak it in enough water for 4-6 hours or overnight until the pearls turn soft.</li>
+    <li>Drain any excess water and mix the soaked sabudana with ground peanuts, salt, and sugar.</li>
+    <li>Heat ghee/oil in a pan and add cumin seeds.</li>
+    <li>Once cumin crackles, add chopped green chilies and curry leaves.</li>
+    <li>Add boiled, diced potatoes and sauté for 2 minutes.</li>
+    <li>Add the sabudana-peanut mixture and stir well.</li>
+    <li>Cook on low flame for 5-7 minutes, stirring occasionally, until the sabudana turns translucent.</li>
+    <li>Turn off the heat and add lemon juice.</li>
+    <li>Garnish with chopped coriander leaves.</li>
+    <li>Serve hot with yogurt or coconut chutney.</li>
+</ul>
+
+<p>Enjoy your light and delicious Sabudana Khichdi! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    
+
+    <script>
+        $(document).ready(function(){
+            $(".btn").click(function(){
+                $(this).next(".content").slideToggle(300);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const recipes = document.querySelectorAll(".recipe");
+
+    searchBar.addEventListener("keyup", function () {
+        const searchText = searchBar.value.toLowerCase();
+
+        recipes.forEach(recipe => {
+            const recipeName = recipe.querySelector("h2").textContent.toLowerCase();
+            
+            if (recipeName.includes(searchText)) {
+                recipe.style.display = "block";
+            } else {
+                recipe.style.display = "none";
+            }
+        });
+    });
+});
+
+    </script>
+</body>
+</html>
