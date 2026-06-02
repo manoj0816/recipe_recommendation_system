@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Master</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: #0C1B2B; /* Dark blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .card {
+            background: rgba(209, 201, 201, 0.5); /* Grayish background */
+            padding: 20px;
+            border-radius: 20px;
+            width: 800px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .title {
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-size: 25px;
+            color: #020202;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            color: white;
+            background: black;
+            border-radius: 25px;
+            transition: background 0.3s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop class="bg-video">
+        <source src="cooking3.mp4" type="video/mp4">
+    </video>
+
+    <div class="card">
+        <h2 class="title">Welcome To Cooking Master</h2> 
+        <p>Where Every Recipe Tells A Story</p>
+        <button class="btn" onclick="location.href='country-selection.html'">Get Started</button>
+    </div>
+
+</body>
+</html>

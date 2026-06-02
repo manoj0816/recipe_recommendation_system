@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegetarian Recipes</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #ffffff, #b9e7ca);
+            color: #fff;
+            text-align: center;
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(6, 101, 3, 0.8);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .top-nav a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        /* Header */
+        header {
+            font-size: 32px;
+            padding: 20px;
+            font-weight: bold;
+            background: rgba(2, 76, 8, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Recipe Container */
+        .recipe-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Recipe Card */
+        .recipe-card {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+}
+
+.recipe-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.recipe-card:hover .recipe-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front Side */
+.recipe-card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    backface-visibility: hidden;
+}
+
+/* Back Side */
+.recipe-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #ffffff, #f8f8f8);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+/* Title Styling */
+.recipe-card-back h3 {
+    font-size: 20px;
+    color: #0c9c3e;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recipe-card-back p {
+    color: black;
+    font-weight: bold;
+}
+
+.recipe-card-back h2 {
+    color: rgb(242, 82, 82);
+}
+
+/* Ingredients & Procedure List */
+.recipe-card-back ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.recipe-card-back ul li {
+    font-size: 16px;
+    color: #333;
+    padding: 5px 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Custom Bullet Points */
+.recipe-card-back ul li::before {
+    content: "✔";
+    color: #0c9c3e;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+}
+
+/* Add Scroll Effect */
+.recipe-card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.recipe-card-back::-webkit-scrollbar-thumb {
+    background: #0c9c3e;
+    border-radius: 10px;
+}
+
+.recipe-card-back::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+/* Ensure Hover Effect Works */
+.recipe-card:hover .recipe-card-inner {
+    transform: rotateY(180deg);
+}
+
+
+/* Add Scroll Effect */
+.recipe-card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.recipe-card-back::-webkit-scrollbar-thumb {
+    background: #0c9c3e;
+    border-radius: 10px;
+}
+
+.recipe-card-back::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+/* Add Hover Effect */
+.recipe-card:hover .recipe-card-back {
+    background: linear-gradient(to bottom right, #fff, #e6f5ea);
+}
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(6, 89, 36, 0.8);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .bottom-nav a:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .recipe-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .recipe-card {
+                width: 90%;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+        /* Search Bar */
+        .search-container {
+    text-align: center;
+    margin: 20px 0;
+   
+    top: 60px; /* Adjust based on navbar height */
+    background: white; /* Add background to prevent content overlap */
+    padding: 10px;
+    /* Lower than navbar to avoid overlap issues */
+}
+
+
+        #searchBar {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+           
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="home.html">Home<i class="fas fa-home"></i> </a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="non-vegetarian.html"><i class="fas fa-drumstick-bite"></i> Non-Vegetarian</a>
+    </nav>
+
+    <header>
+        <h1><i class="fas fa-leaf"></i> Vegetarian Recipes</h1>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search desserts..." onkeyup="searchDesserts()">
+    </div>
+
+
+    <marquee behavior="scroll" direction="left" scrollamount="8" style="color: #0c9c3e; background: white; padding: 10px; font-size: 18px; font-weight: bold; border-radius: 5px;">
+        🥗🌿 Explore a world of delicious and healthy vegetarian delights! Fresh, flavorful, and packed with nutrients! 🌱🍛  
+        </marquee>
+        
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('panneerrrr.jpg');">
+                    Paneer Butter Masala 🧀🍛
+                </div>
+                <div class="recipe-card-back">
+                    <h2>Paneer Butter Masala 🧀🍛</h2>
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>50g Paneer (cubed)</li>
+                        <li>  2 Tomatoes (pureed)</li>
+                        <li> 1 Onion (finely chopped)</li>
+                        <li> 1 tbsp Butter</li>
+                        <li> 1 tbsp Oil</li>
+                        <li>  1 tbsp Ginger-Garlic Paste</li>
+                        <li>  1/2 cup Fresh Cream</li>
+                        <li>  1/4 cup Cashew Paste</li>
+                        <li>  1/2 tsp Turmeric Powder</li>
+                        <li>  1 tsp Kashmiri Red Chili Powder</li>
+                        <li> 1 tsp Garam Masala</li>
+                        <li>  1 tsp Coriander Powder</li>
+                        <li>  1/2 tsp Cumin Seeds</li>
+                        <li>  1/2 tsp Sugar (optional)</li>
+                        <li>  Salt (to taste)</li>
+                        <li> 1/2 cup Water</li>
+                        <li> Fresh Coriander Leaves (for garnish)</li>
+                        <li> 1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+                    </ul>
+                    <h3>📌 Procedure</h3>
+                    <ul>
+                        <li>Heat oil and butter in a pan on medium flame.
+                        <li> Add cumin seeds and let them splutter.
+                        <li> Add chopped onions and sauté until golden brown.
+                        <li> Add ginger-garlic paste and cook for another minute until fragrant.
+                        <li> Pour in the tomato puree and cook until the oil starts separating.
+                        <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.
+                        <li>Stir in the cashew paste and cook for 2 minutes for a rich texture.
+                        <li>Pour water as needed and let it simmer for 5 minutes.
+                        <li>Gently add paneer cubes and mix well.
+                        <li>Stir in fresh cream for a creamy consistency.
+                        <li> Crush kasuri methi between your palms and add to the gravy for enhanced flavor.
+                        <li> Add garam masala and sugar (optional). Mix everything well and simmer for another 2 minutes.
+                        <li> Turn off the heat and garnish with fresh coriander leaves.
+                        <li> Serve hot with naan, roti, or jeera rice.</li>
+                    </ul>
+                    <p>Enjoy your restaurant-style Paneer Butter Masala at home! 😋🔥</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('vegetable biriyaniiii.jpg');">
+                    Vegetable Biryani
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌿 Vegetable Biryani 🍛</h2>
+
+                    <h3>🥕 🥘 Ingredients</h3>
+    <ul>
+    <li>1 cup Basmati Rice (soaked for 30 minutes)</li>
+    <li>1.5 cups Mixed Vegetables (carrots, beans, peas, potatoes, cauliflower, etc.)</li>
+    <li>1 Onion (thinly sliced)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1/4 cup Yogurt (curd)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Biryani Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>2 Green Chilies (slit)</li>
+    <li>5-6 Cashews (optional)</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped)</li>
+    <li>1 tbsp Mint Leaves (chopped)</li>
+    <li>2 Cups Water</li>
+    <li>Salt (to taste)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+<ul>
+    <li>Wash and soak basmati rice for 30 minutes. Drain before cooking.</li>
+    <li>Heat ghee or oil in a large pan or pressure cooker.</li>
+    <li>Add cumin seeds and let them splutter.</li>
+    <li>Add sliced onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Add chopped tomatoes and cook until they turn soft.</li>
+    <li>Mix in turmeric powder, red chili powder, garam masala, biryani masala, and salt.</li>
+    <li>Add curd (yogurt) and cook for 2 minutes.</li>
+    <li>Add mixed vegetables and stir well.</li>
+    <li>Pour in 2 cups of water and bring it to a boil.</li>
+    <li>Add the soaked basmati rice and mix gently.</li>
+    <li>Sprinkle fresh mint and coriander leaves on top.</li>
+    <li>Cover and cook on low flame for 15 minutes (or 1 whistle in a pressure cooker).</li>
+    <li>Let it sit for 5 minutes before fluffing the biryani gently with a fork.</li>
+    <li>Serve hot with raita, salad, or pickle.</li>
+</ul>
+
+<p>Enjoy your flavorful Vegetable Biryani! 🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('chana\ masalaaaa.jpg');">
+                    Chana Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌱 Chana Masala 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Chickpeas (soaked overnight or canned)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 tbsp Oil</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1/2 tsp Amchur (dry mango powder) - optional</li>
+    <li>1 Green Chili (slit)</li>
+    <li>1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>1/2 cup Water</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+    <li>1 tbsp Lemon Juice</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Soak chickpeas overnight and pressure cook them for 4-5 whistles until soft. If using canned chickpeas, rinse and drain.</li>
+    <li>Heat oil in a pan and add cumin seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Add cooked chickpeas and mix everything well.</li>
+    <li>Pour water as needed and let it simmer for 10 minutes.</li>
+    <li>Add garam masala, kasuri methi (crushed), and amchur powder. Stir well.</li>
+    <li>Simmer for another 2-3 minutes and turn off the heat.</li>
+    <li>Garnish with fresh coriander leaves and drizzle with lemon juice.</li>
+    <li>Serve hot with rice, roti, or naan.</li>
+</ul>
+
+<p>Enjoy your delicious and spicy Chana Masala! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('aloo gobi.jpg');">
+                    Aloo Gobi
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥔🌼 Aloo Gobi 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 Potatoes (peeled and cubed)</li>
+    <li>1 small Cauliflower (cut into florets)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Oil</li>
+    <li>1 tsp Cumin Seeds</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 cup Water</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+    <li>1 Green Chili (slit, optional)</li>
+    <li>1 tbsp Lemon Juice</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Heat oil in a pan and add cumin seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Add potato cubes and cauliflower florets. Stir well to coat with spices.</li>
+    <li>Pour water as needed and cover the pan. Cook on low heat for 15-20 minutes until the vegetables are tender.</li>
+    <li>Add garam masala and kasuri methi (crushed). Stir well.</li>
+    <li>Simmer for another 2 minutes and turn off the heat.</li>
+    <li>Garnish with fresh coriander leaves and drizzle with lemon juice.</li>
+    <li>Serve hot with roti, paratha, or jeera rice.</li>
+</ul>
+
+<p>Enjoy your flavorful and comforting Aloo Gobi! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('matar panner.jpg');">
+                    Matar Paneer
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🧀🌿 Matar Paneer 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>200g Paneer (cubed)</li>
+    <li>1 cup Green Peas (fresh or frozen)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 tbsp Oil</li>
+    <li>1 tbsp Butter</li>
+    <li>1 tsp Cumin Seeds</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/4 cup Cashew Paste (optional, for creaminess)</li>
+    <li>1/2 cup Fresh Cream</li>
+    <li>1/2 tsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 cup Water</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Heat oil and butter in a pan. Add cumin seeds and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook for a minute until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Stir in cashew paste (if using) and cook for 2 minutes.</li>
+    <li>Add green peas and mix well. Pour water as needed and let it simmer for 5 minutes.</li>
+    <li>Gently add paneer cubes and stir.</li>
+    <li>Stir in fresh cream for a rich, creamy consistency.</li>
+    <li>Crush kasuri methi between your palms and add to the gravy for enhanced flavor.</li>
+    <li>Sprinkle garam masala and mix well. Let it simmer for another 2 minutes.</li>
+    <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or jeera rice.</li>
+</ul>
+
+<p>Enjoy your delicious and creamy Matar Paneer! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('tal datka.jpg');">
+                    Dal Tadka
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥣 Dal Tadka 🍛</h2>
+
+<h3>🌿 Ingredients</h3>
+<ul>
+    <li>1 cup Toor Dal (Yellow Split Pigeon Peas)</li>
+    <li>3 cups Water</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (slit)</li>
+    <li>1 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Mustard Seeds</li>
+    <li>2 Dry Red Chilies</li>
+    <li>1/2 tsp Kasuri Methi (Dried Fenugreek Leaves)</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+    <li>Salt (to taste)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Rinse the toor dal thoroughly and pressure cook with 3 cups of water, turmeric powder, and salt for 3-4 whistles until soft.</li>
+    <li>Mash the cooked dal and keep it aside.</li>
+    <li>Heat ghee or oil in a pan and add cumin seeds, mustard seeds, and dry red chilies.</li>
+    <li>Once they splutter, add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook for a minute until fragrant.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in red chili powder, coriander powder, and garam masala.</li>
+    <li>Pour the mashed dal into the pan and mix well. Let it simmer for 5 minutes.</li>
+    <li>Crush kasuri methi between your palms and add for extra flavor.</li>
+    <li>For extra tadka, heat 1 tbsp ghee in a small pan, add some cumin seeds, chopped garlic, and a dry red chili, then pour this over the dal.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with steamed rice or roti.</li>
+</ul>
+
+<p>Enjoy your comforting Dal Tadka! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('palak panner.jpg');">
+                    Palak Paneer
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌿 Palak Paneer 🧀</h2>
+
+<h3>🥬 Ingredients</h3>
+<ul>
+    <li>200g Paneer (cubed)</li>
+    <li>2 cups Spinach (Palak, washed and chopped)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (chopped, optional)</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Coriander Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1 tbsp Fresh Cream (optional, for richness)</li>
+    <li>1/2 tsp Kasuri Methi (Dried Fenugreek Leaves)</li>
+    <li>1 tbsp Butter or Oil</li>
+    <li>Salt (to taste)</li>
+    <li>1/4 cup Water</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Blanch spinach by boiling it in hot water for 2 minutes, then transferring it to ice water.</li>
+    <li>Blend the spinach into a smooth puree and keep it aside.</li>
+    <li>Heat butter or oil in a pan and add cumin seeds.</li>
+    <li>Once they splutter, add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Stir in the spinach puree and let it simmer for 3-4 minutes.</li>
+    <li>Gently add paneer cubes and mix well.</li>
+    <li>Sprinkle garam masala and crush kasuri methi between your palms before adding.</li>
+    <li>For a creamier texture, stir in fresh cream (optional).</li>
+    <li>Simmer for another 2 minutes and turn off the heat.</li>
+    <li>Serve hot with naan, roti, or jeera rice.</li>
+</ul>
+
+<p>Enjoy your delicious homemade Palak Paneer! 😋🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('veg pulav.jpg');">
+                    Vegetable Pulao
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥕 Vegetable Pulao 🍚</h2>
+
+<h3>🥦 Ingredients</h3>
+<ul>
+    <li>1 cup Basmati Rice (soaked for 30 minutes)</li>
+    <li>1.5 cups Mixed Vegetables (carrots, beans, peas, potatoes, etc.)</li>
+    <li>1 Onion (thinly sliced)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 Bay Leaf</li>
+    <li>2 Cloves</li>
+    <li>1-inch Cinnamon Stick</li>
+    <li>2 Green Cardamoms</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1 tbsp Ghee or Oil</li>
+    <li>2 Cups Water</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+    <li>1 tbsp Mint Leaves (chopped, optional)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Wash and soak basmati rice for 30 minutes. Drain before cooking.</li>
+    <li>Heat ghee or oil in a pan or pressure cooker.</li>
+    <li>Add cumin seeds, bay leaf, cloves, cinnamon, and cardamoms. Sauté until fragrant.</li>
+    <li>Add sliced onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until raw smell disappears.</li>
+    <li>Add chopped tomatoes and cook until they turn soft.</li>
+    <li>Mix in turmeric powder, red chili powder, and salt.</li>
+    <li>Add mixed vegetables and stir well.</li>
+    <li>Pour in 2 cups of water and bring it to a boil.</li>
+    <li>Add the soaked basmati rice and mix gently.</li>
+    <li>Sprinkle fresh mint and coriander leaves on top.</li>
+    <li>Cover and cook on low flame for 12-15 minutes (or 1 whistle in a pressure cooker).</li>
+    <li>Let it sit for 5 minutes before fluffing the pulao gently with a fork.</li>
+    <li>Serve hot with raita, pickle, or papad.</li>
+</ul>
+
+<p>Enjoy your fragrant and tasty Vegetable Pulao! 🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('bindhi masala.jpg');">
+                    Bhindi Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌿 Bhindi Masala 🍛</h2>
+
+<h3>🥒 Ingredients</h3>
+<ul>
+    <li>250g Bhindi (Okra, Ladyfinger) - washed, dried, and chopped</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (slit)</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Garam Masala</li>
+    <li>1/2 tsp Dry Mango Powder (Amchur)</li>
+    <li>1/2 tsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>1 tbsp Oil</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Wash and completely dry the bhindi before chopping to prevent stickiness.</li>
+    <li>Heat 1/2 tbsp oil in a pan and sauté the chopped bhindi for 5-7 minutes until lightly crispy. Remove and set aside.</li>
+    <li>In the same pan, add the remaining oil and cumin seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Add chopped tomatoes and green chili. Cook until the tomatoes turn soft.</li>
+    <li>Mix in turmeric powder, red chili powder, coriander powder, and salt.</li>
+    <li>Add the sautéed bhindi and mix well to coat with the masala.</li>
+    <li>Cover and cook on low flame for 5-7 minutes, stirring occasionally.</li>
+    <li>Sprinkle garam masala, amchur powder, and crushed kasuri methi. Mix well.</li>
+    <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with roti, naan, or rice.</li>
+</ul>
+
+<p>Enjoy your flavorful and delicious Bhindi Masala! 🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('gobi manchurian.jpg');">
+                    Gobi Manchurian
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌰 Gobi Manchurian 🍜</h2>
+
+                    <h3>🥦 Ingredients</h3>
+                    
+                    <h4>For the Batter:</h4>
+                    <ul>
+                        <li>2 cups Cauliflower Florets (Gobi)</li>
+                        <li>1/2 cup All-Purpose Flour (Maida)</li>
+                        <li>1/4 cup Corn Flour</li>
+                        <li>1 tsp Ginger-Garlic Paste</li>
+                        <li>1/2 tsp Red Chili Powder</li>
+                        <li>1/4 tsp Black Pepper Powder</li>
+                        <li>1/2 tsp Salt</li>
+                        <li>Water (as needed)</li>
+                        <li>Oil (for deep frying)</li>
+                    </ul>
+                    
+                    <h4>For the Manchurian Sauce:</h4>
+                    <ul>
+                        <li>1 tbsp Oil</li>
+                        <li>1/2 cup Onion (finely chopped)</li>
+                        <li>1/2 cup Capsicum (finely chopped)</li>
+                        <li>1 tbsp Ginger-Garlic Paste</li>
+                        <li>2 tbsp Spring Onion (chopped, for garnish)</li>
+                        <li>2 tbsp Soy Sauce</li>
+                        <li>1 tbsp Tomato Ketchup</li>
+                        <li>1 tbsp Red Chili Sauce</li>
+                        <li>1 tbsp Vinegar</li>
+                        <li>1/2 tsp Black Pepper Powder</li>
+                        <li>1 tsp Corn Flour mixed with 2 tbsp Water (for thickening)</li>
+                        <li>Salt (to taste)</li>
+                    </ul>
+                    
+                    <h3>🔥 Procedure</h3>
+                    
+                    <h4>For Frying Cauliflower:</h4>
+                    <ul>
+                        <li>Boil water with a pinch of salt and blanch the cauliflower florets for 5 minutes. Drain and pat dry.</li>
+                        <li>In a bowl, mix all-purpose flour, corn flour, red chili powder, black pepper, salt, and ginger-garlic paste.</li>
+                        <li>Add water little by little to make a thick batter.</li>
+                        <li>Dip each cauliflower floret into the batter and deep fry until golden and crispy.</li>
+                        <li>Drain excess oil and keep the fried gobi aside.</li>
+                    </ul>
+                    
+                    <h4>For the Manchurian Sauce:</h4>
+                    <ul>
+                        <li>Heat oil in a pan and sauté chopped onions and capsicum on high flame.</li>
+                        <li>Add ginger-garlic paste and cook until fragrant.</li>
+                        <li>Mix in soy sauce, tomato ketchup, red chili sauce, vinegar, black pepper, and salt.</li>
+                        <li>Stir in the corn flour slurry (corn flour mixed with water) and let the sauce thicken.</li>
+                        <li>Add the fried cauliflower and toss well to coat with the sauce.</li>
+                        <li>Garnish with chopped spring onions.</li>
+                        <li>Serve hot as a snack or with fried rice/noodles.</li>
+                    </ul>
+                    
+                    <p>Enjoy your crispy and spicy Gobi Manchurian! 🍜🔥</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('rajma curry.jpg');">
+                    Rajma Curry
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍛 Rajma Curry 🫘</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Rajma (Kidney Beans, soaked overnight)</li>
+    <li>3 cups Water (for pressure cooking)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1 Green Chili (chopped)</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 tbsp Oil or Ghee</li>
+    <li>1/2 tsp Kasuri Methi (Dried Fenugreek Leaves)</li>
+    <li>Salt (to taste)</li>
+    <li>1/2 cup Fresh Coriander Leaves (chopped, for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Soak the rajma (kidney beans) overnight in water.</li>
+    <li>Drain and pressure cook with 3 cups of water for 15 minutes (or until soft).</li>
+    <li>Heat oil or ghee in a pan. Add cumin seeds and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and green chili. Cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil separates.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Crush kasuri methi between your palms and add to the mixture.</li>
+    <li>Pour in the cooked rajma along with its water. Stir and let it simmer for 10 minutes.</li>
+    <li>Stir in garam masala and mix well.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with steamed rice or roti.</li>
+</ul>
+
+<p>Enjoy your delicious and comforting Rajma Curry! 🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('bhaigan.jpg');">
+                    Baingan Bharta
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🔥 Baingan Bharta 🍆</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 large Eggplant (Baingan)</li>
+    <li>2 Tomatoes (finely chopped)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 Green Chili (finely chopped)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 tbsp Oil</li>
+    <li>1/2 tsp Kasuri Methi (Dried Fenugreek Leaves)</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Roast the eggplant on an open flame or in the oven until the skin is charred and soft.</li>
+    <li>Let it cool, then peel off the skin and mash the pulp.</li>
+    <li>Heat oil in a pan and add cumin seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and green chili. Cook until fragrant.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in turmeric powder, red chili powder, and salt. Stir well.</li>
+    <li>Add the mashed eggplant and mix everything well.</li>
+    <li>Crush kasuri methi between your palms and add to the mixture.</li>
+    <li>Stir in garam masala and let it cook for another 2 minutes.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with roti or paratha.</li>
+</ul>
+
+<p>Enjoy the smoky and flavorful Baingan Bharta! 🍆🔥</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe-container">
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('stuffed bharta.jpg');">
+                    Stuffed Bell Peppers
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🫑 Stuffed Bell Peppers 🍽️</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>3 Large Bell Peppers (any color, halved and deseeded)</li>
+    <li>1 cup Cooked Rice</li>
+    <li>1/2 cup Mixed Vegetables (carrots, peas, corn, beans, etc.)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>1 Tomato (finely chopped)</li>
+    <li>1/2 cup Paneer (crumbled) or Tofu</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1 tbsp Oil</li>
+    <li>Salt (to taste)</li>
+    <li>2 tbsp Fresh Coriander Leaves (chopped, for garnish)</li>
+    <li>1/4 cup Grated Cheese (optional, for topping)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Preheat the oven to 180°C (350°F).</li>
+    <li>Heat oil in a pan and add cumin seeds. Let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Stir in ginger-garlic paste and cook until fragrant.</li>
+    <li>Add chopped tomatoes and cook until soft.</li>
+    <li>Mix in turmeric powder, red chili powder, garam masala, and salt.</li>
+    <li>Add mixed vegetables and cook for 5 minutes.</li>
+    <li>Stir in crumbled paneer (or tofu) and cooked rice. Mix well.</li>
+    <li>Fill each bell pepper half with the prepared stuffing.</li>
+    <li>Sprinkle grated cheese on top if desired.</li>
+    <li>Place stuffed peppers in a baking dish and bake for 15-20 minutes until tender.</li>
+    <li>Garnish with fresh coriander leaves.</li>
+    <li>Serve hot with yogurt or a side salad.</li>
+</ul>
+
+<p>Enjoy your delicious and healthy Stuffed Bell Peppers! 🫑🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('mushroom masala.jpg');">
+                    Mushroom Masala
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🍄 Mushroom Masala 🍛</h2>
+
+                    <h3>🥘 Ingredients</h3>
+                    <ul>
+                        <li>200g Mushrooms (sliced)</li>
+                        <li>1 Onion (finely chopped)</li>
+                        <li>2 Tomatoes (pureed)</li>
+                        <li>1 tbsp Ginger-Garlic Paste</li>
+                        <li>1/2 cup Fresh Cream</li>
+                        <li>1/4 cup Cashew Paste</li>
+                        <li>1/2 tsp Turmeric Powder</li>
+                        <li>1 tsp Kashmiri Red Chili Powder</li>
+                        <li>1 tsp Coriander Powder</li>
+                        <li>1 tsp Garam Masala</li>
+                        <li>1/2 tsp Cumin Seeds</li>
+                        <li>1/2 tsp Sugar (optional)</li>
+                        <li>1 tbsp Oil</li>
+                        <li>1 tbsp Butter</li>
+                        <li>1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+                        <li>1/2 cup Water</li>
+                        <li>Salt (to taste)</li>
+                        <li>Fresh Coriander Leaves (for garnish)</li>
+                    </ul>
+                    
+                    <h3>🔥 Procedure</h3>
+                    <ul>
+                        <li>Heat oil and butter in a pan over medium flame.</li>
+                        <li>Add cumin seeds and let them splutter.</li>
+                        <li>Add chopped onions and sauté until golden brown.</li>
+                        <li>Add ginger-garlic paste and cook until fragrant.</li>
+                        <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+                        <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+                        <li>Stir in the cashew paste and cook for 2 minutes for a creamy texture.</li>
+                        <li>Add sliced mushrooms and sauté for 5 minutes until they release moisture.</li>
+                        <li>Pour in water and let it simmer for 5 minutes.</li>
+                        <li>Stir in fresh cream for a rich consistency.</li>
+                        <li>Crush kasuri methi between your palms and add to the gravy.</li>
+                        <li>Add garam masala and sugar (optional). Mix well and let it simmer for another 2 minutes.</li>
+                        <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+                        <li>Serve hot with naan, roti, or jeera rice.</li>
+                    </ul>
+                    
+                    <p>Enjoy your delicious and creamy Mushroom Masala! 🍄🔥</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('mis veg curry.jpg');">
+                    Mix Veg Curry
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🥦 Mix Veg Curry 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Mixed Vegetables (carrots, beans, peas, potatoes, cauliflower, etc.)</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/4 cup Yogurt (curd)</li>
+    <li>1/2 cup Fresh Cream</li>
+    <li>1/4 cup Cashew Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Sugar (optional)</li>
+    <li>1 tbsp Oil</li>
+    <li>1 tbsp Butter</li>
+    <li>1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>1/2 cup Water</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Heat oil and butter in a pan over medium flame.</li>
+    <li>Add cumin seeds and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Stir in the cashew paste and cook for 2 minutes for a creamy texture.</li>
+    <li>Add the mixed vegetables and sauté for 5 minutes.</li>
+    <li>Pour in water and let it simmer for 10 minutes until the vegetables are cooked.</li>
+    <li>Stir in fresh cream and yogurt for a rich consistency.</li>
+    <li>Crush kasuri methi between your palms and add to the curry.</li>
+    <li>Add garam masala and sugar (optional). Mix well and let it simmer for another 2 minutes.</li>
+    <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with naan, roti, or jeera rice.</li>
+</ul>
+
+<p>Enjoy your delicious and creamy Mix Veg Curry! 🥦🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-card-inner">
+                <div class="recipe-card-front" style="background-image: url('soya chunks.jpg');">
+                    Soya Chunks Curry
+                </div>
+                <div class="recipe-card-back">
+                    <h2>🌱 Soya Chunks Curry 🍛</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup Soya Chunks</li>
+    <li>1 Onion (finely chopped)</li>
+    <li>2 Tomatoes (pureed)</li>
+    <li>1 tbsp Ginger-Garlic Paste</li>
+    <li>1/4 cup Yogurt (curd)</li>
+    <li>1/2 cup Fresh Cream</li>
+    <li>1/4 cup Cashew Paste</li>
+    <li>1/2 tsp Turmeric Powder</li>
+    <li>1 tsp Red Chili Powder</li>
+    <li>1 tsp Coriander Powder</li>
+    <li>1 tsp Garam Masala</li>
+    <li>1/2 tsp Cumin Seeds</li>
+    <li>1/2 tsp Sugar (optional)</li>
+    <li>1 tbsp Oil</li>
+    <li>1 tbsp Butter</li>
+    <li>1 tbsp Kasuri Methi (dried fenugreek leaves)</li>
+    <li>1/2 cup Water</li>
+    <li>Salt (to taste)</li>
+    <li>Fresh Coriander Leaves (for garnish)</li>
+</ul>
+
+<h3>🔥 Procedure</h3>
+<ul>
+    <li>Boil soya chunks in water for 5 minutes. Drain and squeeze out excess water. Set aside.</li>
+    <li>Heat oil and butter in a pan over medium flame.</li>
+    <li>Add cumin seeds and let them splutter.</li>
+    <li>Add chopped onions and sauté until golden brown.</li>
+    <li>Add ginger-garlic paste and cook until fragrant.</li>
+    <li>Pour in the tomato puree and cook until the oil starts separating.</li>
+    <li>Add turmeric powder, red chili powder, coriander powder, and salt. Mix well.</li>
+    <li>Stir in the cashew paste and cook for 2 minutes for a creamy texture.</li>
+    <li>Add the boiled soya chunks and mix well.</li>
+    <li>Pour in water and let it simmer for 10 minutes until the soya chunks absorb the flavors.</li>
+    <li>Stir in fresh cream and yogurt for a rich consistency.</li>
+    <li>Crush kasuri methi between your palms and add to the curry.</li>
+    <li>Add garam masala and sugar (optional). Mix well and let it simmer for another 2 minutes.</li>
+    <li>Turn off the heat and garnish with fresh coriander leaves.</li>
+    <li>Serve hot with roti, naan, or jeera rice.</li>
+</ul>
+
+<p>Enjoy your protein-packed Soya Chunks Curry! 🌱🍛🔥</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="desserts.html"><i class="fas fa-cookie"></i> Desserts</a>
+        <a href="drinks.html"><i class="fas fa-coffee"></i> Drinks</a>
+        <a href="diet-foods.html"><i class="fas fa-carrot"></i> Diet Foods</a>
+        <a href="sweets.html"><i class="fas fa-candy-cane"></i> Sweets</a>
+    </nav>
+
+    <script>
+        function searchVegetarianRecipes() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.querySelectorAll('.recipe-card');
+    
+            cards.forEach(card => {
+                let recipeName = card.querySelector('.recipe-card-front').innerText.toLowerCase();
+                
+                if (recipeName.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    
+        // Event Listener for live search as user types (Optional)
+        document.getElementById('searchBar').addEventListener('keyup', searchVegetarianRecipes);
+    </script>
+    
+</body>
+</html>

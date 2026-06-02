@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styles */
+       /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5e6;
+    text-align: center;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #ff6b6b;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ffe135;
+}
+
+/* Search Bar */
+.search-container {
+    margin: 20px;
+}
+
+#searchBar {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ff6b6b;
+    border-radius: 5px;
+}
+
+/* Marquee */
+marquee {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8B0000;
+    margin-top: 10px;
+}
+
+/* Sweets Grid */
+.sweets-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.sweet-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.sweet-card:hover {
+    transform: scale(1.05);
+}
+
+.sweet-card img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.sweet-card h3 {
+    margin-top: 10px;
+    color: #8B0000;
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+    .sweets-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    }
+}
+
+@media (max-width: 900px) {
+    .sweets-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    }
+}
+
+@media (max-width: 600px) {
+    .sweets-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 card per row */
+    }
+}
+
+/* Ingredients and Procedure */
+/* Ingredients and Procedure - Scrollable */
+.content {
+    text-align: left;
+    padding: 10px;
+    display: none; /* Initially hidden */
+    background-color: #ffe6cc;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    max-height: 250px; /* Set a max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ff6b6b;
+}
+
+/* Show content when active */
+.sweet-card.active .content {
+    display: block;
+}
+
+/* View Recipe Button */
+.btn {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #d35400;
+}
+
+/* Toggle Details */
+.sweet-card.active .content {
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="drinks.html"><i class="fa-solid fa-mug-hot"></i> Drinks</a>
+        <a href="breakfast.html"><i class="fa-solid fa-egg"></i> Breakfast</a>
+        <a href="lunch.html"><i class="fa-solid fa-bowl-food"></i> Lunch</a>
+        <a href="dinner.html"><i class="fa-solid fa-utensils"></i> Dinner</a>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for sweets..." onkeyup="searchSweets()">
+    </div>
+
+    <!-- Marquee -->
+    <marquee>🎂 Enjoy delicious sweets from around the world! 🍩 Try something new today! 🍫</marquee>
+
+    <!-- Sweets Section -->
+    <div class="sweets-container" id="sweetsContainer">
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="gulab jamun.png" alt="Gulab Jamun">
+            <h2>Gulab Jamun <i class="fa-solid fa-cookie"></i></h2>
+            <button class="btn">View Recipe</button>   
+            <div class="content">
+
+            <h2>Gulab Jamun 🍯🍩</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Gulab Jamun:</h4>
+<ul>
+    <li>1 cup milk powder</li>
+    <li>1/4 cup all-purpose flour (maida)</li>
+    <li>1/4 tsp baking soda</li>
+    <li>2 tbsp ghee (clarified butter)</li>
+    <li>1/4 cup milk (warm)</li>
+    <li>1/2 tsp cardamom powder</li>
+    <li>Oil or ghee (for deep frying)</li>
+</ul>
+
+<h4>For the Sugar Syrup:</h4>
+<ul>
+    <li>1 1/2 cups sugar</li>
+    <li>1 1/2 cups water</li>
+    <li>1/2 tsp cardamom powder</li>
+    <li>1 tsp rose water (optional)</li>
+    <li>Few saffron strands (optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Sugar Syrup:</h4>
+<ul>
+    <li>In a saucepan, combine sugar and water over medium heat.</li>
+    <li>Stir until the sugar dissolves completely.</li>
+    <li>Add cardamom powder, rose water, and saffron strands (if using).</li>
+    <li>Simmer for 5-7 minutes, then turn off the heat and keep warm.</li>
+</ul>
+
+<h4>Making the Gulab Jamun Dough:</h4>
+<ul>
+    <li>In a mixing bowl, combine milk powder, all-purpose flour, and baking soda.</li>
+    <li>Add ghee and mix until it forms a crumbly texture.</li>
+    <li>Gradually add warm milk while kneading into a soft, smooth dough.</li>
+    <li>Cover and let it rest for 10 minutes.</li>
+</ul>
+
+<h4>Shaping and Frying:</h4>
+<ul>
+    <li>Divide the dough into small equal-sized balls.</li>
+    <li>Ensure they are smooth without cracks to prevent breaking while frying.</li>
+    <li>Heat oil or ghee in a pan over low to medium heat.</li>
+    <li>Gently drop the dough balls and fry until golden brown, stirring occasionally for even cooking.</li>
+    <li>Remove and drain on paper towels.</li>
+</ul>
+
+<h4>Soaking in Sugar Syrup:</h4>
+<ul>
+    <li>Immediately transfer the fried gulab jamuns into the warm sugar syrup.</li>
+    <li>Let them soak for at least 1-2 hours to absorb the sweetness.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve warm or at room temperature.</li>
+    <li>Garnish with chopped nuts like almonds or pistachios.</li>
+    <li>Enjoy soft, juicy Gulab Jamuns as a delicious dessert! 😋</li>
+</ul>
+
+<p>🔥 A classic Indian sweet perfect for any festive occasion! 🍯🍩</p>
+>
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="applepie.jpg" alt="applepie">
+            <h2>Apple Pie <i class="fa-solid fa-apple-whole"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Apple Pie 🍏🥧</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Pie Crust:</h4>
+<ul>
+    <li>2 1/2 cups all-purpose flour</li>
+    <li>1 cup unsalted butter (cold, cut into cubes)</li>
+    <li>1/2 tsp salt</li>
+    <li>1 tbsp sugar</li>
+    <li>6-8 tbsp ice-cold water</li>
+</ul>
+
+<h4>For the Apple Filling:</h4>
+<ul>
+    <li>6 medium apples (peeled, cored, and sliced)</li>
+    <li>3/4 cup granulated sugar</li>
+    <li>2 tbsp brown sugar</li>
+    <li>1 tsp cinnamon powder</li>
+    <li>1/4 tsp nutmeg powder</li>
+    <li>2 tbsp cornstarch or all-purpose flour</li>
+    <li>1 tbsp lemon juice</li>
+    <li>1 tsp vanilla extract</li>
+</ul>
+
+<h4>For the Topping:</h4>
+<ul>
+    <li>1 egg (beaten, for egg wash)</li>
+    <li>1 tbsp milk (optional, for glaze)</li>
+    <li>1 tbsp sugar (for sprinkling on top)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Pie Crust:</h4>
+<ul>
+    <li>In a large bowl, mix flour, salt, and sugar.</li>
+    <li>Add cold butter cubes and mix using a pastry cutter or hands until crumbly.</li>
+    <li>Gradually add ice-cold water and knead until a dough forms.</li>
+    <li>Divide the dough into two portions, wrap in plastic, and chill for at least 1 hour.</li>
+</ul>
+
+<h4>Making the Apple Filling:</h4>
+<ul>
+    <li>In a bowl, combine sliced apples, sugars, cinnamon, nutmeg, cornstarch, lemon juice, and vanilla extract.</li>
+    <li>Mix well and let it sit for 15 minutes.</li>
+</ul>
+
+<h4>Assembling the Pie:</h4>
+<ul>
+    <li>Preheat the oven to 375°F (190°C).</li>
+    <li>Roll out one portion of the chilled dough into a circle and place it into a pie dish.</li>
+    <li>Pour the apple filling evenly into the crust.</li>
+    <li>Roll out the second portion of dough and cover the pie (or create a lattice pattern).</li>
+    <li>Seal the edges and cut small slits on top for steam to escape.</li>
+    <li>Brush with egg wash and sprinkle sugar on top.</li>
+</ul>
+
+<h4>Baking:</h4>
+<ul>
+    <li>Bake for 45-50 minutes until the crust is golden brown.</li>
+    <li>Allow it to cool for at least 30 minutes before slicing.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve warm with a scoop of vanilla ice cream or whipped cream.</li>
+    <li>Enjoy your homemade, buttery, and delicious Apple Pie! 😋</li>
+</ul>
+
+<p>🔥 A classic, comforting dessert with a perfect balance of sweetness and spice! 🥧🍏</p>
+
+
+            </div>
+        </div>
+
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="rasagulla.jpg" alt="Rasgulla">
+            <h2>Rasgulla <i class="fa-solid fa-candy-cane"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Rasgulla 🍥💧</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Rasgulla Balls:</h4>
+<ul>
+    <li>1 liter full-fat milk</li>
+    <li>2 tbsp lemon juice or vinegar</li>
+    <li>1 1/2 cups water (for kneading)</li>
+    <li>1 tbsp all-purpose flour (optional, for binding)</li>
+</ul>
+
+<h4>For the Sugar Syrup:</h4>
+<ul>
+    <li>2 cups sugar</li>
+    <li>4 cups water</li>
+    <li>1/2 tsp cardamom powder</li>
+    <li>1 tsp rose water (optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Making the Chhena (Paneer):</h4>
+<ul>
+    <li>Heat milk in a pan until it comes to a boil.</li>
+    <li>Reduce heat and slowly add lemon juice or vinegar while stirring.</li>
+    <li>The milk will curdle, separating the whey from the chhena (paneer).</li>
+    <li>Turn off the heat and strain the mixture using a muslin cloth or fine sieve.</li>
+    <li>Rinse the chhena under cold water to remove the sourness.</li>
+    <li>Squeeze out excess water and let it rest for 30 minutes.</li>
+</ul>
+
+<h4>Kneading the Chhena:</h4>
+<ul>
+    <li>Transfer the chhena to a clean surface and knead for 8-10 minutes until smooth.</li>
+    <li>Add all-purpose flour (if using) and continue kneading.</li>
+    <li>Shape the chhena into small, smooth balls without cracks.</li>
+</ul>
+
+<h4>Preparing the Sugar Syrup:</h4>
+<ul>
+    <li>In a large pan, combine sugar and water over medium heat.</li>
+    <li>Add cardamom powder and bring it to a gentle boil.</li>
+</ul>
+
+<h4>Cooking the Rasgullas:</h4>
+<ul>
+    <li>Gently drop the chhena balls into the boiling sugar syrup.</li>
+    <li>Cover and cook on medium heat for 10-12 minutes.</li>
+    <li>The rasgullas will double in size as they absorb the syrup.</li>
+    <li>Turn off the heat and let them cool slightly.</li>
+    <li>Add rose water for extra flavor.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Chill the rasgullas in the syrup for a few hours.</li>
+    <li>Serve cold or at room temperature.</li>
+    <li>Enjoy soft and spongy Rasgullas with a refreshing sweetness! 😋</li>
+</ul>
+
+<p>🔥 A classic Bengali dessert that melts in your mouth! 🍥💧</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="rasamalai.jpg" alt="rasamalai">
+            <h2>Rasamalai<i class="fa-solid fa-cheese"></i></h2>
+       
+            <button class="btn">View Recipe</button>
+            <div class="content">
+                <h2>Rasmalai 🥛🍯</h2>
+
+                <h3>🥘 Ingredients</h3>
+                
+                <h4>For the Rasmalai Balls:</h4>
+                <ul>
+                    <li>1 liter full-fat milk</li>
+                    <li>2 tbsp lemon juice or vinegar</li>
+                    <li>1 tbsp all-purpose flour (optional, for binding)</li>
+                </ul>
+                
+                <h4>For the Sugar Syrup:</h4>
+                <ul>
+                    <li>2 cups sugar</li>
+                    <li>4 cups water</li>
+                </ul>
+                
+                <h4>For the Rabri (Milk Syrup):</h4>
+                <ul>
+                    <li>500 ml full-fat milk</li>
+                    <li>1/4 cup sugar</li>
+                    <li>1/2 tsp cardamom powder</li>
+                    <li>10-12 saffron strands (optional)</li>
+                    <li>2 tbsp chopped almonds & pistachios</li>
+                    <li>1 tsp rose water (optional)</li>
+                </ul>
+                
+                <h3>📌 Procedure</h3>
+                
+                <h4>Making the Chhena (Paneer):</h4>
+                <ul>
+                    <li>Heat milk in a pan until it comes to a boil.</li>
+                    <li>Reduce heat and add lemon juice or vinegar while stirring.</li>
+                    <li>The milk will curdle, separating the whey from the chhena (paneer).</li>
+                    <li>Turn off the heat and strain using a muslin cloth.</li>
+                    <li>Rinse the chhena under cold water and squeeze out excess water.</li>
+                    <li>Let it rest for 30 minutes.</li>
+                </ul>
+                
+                <h4>Kneading the Chhena:</h4>
+                <ul>
+                    <li>Transfer the chhena to a clean surface and knead for 8-10 minutes until smooth.</li>
+                    <li>Add all-purpose flour (if using) and continue kneading.</li>
+                    <li>Shape into small, flat discs.</li>
+                </ul>
+                
+                <h4>Preparing the Sugar Syrup:</h4>
+                <ul>
+                    <li>In a large pan, combine sugar and water over medium heat.</li>
+                    <li>Bring it to a gentle boil.</li>
+                </ul>
+                
+                <h4>Cooking the Rasmalai Balls:</h4>
+                <ul>
+                    <li>Gently drop the chhena discs into the boiling sugar syrup.</li>
+                    <li>Cover and cook for 10-12 minutes on medium heat.</li>
+                    <li>The rasmalai balls will expand in size.</li>
+                    <li>Turn off the heat and let them cool.</li>
+                </ul>
+                
+                <h4>Making the Rabri:</h4>
+                <ul>
+                    <li>In a separate pan, heat 500 ml milk and bring it to a simmer.</li>
+                    <li>Add sugar, cardamom powder, and saffron strands.</li>
+                    <li>Stir continuously and let it reduce slightly.</li>
+                    <li>Add chopped almonds & pistachios.</li>
+                </ul>
+                
+                <h4>Assembling the Rasmalai:</h4>
+                <ul>
+                    <li>Gently squeeze out excess sugar syrup from the cooked rasmalai balls.</li>
+                    <li>Drop them into the warm rabri.</li>
+                    <li>Let them soak for a few hours for better flavor.</li>
+                    <li>Add rose water for extra fragrance.</li>
+                </ul>
+                
+                <h4>Serving:</h4>
+                <ul>
+                    <li>Chill for a few hours before serving.</li>
+                    <li>Garnish with more chopped nuts and saffron strands.</li>
+                    <li>Enjoy the creamy, rich, and delicious Rasmalai! 😋</li>
+                </ul>
+                
+                <p>🔥 A royal dessert that melts in your mouth! 🥛🍯</p>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sweets-container" id="sweetsContainer">
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="kaju kati.jpg" alt="kaju kati">
+            <h2>Kaju Katli<h2>Kaju Katli <i class="fa-solid fa-seedling"></i></h2>
+        </h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Kaju Katli 🌰✨</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>1 cup cashews (Kaju)</li>
+    <li>1/2 cup sugar</li>
+    <li>1/4 cup water</li>
+    <li>1/2 tsp cardamom powder (optional)</li>
+    <li>1 tsp ghee (for greasing)</li>
+    <li>Edible silver foil (optional, for decoration)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing Cashew Powder:</h4>
+<ul>
+    <li>Grind cashews into a fine powder using a blender. Ensure it does not become a paste.</li>
+    <li>Sieve the cashew powder to remove any large pieces.</li>
+</ul>
+
+<h4>Making Sugar Syrup:</h4>
+<ul>
+    <li>In a pan, add sugar and water, then heat on low-medium flame.</li>
+    <li>Stir until the sugar dissolves and forms a one-string consistency syrup.</li>
+</ul>
+
+<h4>Cooking the Mixture:</h4>
+<ul>
+    <li>Add the cashew powder to the sugar syrup while stirring continuously.</li>
+    <li>Cook on low heat until the mixture thickens and forms a dough-like consistency.</li>
+    <li>Mix in cardamom powder for extra flavor (optional).</li>
+</ul>
+
+<h4>Shaping the Kaju Katli:</h4>
+<ul>
+    <li>Grease a plate or parchment paper with ghee.</li>
+    <li>Transfer the dough onto the greased surface and let it cool slightly.</li>
+    <li>Knead the warm dough gently until smooth.</li>
+    <li>Roll it out evenly into a thin layer (about 1/4 inch thick).</li>
+    <li>Apply edible silver foil on top for decoration (optional).</li>
+    <li>Cut into diamond-shaped pieces using a knife.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Let the Kaju Katli set for 30 minutes before separating the pieces.</li>
+    <li>Store in an airtight container and enjoy the rich, melt-in-your-mouth Kaju Katli! 😋</li>
+</ul>
+
+<p>🔥 A luxurious and delicious Indian sweet perfect for celebrations! 🌰✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="mysore pa.jpg" alt="mysore pak">
+            <h2>Mysore Pak <i class="fa-solid fa-butter"></i></h2>
+
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Mysore Pak 🧈✨</h2>
+
+            <h3>🥘 Ingredients</h3>
+            <ul>
+                <li>1 cup besan (gram flour)</li>
+                <li>1 cup sugar</li>
+                <li>1/2 cup water</li>
+                <li>1 cup ghee (clarified butter)</li>
+                <li>1/4 cup oil</li>
+            </ul>
+            
+            <h3>📌 Procedure</h3>
+            
+            <h4>Preparing the Besan:</h4>
+            <ul>
+                <li>Sieve the besan to remove lumps.</li>
+                <li>Heat a pan and dry roast the besan on low heat for 2-3 minutes until aromatic (do not brown).</li>
+                <li>Set aside.</li>
+            </ul>
+            
+            <h4>Making the Sugar Syrup:</h4>
+            <ul>
+                <li>In a pan, add sugar and water, then heat on medium flame.</li>
+                <li>Stir until the sugar dissolves and forms a one-string consistency syrup.</li>
+            </ul>
+            
+            <h4>Cooking the Mysore Pak:</h4>
+            <ul>
+                <li>Gradually add the roasted besan to the sugar syrup while stirring continuously.</li>
+                <li>In another pan, heat ghee and oil until hot but not smoking.</li>
+                <li>Slowly pour the hot ghee mixture into the besan-sugar syrup while stirring.</li>
+                <li>Keep stirring until the mixture thickens, becomes porous, and starts leaving the sides of the pan.</li>
+            </ul>
+            
+            <h4>Shaping the Mysore Pak:</h4>
+            <ul>
+                <li>Grease a tray or plate with ghee.</li>
+                <li>Pour the mixture into the tray and spread evenly.</li>
+                <li>Allow it to cool for 15-20 minutes.</li>
+                <li>Once slightly set, cut into square or rectangular pieces.</li>
+            </ul>
+            
+            <h4>Serving:</h4>
+            <ul>
+                <li>Let it cool completely before serving.</li>
+                <li>Enjoy the rich, melt-in-the-mouth Mysore Pak! 😋</li>
+            </ul>
+            
+            <p>🔥 A traditional South Indian delicacy with a rich, buttery texture! 🧈✨</p>
+            
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="laddu.jpg" alt="Laddu">
+            <h2>Laddu <i class="fa-solid fa-candy-cane"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Besan Laddu 🟠✨</h2>
+
+<h3>🥘 Ingredients</h3>
+<ul>
+    <li>2 cups besan (gram flour)</li>
+    <li>3/4 cup ghee (clarified butter)</li>
+    <li>3/4 cup powdered sugar</li>
+    <li>1/2 tsp cardamom powder</li>
+    <li>2 tbsp chopped nuts (almonds, cashews, pistachios - optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Roasting the Besan:</h4>
+<ul>
+    <li>Heat ghee in a pan on low flame.</li>
+    <li>Add besan and roast it while stirring continuously.</li>
+    <li>Cook for 15-20 minutes until the besan turns golden brown and aromatic.</li>
+</ul>
+
+<h4>Adding Sugar and Flavor:</h4>
+<ul>
+    <li>Once roasted, remove the pan from heat and let it cool slightly.</li>
+    <li>Add powdered sugar, cardamom powder, and chopped nuts.</li>
+    <li>Mix well until the sugar blends in completely.</li>
+</ul>
+
+<h4>Shaping the Laddu:</h4>
+<ul>
+    <li>Take small portions of the mixture and shape them into round laddus while still warm.</li>
+    <li>If the mixture feels dry, add a little warm ghee and mix again.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Let the laddus cool completely before storing them in an airtight container.</li>
+    <li>Enjoy these delicious and aromatic Besan Laddus! 😋</li>
+</ul>
+
+<p>🔥 A festive favorite with a rich, nutty, and sweet flavor! 🟠✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="churros.png" alt="churros">
+            <h3>Churros <i class="fa-solid fa-cake"></i></h3>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+                            <h2>Churros 🥖🍫</h2>
+                
+                            <h3>🥘 Ingredients</h3>
+                
+                            <h4>For the Churros:</h4>
+                            <ul>
+                                <li>1 cup water</li>
+                                <li>2 ½ tbsp unsalted butter</li>
+                                <li>1 tbsp sugar</li>
+                                <li>¼ tsp salt</li>
+                                <li>1 cup all-purpose flour</li>
+                                <li>1 large egg</li>
+                                <li>½ tsp vanilla extract</li>
+                                <li>Oil for frying</li>
+                            </ul>
+                
+                            <h4>For the Cinnamon Sugar Coating:</h4>
+                            <ul>
+                                <li>½ cup sugar</li>
+                                <li>1 tsp ground cinnamon</li>
+                            </ul>
+                
+                            <h4>For the Chocolate Sauce:</h4>
+                            <ul>
+                                <li>½ cup heavy cream</li>
+                                <li>4 oz dark chocolate (chopped)</li>
+                                <li>1 tbsp butter</li>
+                                <li>1 tsp vanilla extract</li>
+                            </ul>
+                
+                            <h3>📌 Procedure</h3>
+                
+                            <h4>Step 1: Prepare the Dough</h4>
+                            <ul>
+                                <li>In a saucepan, heat water, butter, sugar, and salt until boiling.</li>
+                                <li>Add flour, stir constantly until dough forms.</li>
+                                <li>Let it cool, then mix in the egg and vanilla extract.</li>
+                            </ul>
+                
+                            <h4>Step 2: Frying</h4>
+                            <ul>
+                                <li>Heat oil to 375°F (190°C).</li>
+                                <li>Pipe churros into the hot oil and fry until golden brown.</li>
+                                <li>Drain on paper towels.</li>
+                            </ul>
+                
+                            <h4>Step 3: Coating & Serving</h4>
+                            <ul>
+                                <li>Mix sugar and cinnamon, then coat warm churros.</li>
+                                <li>Serve with chocolate dipping sauce.</li>
+                            </ul>
+                
+                            <p>🔥 Enjoy crispy, delicious Churros with rich chocolate sauce! 🍩🍫</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sweets-container" id="sweetsContainer">
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="baklava.jpg" alt="baklava">
+            <h2>Baklava <i class="fa-solid fa-ice-cream"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+<h2>Baklava</h2>
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Baklava:</h4>
+<ul>
+    <li>1 package phyllo dough (about 16 oz, thawed)</li>
+    <li>2 cups mixed nuts (walnuts, pistachios, almonds - finely chopped)</li>
+    <li>1/2 cup sugar</li>
+    <li>1 tsp cinnamon powder</li>
+    <li>1 cup unsalted butter (melted)</li>
+</ul>
+
+<h4>For the Syrup:</h4>
+<ul>
+    <li>1 cup sugar</li>
+    <li>1/2 cup honey</li>
+    <li>1/2 cup water</li>
+    <li>1 tbsp lemon juice</li>
+    <li>1/2 tsp vanilla extract</li>
+    <li>1 cinnamon stick (optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Nut Filling:</h4>
+<ul>
+    <li>In a bowl, mix chopped nuts, sugar, and cinnamon powder.</li>
+</ul>
+
+<h4>Assembling the Baklava:</h4>
+<ul>
+    <li>Preheat the oven to 350°F (175°C).</li>
+    <li>Brush a baking dish with melted butter.</li>
+    <li>Layer half of the phyllo sheets one by one, brushing each sheet with butter.</li>
+    <li>Spread the nut mixture evenly over the layered phyllo.</li>
+    <li>Layer the remaining phyllo sheets on top, brushing each with butter.</li>
+    <li>Using a sharp knife, cut into diamond or square shapes.</li>
+</ul>
+
+<h4>Baking:</h4>
+<ul>
+    <li>Bake in a preheated oven for 45-50 minutes until golden brown and crisp.</li>
+</ul>
+
+<h4>Making the Syrup:</h4>
+<ul>
+    <li>In a saucepan, combine sugar, honey, water, lemon juice, vanilla extract, and cinnamon stick.</li>
+    <li>Bring to a boil, then simmer for 10 minutes until slightly thickened.</li>
+    <li>Remove from heat and discard the cinnamon stick.</li>
+</ul>
+
+<h4>Final Touch:</h4>
+<ul>
+    <li>Once the baklava is baked, immediately pour the warm syrup evenly over it.</li>
+    <li>Let it soak for a few hours before serving.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Garnish with crushed pistachios.</li>
+    <li>Enjoy this crispy, sweet, and nutty Middle Eastern dessert! 😋</li>
+</ul>
+
+<p>🔥 A rich and delicious treat perfect for special occasions! 🥮✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="timarisu.jpg" alt="timarisu">
+            <h2>Tiramisu<i class="fa-solid fa-cookie"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Tiramisu 🍰☕</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Cream:</h4>
+<ul>
+    <li>1 cup heavy whipping cream</li>
+    <li>1 cup mascarpone cheese (room temperature)</li>
+    <li>1/2 cup granulated sugar</li>
+    <li>1 tsp vanilla extract</li>
+</ul>
+
+<h4>For the Coffee Mixture:</h4>
+<ul>
+    <li>1 cup brewed espresso (or strong coffee, cooled)</li>
+    <li>2 tbsp coffee liqueur (optional, e.g., Kahlúa)</li>
+</ul>
+
+<h4>Other Ingredients:</h4>
+<ul>
+    <li>24 ladyfinger biscuits (Savoiardi)</li>
+    <li>2 tbsp cocoa powder (for dusting)</li>
+    <li>Dark chocolate shavings (optional, for garnish)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Making the Cream:</h4>
+<ul>
+    <li>In a mixing bowl, whip the heavy cream until soft peaks form.</li>
+    <li>In another bowl, mix mascarpone cheese, sugar, and vanilla extract until smooth.</li>
+    <li>Gently fold the whipped cream into the mascarpone mixture until well combined.</li>
+</ul>
+
+<h4>Preparing the Coffee Mixture:</h4>
+<ul>
+    <li>In a shallow dish, mix brewed espresso with coffee liqueur (if using).</li>
+</ul>
+
+<h4>Assembling the Tiramisu:</h4>
+<ul>
+    <li>Quickly dip each ladyfinger into the coffee mixture (do not soak).</li>
+    <li>Arrange a layer of soaked ladyfingers in a serving dish.</li>
+    <li>Spread half of the mascarpone cream mixture over the ladyfingers.</li>
+    <li>Repeat the process with another layer of soaked ladyfingers.</li>
+    <li>Top with the remaining mascarpone cream and smooth it out evenly.</li>
+</ul>
+
+<h4>Final Touch:</h4>
+<ul>
+    <li>Dust the top with cocoa powder using a fine sieve.</li>
+    <li>Optionally, garnish with dark chocolate shavings.</li>
+</ul>
+
+<h4>Chilling & Serving:</h4>
+<ul>
+    <li>Refrigerate for at least 4 hours (or overnight for best flavor).</li>
+    <li>Slice and serve chilled for a rich and creamy Italian dessert! 😋</li>
+</ul>
+
+<p>🔥 A classic, creamy, and coffee-infused Italian treat! 🍰☕✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="pavlova.png" alt="pavlova">
+            <h2>Pavlova <i class="fa-solid fa-candy-cane"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Pavlova 🍓🍇</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Meringue:</h4>
+<ul>
+    <li>4 large egg whites (room temperature)</li>
+    <li>1 cup granulated sugar</li>
+    <li>1 tsp white vinegar</li>
+    <li>1 tsp cornstarch</li>
+    <li>1 tsp vanilla extract</li>
+    <li>Pinch of salt</li>
+</ul>
+
+<h4>For the Topping:</h4>
+<ul>
+    <li>1 cup heavy whipping cream</li>
+    <li>2 tbsp powdered sugar</li>
+    <li>1/2 tsp vanilla extract</li>
+    <li>Fresh fruits (strawberries, blueberries, kiwi, raspberries, etc.)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Making the Meringue:</h4>
+<ul>
+    <li>Preheat oven to 250°F (120°C). Line a baking sheet with parchment paper.</li>
+    <li>In a clean, dry bowl, beat the egg whites with a pinch of salt until soft peaks form.</li>
+    <li>Gradually add sugar, one spoon at a time, while continuing to beat until the mixture is glossy and forms stiff peaks.</li>
+    <li>Gently fold in vinegar, cornstarch, and vanilla extract.</li>
+    <li>Spoon the meringue onto the baking sheet, shaping it into a round nest with slightly raised edges.</li>
+</ul>
+
+<h4>Baking the Meringue:</h4>
+<ul>
+    <li>Bake in the preheated oven for 90 minutes.</li>
+    <li>Turn off the oven and let the meringue cool completely inside with the door slightly open.</li>
+</ul>
+
+<h4>Preparing the Whipped Cream:</h4>
+<ul>
+    <li>In a bowl, beat the heavy cream, powdered sugar, and vanilla extract until soft peaks form.</li>
+</ul>
+
+<h4>Assembling the Pavlova:</h4>
+<ul>
+    <li>Once the meringue has cooled, spread the whipped cream evenly on top.</li>
+    <li>Garnish with fresh fruits of your choice.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve immediately for a crispy yet airy dessert with a creamy, fruity topping! 😋</li>
+</ul>
+
+<p>🔥 A light, crispy, and elegant dessert perfect for any occasion! 🍓🍇✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="macaroons.jpg" alt="macaroons">
+            <h2>Macarons <i class="fa-solid fa-cake"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Macarons 🍬✨</h2>
+
+            <h3>🥘 Ingredients</h3>
+            
+            <h4>For the Macaron Shells:</h4>
+            <ul>
+                <li>1 cup (100g) almond flour</li>
+                <li>3/4 cup (100g) powdered sugar</li>
+                <li>2 large egg whites (room temperature)</li>
+                <li>1/4 cup (50g) granulated sugar</li>
+                <li>1/2 tsp vanilla extract (or other flavoring)</li>
+                <li>Food coloring (optional)</li>
+            </ul>
+            
+            <h4>For the Filling:</h4>
+            <ul>
+                <li>1/2 cup (113g) unsalted butter (softened)</li>
+                <li>1 cup (130g) powdered sugar</li>
+                <li>1/2 tsp vanilla extract</li>
+                <li>1 tbsp milk or heavy cream</li>
+            </ul>
+            
+            <h3>📌 Procedure</h3>
+            
+            <h4>Making the Macaron Shells:</h4>
+            <ul>
+                <li>Sift together almond flour and powdered sugar into a bowl.</li>
+                <li>In a separate bowl, beat egg whites until foamy, then gradually add granulated sugar.</li>
+                <li>Continue beating until stiff peaks form, then mix in vanilla extract and food coloring.</li>
+                <li>Gently fold the dry ingredients into the egg white mixture until the batter flows smoothly (lava-like consistency).</li>
+                <li>Transfer the batter to a piping bag and pipe small circles onto a lined baking sheet.</li>
+                <li>Tap the baking sheet to release air bubbles and let the macarons sit for 30-60 minutes until they form a dry skin.</li>
+            </ul>
+            
+            <h4>Baking the Macarons:</h4>
+            <ul>
+                <li>Preheat oven to 300°F (150°C).</li>
+                <li>Bake for 12-15 minutes until the macarons develop feet and are set.</li>
+                <li>Let them cool completely before removing from the baking sheet.</li>
+            </ul>
+            
+            <h4>Making the Filling:</h4>
+            <ul>
+                <li>In a bowl, beat butter until creamy.</li>
+                <li>Gradually add powdered sugar, vanilla extract, and milk until smooth.</li>
+            </ul>
+            
+            <h4>Assembling the Macarons:</h4>
+            <ul>
+                <li>Pipe or spread filling onto one macaron shell and sandwich with another.</li>
+                <li>Repeat with remaining macarons.</li>
+            </ul>
+            
+            <h4>Serving:</h4>
+            <ul>
+                <li>Refrigerate for a few hours for the best texture.</li>
+                <li>Enjoy your delicate, crispy, and chewy macarons! 😋</li>
+            </ul>
+            
+            <p>🔥 A delightful French treat with a crispy shell and creamy filling! 🍬✨</p>
+            
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sweets-container" id="sweetsContainer">
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="creame brulee.png" alt="cream brulee">
+            <h2>Creme Brûlée <i class="fa-solid fa-ice-cream"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Crème Brûlée 🍮🔥</h2>
+
+            <h3>🥘 Ingredients</h3>
+            
+            <ul>
+                <li>2 cups (500ml) heavy cream</li>
+                <li>1 vanilla bean (or 1 tsp vanilla extract)</li>
+                <li>4 large egg yolks</li>
+                <li>1/2 cup (100g) granulated sugar</li>
+                <li>1/4 cup (50g) granulated sugar (for caramelized topping)</li>
+            </ul>
+            
+            <h3>📌 Procedure</h3>
+            
+            <h4>Preparing the Custard:</h4>
+            <ul>
+                <li>Preheat the oven to 325°F (160°C).</li>
+                <li>In a saucepan, heat the heavy cream over medium heat until hot but not boiling.</li>
+                <li>Slice the vanilla bean, scrape the seeds, and add them (or vanilla extract) to the cream. Stir well.</li>
+                <li>In a bowl, whisk egg yolks and sugar until light and slightly thickened.</li>
+                <li>Gradually pour the warm cream into the egg mixture, whisking constantly.</li>
+                <li>Strain the mixture through a sieve to remove any lumps.</li>
+            </ul>
+            
+            <h4>Baking the Custard:</h4>
+            <ul>
+                <li>Pour the custard into ramekins and place them in a baking dish.</li>
+                <li>Fill the baking dish with hot water until it reaches halfway up the ramekins.</li>
+                <li>Bake for 30-35 minutes until the edges are set but the center is slightly jiggly.</li>
+                <li>Remove from the water bath and let cool to room temperature, then refrigerate for at least 2 hours (or overnight).</li>
+            </ul>
+            
+            <h4>Caramelizing the Sugar:</h4>
+            <ul>
+                <li>Sprinkle a thin layer of granulated sugar over each custard.</li>
+                <li>Use a kitchen torch to caramelize the sugar until golden brown and crisp.</li>
+                <li>If using an oven broiler, place the ramekins under the broiler for a few minutes until caramelized.</li>
+            </ul>
+            
+            <h4>Serving:</h4>
+            <ul>
+                <li>Let the caramelized topping set for a minute before serving.</li>
+                <li>Crack through the crispy sugar crust and enjoy your silky smooth Crème Brûlée! 😋</li>
+            </ul>
+            
+            <p>🔥 A rich, creamy French dessert with a satisfying caramelized crunch! 🍮✨</p>
+            
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="cheesecake.webp" alt="cheesecake">
+            <h2>Cheesecake <i class="fa-solid fa-cookie"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Classic Cheesecake 🍰✨</h2>
+
+            <h3>🥘 Ingredients</h3>
+            
+            <h4>For the Crust:</h4>
+            <ul>
+                <li>1 1/2 cups (150g) graham cracker crumbs</li>
+                <li>1/4 cup (50g) granulated sugar</li>
+                <li>1/2 cup (115g) unsalted butter (melted)</li>
+            </ul>
+            
+            <h4>For the Cheesecake Filling:</h4>
+            <ul>
+                <li>24 oz (680g) cream cheese (softened)</li>
+                <li>1 cup (200g) granulated sugar</li>
+                <li>3 large eggs</li>
+                <li>1 tsp vanilla extract</li>
+                <li>1 cup (240ml) sour cream</li>
+                <li>1/4 cup (30g) all-purpose flour</li>
+            </ul>
+            
+            <h4>For the Topping (Optional):</h4>
+            <ul>
+                <li>1/2 cup (120ml) sour cream</li>
+                <li>2 tbsp powdered sugar</li>
+                <li>1/2 tsp vanilla extract</li>
+            </ul>
+            
+            <h3>📌 Procedure</h3>
+            
+            <h4>Preparing the Crust:</h4>
+            <ul>
+                <li>Preheat the oven to 325°F (163°C).</li>
+                <li>In a bowl, mix graham cracker crumbs, sugar, and melted butter.</li>
+                <li>Press the mixture into the bottom of a springform pan.</li>
+                <li>Bake for 10 minutes, then let it cool while preparing the filling.</li>
+            </ul>
+            
+            <h4>Making the Cheesecake Filling:</h4>
+            <ul>
+                <li>In a large bowl, beat the softened cream cheese until smooth.</li>
+                <li>Add sugar and mix until well combined.</li>
+                <li>Mix in the eggs one at a time, then add vanilla extract.</li>
+                <li>Stir in sour cream and flour, mixing until smooth.</li>
+                <li>Pour the batter over the prepared crust.</li>
+            </ul>
+            
+            <h4>Baking the Cheesecake:</h4>
+            <ul>
+                <li>Place the cheesecake pan in a water bath by placing it in a larger baking dish filled with hot water.</li>
+                <li>Bake for 55-60 minutes, until the center is slightly jiggly.</li>
+                <li>Turn off the oven and let the cheesecake sit inside with the door slightly open for an hour.</li>
+                <li>Refrigerate for at least 4 hours or overnight.</li>
+            </ul>
+            
+            <h4>Adding the Topping (Optional):</h4>
+            <ul>
+                <li>Mix sour cream, powdered sugar, and vanilla extract.</li>
+                <li>Spread over the chilled cheesecake before serving.</li>
+            </ul>
+            
+            <h4>Serving:</h4>
+            <ul>
+                <li>Slice and serve chilled.</li>
+                <li>Enjoy your creamy, rich cheesecake with your favorite toppings! 🍓🍫</li>
+            </ul>
+            
+            <p>🔥 A smooth and indulgent dessert perfect for any occasion! 🍰✨</p>
+            
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="brownies.png" alt="brownies">
+            <h2>Brownies<i class="fa-solid fa-candy-cane"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Classic Fudgy Brownies 🍫🔥</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<ul>
+    <li>1/2 cup (115g) unsalted butter (melted)</li>
+    <li>1 cup (200g) granulated sugar</li>
+    <li>2 large eggs</li>
+    <li>1 tsp vanilla extract</li>
+    <li>1/3 cup (40g) unsweetened cocoa powder</li>
+    <li>1/2 cup (65g) all-purpose flour</li>
+    <li>1/4 tsp salt</li>
+    <li>1/4 tsp baking powder</li>
+    <li>1/2 cup (90g) chocolate chips or chopped chocolate (optional)</li>
+    <li>1/4 cup (30g) chopped nuts (optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Brownie Batter:</h4>
+<ul>
+    <li>Preheat the oven to 350°F (175°C).</li>
+    <li>Line a square 8x8-inch (20x20 cm) baking pan with parchment paper or grease it with butter.</li>
+    <li>In a bowl, mix the melted butter and sugar until well combined.</li>
+    <li>Add the eggs and vanilla extract, whisking until the mixture becomes smooth and glossy.</li>
+    <li>Sift in the cocoa powder, flour, salt, and baking powder, then gently fold them into the mixture.</li>
+    <li>If using, mix in chocolate chips and nuts.</li>
+</ul>
+
+<h4>Baking the Brownies:</h4>
+<ul>
+    <li>Pour the batter into the prepared baking pan and spread it evenly.</li>
+    <li>Bake for 20-25 minutes, or until a toothpick inserted in the center comes out with a few moist crumbs.</li>
+    <li>Let the brownies cool completely before slicing.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Cut into squares and serve.</li>
+    <li>Enjoy your rich and fudgy brownies with a glass of milk or a scoop of ice cream! 🍨😋</li>
+</ul>
+
+<p>🔥 A perfect chocolaty treat for all dessert lovers! 🍫✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="mochi.jpg" alt="mochi">
+            <h2>Mochi  <i class="fa-solid fa-cake"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Japanese Mochi 🍡✨</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<ul>
+    <li>1 cup (160g) glutinous rice flour (Mochiko)</li>
+    <li>3/4 cup (180ml) water</li>
+    <li>1/4 cup (50g) granulated sugar</li>
+    <li>1/2 cup (60g) cornstarch or potato starch (for dusting)</li>
+    <li>1/2 cup (120g) sweet red bean paste (optional, for filling)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Mochi Dough:</h4>
+<ul>
+    <li>In a microwave-safe bowl, mix glutinous rice flour, sugar, and water until smooth.</li>
+    <li>Cover loosely with plastic wrap.</li>
+    <li>Microwave on high for 1 minute, then stir with a spatula.</li>
+    <li>Microwave for another 30 seconds, stir again, and repeat until the dough becomes thick and translucent (around 2-3 minutes in total).</li>
+</ul>
+
+<h4>Shaping the Mochi:</h4>
+<ul>
+    <li>Dust a clean surface with cornstarch to prevent sticking.</li>
+    <li>Transfer the hot mochi dough onto the dusted surface.</li>
+    <li>Let it cool slightly, then dust your hands with cornstarch and gently knead the dough.</li>
+    <li>Divide the dough into small equal pieces.</li>
+    <li>If using red bean paste, flatten each piece, add a spoonful of filling in the center, and carefully wrap the mochi around it, sealing the edges.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Place the finished mochi on a cornstarch-dusted plate.</li>
+    <li>Serve fresh and enjoy the soft, chewy texture! 🍡😋</li>
+</ul>
+
+<p>🔥 A delicious Japanese treat with a soft and chewy texture! 🍡✨</p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sweets-container" id="sweetsContainer">
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="dhounuts.jpg" alt="Doughnuts">
+            <h2>Doughnuts<i class="fa-solid fa-ice-cream"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Classic Homemade Doughnuts 🍩✨</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Dough:</h4>
+<ul>
+    <li>2 1/4 tsp (1 packet) active dry yeast</li>
+    <li>3/4 cup (180ml) warm milk (110°F/45°C)</li>
+    <li>1/4 cup (50g) granulated sugar</li>
+    <li>1/4 cup (60g) unsalted butter (melted)</li>
+    <li>1 large egg</li>
+    <li>1/2 tsp salt</li>
+    <li>2 1/2 cups (310g) all-purpose flour</li>
+    <li>Vegetable oil (for frying)</li>
+</ul>
+
+<h4>For the Glaze (Optional):</h4>
+<ul>
+    <li>1 cup (120g) powdered sugar</li>
+    <li>2 tbsp milk</li>
+    <li>1/2 tsp vanilla extract</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Preparing the Dough:</h4>
+<ul>
+    <li>In a bowl, mix warm milk and sugar, then sprinkle yeast over it. Let sit for 5-10 minutes until foamy.</li>
+    <li>Add melted butter, egg, and salt, then mix well.</li>
+    <li>Gradually add flour and knead until a soft, slightly sticky dough forms.</li>
+    <li>Cover and let the dough rise in a warm place for 1-2 hours, or until doubled in size.</li>
+</ul>
+
+<h4>Shaping the Doughnuts:</h4>
+<ul>
+    <li>On a floured surface, roll out the dough to about 1/2-inch thickness.</li>
+    <li>Use a doughnut cutter or two different-sized round cutters to shape the doughnuts.</li>
+    <li>Place them on a floured surface and cover with a towel. Let them rise for another 30-45 minutes.</li>
+</ul>
+
+<h4>Frying the Doughnuts:</h4>
+<ul>
+    <li>Heat vegetable oil in a deep pan to 350°F (175°C).</li>
+    <li>Fry each doughnut for about 1-2 minutes per side until golden brown.</li>
+    <li>Remove and place on a paper towel to drain excess oil.</li>
+</ul>
+
+<h4>Making the Glaze (Optional):</h4>
+<ul>
+    <li>In a bowl, whisk powdered sugar, milk, and vanilla extract until smooth.</li>
+    <li>Dip the warm doughnuts into the glaze and place them on a wire rack to set.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve fresh and enjoy your soft, fluffy doughnuts! 🍩😋</li>
+</ul>
+
+<p>🔥 A perfect sweet treat for any time of the day! 🍩✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="tres lake.jpg" alt="tres lake">
+            <h2>Tres Leches Cake<i class="fa-solid fa-cookie"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Classic Tres Leches Cake 🍰🥛</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Cake:</h4>
+<ul>
+    <li>1 cup (125g) all-purpose flour</li>
+    <li>1 1/2 tsp baking powder</li>
+    <li>1/4 tsp salt</li>
+    <li>5 large eggs (separated)</li>
+    <li>1 cup (200g) granulated sugar (divided)</li>
+    <li>1/3 cup (80ml) whole milk</li>
+    <li>1 tsp vanilla extract</li>
+</ul>
+
+<h4>For the Milk Mixture:</h4>
+<ul>
+    <li>1/2 cup (120ml) evaporated milk</li>
+    <li>1/2 cup (120ml) sweetened condensed milk</li>
+    <li>1/2 cup (120ml) whole milk</li>
+</ul>
+
+<h4>For the Whipped Topping:</h4>
+<ul>
+    <li>1 cup (240ml) heavy cream</li>
+    <li>3 tbsp powdered sugar</li>
+    <li>1/2 tsp vanilla extract</li>
+    <li>Ground cinnamon (for garnish, optional)</li>
+    <li>Fresh strawberries or cherries (for garnish, optional)</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Making the Cake:</h4>
+<ul>
+    <li>Preheat oven to 350°F (175°C). Grease and flour a 9x13-inch baking dish.</li>
+    <li>In a bowl, whisk together flour, baking powder, and salt. Set aside.</li>
+    <li>In another large bowl, beat egg yolks and 3/4 cup sugar until pale and fluffy.</li>
+    <li>Mix in milk and vanilla extract.</li>
+    <li>Gradually add the flour mixture and mix until combined.</li>
+    <li>In a separate bowl, beat egg whites until soft peaks form.</li>
+    <li>Gradually add the remaining 1/4 cup sugar and beat until stiff peaks form.</li>
+    <li>Gently fold the egg whites into the cake batter until combined.</li>
+    <li>Pour the batter into the prepared baking dish and bake for 25-30 minutes or until a toothpick comes out clean.</li>
+    <li>Allow the cake to cool completely.</li>
+</ul>
+
+<h4>Soaking the Cake:</h4>
+<ul>
+    <li>In a bowl, mix evaporated milk, sweetened condensed milk, and whole milk.</li>
+    <li>Poke holes all over the cooled cake using a fork.</li>
+    <li>Slowly pour the milk mixture over the cake, allowing it to absorb evenly.</li>
+    <li>Refrigerate for at least 2 hours or overnight for best results.</li>
+</ul>
+
+<h4>Making the Whipped Topping:</h4>
+<ul>
+    <li>In a bowl, beat heavy cream, powdered sugar, and vanilla extract until stiff peaks form.</li>
+    <li>Spread the whipped cream evenly over the soaked cake.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Garnish with ground cinnamon and fresh strawberries or cherries if desired.</li>
+    <li>Serve chilled and enjoy this soft, creamy, and delicious Tres Leches Cake! 🍰😋</li>
+</ul>
+
+<p>🔥 A moist and creamy Latin American dessert that melts in your mouth! 🥛✨</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="halwa.jpg" alt="halwa">
+            <h2>Halwa <i class="fa-solid fa-candy-cane"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Classic Halwa 🍯✨</h2>
+
+<h3>🥘 Ingredients</h3>
+
+<h4>For the Halwa:</h4>
+<ul>
+    <li>1 cup semolina (suji) or wheat flour (atta) or grated carrots (for carrot halwa)</li>
+    <li>3/4 cup sugar (adjust to taste)</li>
+    <li>1/2 cup ghee (clarified butter)</li>
+    <li>2 cups milk (or water for a lighter version)</li>
+    <li>1/2 tsp cardamom powder</li>
+    <li>10-12 cashews (chopped)</li>
+    <li>10-12 almonds (chopped)</li>
+    <li>2 tbsp raisins</li>
+</ul>
+
+<h3>📌 Procedure</h3>
+
+<h4>Roasting the Base:</h4>
+<ul>
+    <li>Heat ghee in a pan over medium heat.</li>
+    <li>Add semolina (or wheat flour) and roast until golden brown and aromatic (for 5-7 minutes).</li>
+    <li>For carrot halwa, sauté grated carrots in ghee until soft.</li>
+</ul>
+
+<h4>Cooking the Halwa:</h4>
+<ul>
+    <li>Heat milk separately and bring it to a slight boil.</li>
+    <li>Slowly add the hot milk to the roasted semolina/wheat flour, stirring continuously to prevent lumps.</li>
+    <li>For carrot halwa, add milk directly to the sautéed carrots.</li>
+    <li>Cook until the mixture thickens and absorbs the liquid.</li>
+</ul>
+
+<h4>Sweetening and Flavoring:</h4>
+<ul>
+    <li>Add sugar and mix well until fully dissolved.</li>
+    <li>Stir in cardamom powder for a fragrant touch.</li>
+</ul>
+
+<h4>Adding Dry Fruits:</h4>
+<ul>
+    <li>In a separate pan, heat a little ghee and fry cashews, almonds, and raisins until golden.</li>
+    <li>Mix the fried dry fruits into the halwa.</li>
+</ul>
+
+<h4>Serving:</h4>
+<ul>
+    <li>Serve warm, garnished with extra nuts.</li>
+    <li>Enjoy this rich and comforting halwa! 🍯😋</li>
+</ul>
+
+<p>🔥 A traditional Indian dessert perfect for festivals and celebrations! ✨🥄</p>
+
+            </div>
+        </div>
+
+        <div class="sweet-card" onclick="toggleDetails(this)">
+            <img src="coconut burfi.jpg" alt="coconut burfi">
+            <h2>Coconut Barfi <i class="fa-solid fa-cake"></i></h2>
+            <button class="btn">View Recipe</button>
+            <div class="content">
+            <h2>Coconut Barfi 🥥🍬</h2>
+
+            <h3>🥘 Ingredients</h3>
+            
+            <ul>
+                <li>2 cups grated coconut (fresh or desiccated)</li>
+                <li>1 cup sugar</li>
+                <li>1/2 cup milk</li>
+                <li>2 tbsp ghee (clarified butter)</li>
+                <li>1/2 tsp cardamom powder</li>
+                <li>2 tbsp chopped nuts (cashews, almonds, pistachios - optional)</li>
+                <li>1 tsp rose water (optional)</li>
+            </ul>
+            
+            <h3>📌 Procedure</h3>
+            
+            <h4>Preparing the Sugar Syrup:</h4>
+            <ul>
+                <li>In a pan, add sugar and milk, then heat on low flame until sugar dissolves completely.</li>
+                <li>Stir continuously until the mixture slightly thickens.</li>
+            </ul>
+            
+            <h4>Cooking the Barfi:</h4>
+            <ul>
+                <li>Add grated coconut to the sugar syrup and mix well.</li>
+                <li>Cook on low flame, stirring continuously, until the mixture thickens and starts leaving the sides of the pan.</li>
+                <li>Add ghee and cardamom powder, and mix well.</li>
+                <li>For extra flavor, add rose water and chopped nuts.</li>
+            </ul>
+            
+            <h4>Setting the Barfi:</h4>
+            <ul>
+                <li>Grease a plate or tray with ghee and pour the coconut mixture onto it.</li>
+                <li>Flatten evenly using a spatula.</li>
+                <li>Let it cool for 30-40 minutes.</li>
+            </ul>
+            
+            <h4>Cutting and Serving:</h4>
+            <ul>
+                <li>Once set, cut into square or diamond shapes.</li>
+                <li>Garnish with more nuts if desired.</li>
+                <li>Enjoy your delicious and aromatic Coconut Barfi! 🥥🍬</li>
+            </ul>
+            
+            <p>🔥 A simple and delightful Indian sweet perfect for festivals and celebrations! 🎉</p>
+            
+            </div>
+        </div>
+    </div>
+
+    <script>
+       function searchSweets() {
+    let input = document.getElementById("searchBar").value.toLowerCase();
+    let sweetCards = document.querySelectorAll(".sweet-card");
+
+    sweetCards.forEach(card => {
+        let sweetName = card.querySelector("h3").textContent.toLowerCase();
+        if (sweetName.includes(input)) {
+            card.style.display = "block";  // Show matching sweet
+        } else {
+            card.style.display = "none";   // Hide non-matching sweets
+        }
+    });
+}
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    // Select all buttons inside sweet-card elements
+    const buttons = document.querySelectorAll(".sweet-card .btn");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent triggering the entire card click
+            const content = this.nextElementSibling; // Select the content div inside the same card
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                this.textContent = "View Recipe";
+            } else {
+                content.style.display = "block";
+                this.textContent = "Hide Recipe";
+            }
+        });
+    });
+});
+
+    </script>
+
+</body>
+</html>
